@@ -83,7 +83,7 @@
     "react-resize-detector": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-rte": "^0.16.3",
-    "react-scripts": "^4.0.1",
+    "react-scripts": "4.0.1",
     "react-select": "^3.1.1",
     "react-slick": "^0.27.13",
     "react-sparklines": "^1.7.0",
@@ -97,7 +97,6 @@
     "redux-form": "^8.3.7",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "serve": "^14.0.1",
     "simple-react-lightbox": "^3.5.4",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.5",
@@ -112,7 +111,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8080",
   "eslintConfig": {
     "extends": [
       "react-app",
