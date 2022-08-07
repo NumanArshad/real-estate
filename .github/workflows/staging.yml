@@ -1,0 +1,28 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  heroku-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          env_file: "./server/.env.staging"
+          procfile: "web: npm run start:staging"
+        # env: 
+        #   HD_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        #   HD_JWT_SECRETE: ${{ secrets.JWT_SECRETE }}
+
+          # healthcheck: "https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com/healthCheck"
+          # checkstring: "ok"
+          # rollbackonhealthcheckfailed: true

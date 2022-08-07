@@ -1,0 +1,539 @@
+import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { createRoom, createUser } from "../../../../../store/actions/User";
+import makeToast from "../../../../../utils/Toaster";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
+import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
+import Form from "react-bootstrap/Form";
+import Input from "@mui/material/Input";
+import upload from "../../../../../images/user-round.jpg";
+import Dummy from "../../../../../images/upload-image.svg";
+import { updateProperty } from "../../../../../store/actions/Property";
+import { useEffect } from "react";
+
+const EditRateModal = ({ onClick, active, data }) => {
+  const [carGarageStatus, setcarGarageStatus] = useState(0);
+  const [gasAvailableStatus, setgasAvailableStatus] = useState(0);
+  const [electricityAvailableStatus, setelectricityAvailableStatus] =
+    useState(0);
+
+  console.log("carGarageStatus", carGarageStatus);
+  const radios = [
+    { name: "Yes", value: 1 },
+    { name: "No", value: 0 },
+  ];
+
+  const dispatch = useDispatch();
+  const [values, setValues] = React.useState({
+    title: "Rs 10 Thousand",
+    bedRoomCount: 1,
+    bathRoomCount: 1,
+    kitchenCount: 1,
+    marla: "3",
+    carGarage: false,
+    gasAvailable: true,
+    electricityAvailable: true,
+    area: "Johar Town",
+    country: "Pakistan",
+    city: "Lahore",
+    address: "G1 Market Johar Town,Lahore",
+    downPayment: "0.00",
+    installmentYear: "0.00",
+    tax: "0.00",
+    pmi: "0.00",
+    status: "both",
+    type: "house",
+    description: "This is best place to live.",
+    price: 10000,
+    textPrice: "Ten Thousand Only",
+  });
+
+  const handleChange = (prop, event) => {
+    // console.log(props, "=>", event);
+    setValues({ ...values, [prop]: event });
+  };
+  const refreshState = () => {
+    setValues({
+      title: "Rs 10 Thousand",
+      bedRoomCount: 1,
+      bathRoomCount: 1,
+      kitchenCount: 1,
+      marla: "3",
+      carGarage: false,
+      gasAvailable: true,
+      electricityAvailable: true,
+      area: "Johar Town",
+      country: "Pakistan",
+      city: "Lahore",
+      address: "G1 Market Johar Town,Lahore",
+      downPayment: "0.00",
+      installmentYear: "0.00",
+      tax: "0.00",
+      pmi: "0.00",
+      status: "both",
+      type: "house",
+      description: "This is best place to live.",
+      price: 10000,
+      textPrice: "Ten Thousand Only",
+    });
+  };
+  const handleAdd = (e) => {
+    e.preventDefault();
+    if (values) {
+      dispatch(
+        updateProperty(
+          {
+            ...values,
+            carGarage: carGarageStatus,
+            gasAvailable: gasAvailableStatus,
+            electricityAvailable: electricityAvailableStatus,
+          },
+          onClick,
+          refreshState
+        )
+      );
+    } else {
+      makeToast("error", "Kindly fill all the fields!");
+    }
+  };
+  const imageUpload = (e) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = (e) => {
+      // setUrl(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  useEffect(() => {
+    if (data) {
+      console.log("Data =>", data);
+      setValues(data);
+      setcarGarageStatus(data?.carGarage);
+      setgasAvailableStatus(data?.gasAvailable);
+      setelectricityAvailableStatus(data?.electricityAvailable);
+    }
+  }, [data?._id]);
+
+  return (
+    <Modal size="lg" className=" fade" id="aAddDietMenus" show={active}>
+      <div className="modal-content">
+        <Modal.Header className="modal-header">
+          <Modal.Title className="modal-title">Edit Property Rate</Modal.Title>
+          <Button
+            variant=""
+            className="close"
+            data-dismiss="modal"
+            onClick={() => onClick()}
+          >
+            <span>×</span>
+          </Button>
+        </Modal.Header>
+        <Modal.Body className="modal-body">
+          <div className="appointment-details">
+            <form>
+              <div className="contaib">
+                <div className="row">
+                  <div className="col-md-12">
+                    <h6>Details</h6>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="idcard">Title</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="title"
+                        placeholder="Title"
+                        value={values.title}
+                        onChange={(e) => handleChange("title", e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="idcard">Bedroom Count</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="tagline"
+                        placeholder="Bedroom Count"
+                        value={values.bedRoomCount}
+                        onChange={(e) =>
+                          handleChange("bedRoomCount", e.target.value)
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="idcard">Bathroom Count</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="tagline"
+                        placeholder="Bathroom Count"
+                        value={values.bathRoomCount}
+                        onChange={(e) =>
+                          handleChange("bathRoomCount", e.target.value)
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="idcard">Kitchen Count</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="tagline"
+                        placeholder="Kitchen Count"
+                        value={values.kitchenCount}
+                        onChange={(e) =>
+                          handleChange("kitchenCount", e.target.value)
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="idcard">Marla</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="tagline"
+                        placeholder="Marla"
+                        value={values.marla}
+                        onChange={(e) => handleChange("marla", e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="Action">Car Parking</label>
+                      <br />
+                      <ButtonGroup className="mb-2 toggleBtns">
+                        {radios.map((radio, idx) => (
+                          <ToggleButton
+                            key={idx}
+                            id={`radio-${idx}`}
+                            type="radio"
+                            variant="secondary"
+                            name="radio"
+                            value={radio.value}
+                            checked={carGarageStatus === radio.value}
+                            onChange={(e) => {
+                              console.log("Status", e.currentTarget.value);
+                              setcarGarageStatus(Number(e.currentTarget.value));
+                            }}
+                          >
+                            {radio.name}
+                          </ToggleButton>
+                        ))}
+                      </ButtonGroup>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="Action">Gas Available</label>
+                      <br />
+                      <ButtonGroup className="mb-2 toggleBtns">
+                        {radios.map((radio, idx) => (
+                          <ToggleButton
+                            key={idx}
+                            id={`radio-${idx}`}
+                            type="radio"
+                            variant="secondary"
+                            name="radio"
+                            value={radio.value}
+                            checked={gasAvailableStatus === radio.value}
+                            onChange={(e) =>
+                              setgasAvailableStatus(
+                                Number(e.currentTarget.value)
+                              )
+                            }
+                          >
+                            {radio.name}
+                          </ToggleButton>
+                        ))}
+                      </ButtonGroup>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="Action">Electricity Available</label>
+                      <br />
+                      <ButtonGroup className="mb-2 toggleBtns">
+                        {radios.map((radio, idx) => (
+                          <ToggleButton
+                            key={idx}
+                            id={`radio-${idx}`}
+                            type="radio"
+                            variant="secondary"
+                            name="radio"
+                            value={radio.value}
+                            checked={electricityAvailableStatus === radio.value}
+                            onChange={(e) =>
+                              setelectricityAvailableStatus(
+                                Number(e.currentTarget.value)
+                              )
+                            }
+                          >
+                            {radio.name}
+                          </ToggleButton>
+                        ))}
+                      </ButtonGroup>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12">
+                    <h6>Address</h6>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="idcard">Area</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="tagline"
+                        placeholder="Area"
+                        value={values.area}
+                        onChange={(e) => handleChange("area", e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="idcard">Location</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="tagline"
+                        placeholder="Location"
+                        // value={values.}
+                        // onChange={(e) =>
+                        //   handleChange(
+                        //     "electricityAvailable",
+                        //     e.target.value
+                        //   )
+                        // }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="idcard">City</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="city"
+                        placeholder="City"
+                        value={values.city}
+                        onChange={(e) => handleChange("city", e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="idcard">Country</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="country"
+                        placeholder="Country"
+                        value={values.country}
+                        onChange={(e) =>
+                          handleChange("country", e.target.value)
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-12">
+                    <div class="form-group">
+                      <label for="idcard">Complete Address</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="address"
+                        placeholder="Address"
+                        value={values.address}
+                        onChange={(e) =>
+                          handleChange("address", e.target.value)
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12">
+                    <h6>Finance</h6>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="">Total Price</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="price"
+                        placeholder="i.e 10000"
+                        value={values.price}
+                        onChange={(e) => handleChange("price", e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="">Price in English</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="textPrice"
+                        placeholder="i.e Ten Thounsand Only"
+                        value={values.textPrice}
+                        onChange={(e) =>
+                          handleChange("textPrice", e.target.value)
+                        }
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="">Down Payment</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id=""
+                        placeholder="Down Payment"
+                        value={values.downPayment}
+                        onChange={(e) =>
+                          handleChange("downPayment", e.target.value)
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="">Installlment Year</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id=""
+                        placeholder="Installlment Year"
+                        value={values.installmentYear}
+                        onChange={(e) =>
+                          handleChange("installmentYear", e.target.value)
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="">Tax</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id=""
+                        placeholder="Tax"
+                        value={values.tax}
+                        onChange={(e) => handleChange("tax", e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="">PMI</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id=""
+                        placeholder="PMI"
+                        value={values.pmi}
+                        onChange={(e) => handleChange("pmi", e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="name">Status</label>
+                      <select
+                        name=""
+                        className="form-control"
+                        id=""
+                        value={values.status}
+                        onChange={(e) => handleChange("status", e.target.value)}
+                      >
+                        <option value="rent">Rent</option>
+                        <option value="sale">Sale</option>
+                        <option value="both">Both</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="name">Type</label>
+                      <select
+                        name=""
+                        className="form-control"
+                        id=""
+                        value={values.type}
+                        onChange={(e) => handleChange("type", e.target.value)}
+                      >
+                        <option value="office">Office</option>
+                        <option value="house">House</option>
+                        <option value="shop">Shop</option>
+                        <option value="villas">Villas</option>
+                        <option value="residential plot">
+                          Residental Plots
+                        </option>
+                        <option value="pent house">Pent House</option>
+                        <option value="commercial">Commercial</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12">
+                    <div class="form-group">
+                      <label for="idcard">Property Description</label>
+                      <textarea
+                        className="w-100 form-control"
+                        name=""
+                        id=""
+                        cols="30"
+                        rows="5"
+                        value={values.description}
+                        onChange={(e) =>
+                          handleChange("description", e.target.value)
+                        }
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="text-center">
+                <button class="btn btn-primary" onClick={handleAdd}>
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </Modal.Body>
+      </div>
+    </Modal>
+  );
+};
+
+export default EditRateModal;
