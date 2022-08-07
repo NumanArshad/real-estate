@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { homeDataContext } from "../../../../../context/HomeDataContext";
+import { IMAGE_BASE_URL } from "../../../../../utils/constants";
 import HomeBanner5 from "../../../assets/images/HomeBanner5.jpg";
 import { data } from "../../../assets/utilities/blogsData";
 
@@ -47,7 +48,7 @@ function Blogs() {
                     data-aos-duration="1500"
                   >
                     <div className="p-2">
-                      <img src={`https://res.cloudinary.com/risingpearls/image/upload/v1659163070/${data?.image}`} className="w-100" alt="" />
+                      <img src={`${IMAGE_BASE_URL}${data?.image}`} className="w-100" alt="" />
                       <div className="d-flex gap-3">
                         <p className="p-2 d-flex gap-2 mb-0 mt-2">
                           <i class="fa-solid fa-calendar"></i>

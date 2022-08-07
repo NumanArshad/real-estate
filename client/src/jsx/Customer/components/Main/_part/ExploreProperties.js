@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { homeDataContext } from "../../../../../context/HomeDataContext";
+import { IMAGE_BASE_URL } from "../../../../../utils/constants";
 import Explore1 from "../../../assets/images/explore1.jpeg";
 import ExploreProperty from "../../../assets/utilities/ExploreProperty.json";
 
@@ -37,7 +38,7 @@ function Index() {
                 return (
                   <div key={data.id} className="col-md-6 col-lg-4">
                     <div className="card">
-                      <img src={`/images/${data?.images[0]}`} alt="property" />
+                      <img src={`${IMAGE_BASE_URL}${data?.images[0]}`} alt="property" />
                       <div className="card-body">
                         <h1>{data.title}...</h1>
                         <h3>{data.price}Rs</h3>
