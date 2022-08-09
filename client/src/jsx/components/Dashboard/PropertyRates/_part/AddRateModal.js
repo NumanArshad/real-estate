@@ -120,13 +120,15 @@ const AddRateModal = ({ onClick, active, data }) => {
   };
   const imageUpload = (e) => {
     e.preventDefault();
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    reader.onloadend = (e) => {
-      setUrl(addMethodArray(url, e.target.result));
-    };
-    reader.readAsDataURL(file);
-    setValues(prev => ({ ...prev, files: [...prev.files, e.target.files[0]] }))
+    // let reader = new FileReader();
+    // let file = e.target.files[0];
+    // reader.onloadend = (e) => {
+    //   setUrl(addMethodArray(url, e.target.result));
+    // };
+    // reader.readAsDataURL(file);
+    const file = e.target.files[0];
+    setUrl(prev => [...prev, URL.createObjectURL(file)])
+    setValues(prev => ({ ...prev, files: [...prev.files, file] }))
   };
 
   const onEditorStateChange = (editorState) => {
