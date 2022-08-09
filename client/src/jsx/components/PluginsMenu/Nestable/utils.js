@@ -24,7 +24,16 @@ export const isEqual = (val1, val2) => {
 export const plainObjectToFormData = (object) => {
   const formData = new FormData()
   for (let key in object) {
-    formData.append(key, object[key])
+    if (key === "files") {
+      const filesData = object[key]
+      for (var i = 0; i < filesData.length; i++) {
+        formData.append('files', filesData[i])
+      }
+    }
+    else {
+      formData.append(key, object[key])
+    }
   }
+
   return formData
 }

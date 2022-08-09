@@ -96,7 +96,7 @@ const AddRateModal = ({ onClick, active, data }) => {
       carGarage: carGarageStatus,
       gasAvailable: gasAvailableStatus,
       electricityAvailable: electricityAvailableStatus,
-      files: [],
+      //  files: [],
     });
 
     if (values) {
@@ -107,7 +107,8 @@ const AddRateModal = ({ onClick, active, data }) => {
             carGarage: carGarageStatus,
             gasAvailable: gasAvailableStatus,
             electricityAvailable: electricityAvailableStatus,
-            files: url,
+
+            //    files: url,
           }),
           onClick,
           refreshState
@@ -125,6 +126,7 @@ const AddRateModal = ({ onClick, active, data }) => {
       setUrl(addMethodArray(url, e.target.result));
     };
     reader.readAsDataURL(file);
+    setValues(prev => ({ ...prev, files: [...prev.files, e.target.files[0]] }))
   };
 
   const onEditorStateChange = (editorState) => {
@@ -345,13 +347,13 @@ const AddRateModal = ({ onClick, active, data }) => {
                         class="form-control"
                         id="tagline"
                         placeholder="Location"
-                        // value={values.}
-                        // onChange={(e) =>
-                        //   handleChange(
-                        //     "electricityAvailable",
-                        //     e.target.value
-                        //   )
-                        // }
+                      // value={values.}
+                      // onChange={(e) =>
+                      //   handleChange(
+                      //     "electricityAvailable",
+                      //     e.target.value
+                      //   )
+                      // }
                       />
                     </div>
                   </div>

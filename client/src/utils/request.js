@@ -6,7 +6,7 @@ const request = () => {
   instance.interceptors.request.use(async (config) => {
     var jwtToken = await localStorage.getItem("jwtToken");
     config.headers.Authorization = jwtToken ? jwtToken : "";
-    config.baseURL = server_url;
+    config.baseURL = `/api/`;
     return config;
   });
   instance.interceptors.response.use(
