@@ -12,12 +12,17 @@ import upload from "../../../../../images/user-round.jpg";
 import Dummy from "../../../../../images/upload-image.svg";
 import { updateProperty } from "../../../../../store/actions/Property";
 import { useEffect } from "react";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { convertToRaw, EditorState } from "draft-js";
+import draftToHtml from "draftjs-to-html";
 
 const EditRateModal = ({ onClick, active, data }) => {
   const [carGarageStatus, setcarGarageStatus] = useState(0);
   const [gasAvailableStatus, setgasAvailableStatus] = useState(0);
   const [electricityAvailableStatus, setelectricityAvailableStatus] =
     useState(0);
+  const [editorState, seteditorState] = useState("");
 
   console.log("carGarageStatus", carGarageStatus);
   const radios = [
@@ -48,6 +53,7 @@ const EditRateModal = ({ onClick, active, data }) => {
     description: "This is best place to live.",
     price: 10000,
     textPrice: "Ten Thousand Only",
+    content: EditorState.createEmpty(),
   });
 
   const handleChange = (prop, event) => {
@@ -77,6 +83,7 @@ const EditRateModal = ({ onClick, active, data }) => {
       description: "This is best place to live.",
       price: 10000,
       textPrice: "Ten Thousand Only",
+      content: EditorState.createEmpty(),
     });
   };
   const handleAdd = (e) => {
@@ -118,11 +125,26 @@ const EditRateModal = ({ onClick, active, data }) => {
     }
   }, [data?._id]);
 
+  const onEditorStateChange = (editorState) => {
+    console.log("editorState", editorState.getCurrentContent());
+    seteditorState(editorState);
+    handleChange(
+      "content",
+      draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    );
+    console.log(
+      "content",
+      draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    );
+  };
+
   return (
     <Modal size="lg" className=" fade" id="aAddDietMenus" show={active}>
       <div className="modal-content">
         <Modal.Header className="modal-header">
-          <Modal.Title className="modal-title">Edit Property Rate</Modal.Title>
+          <Modal.Title className="modal-title">
+            Edit Property Details
+          </Modal.Title>
           <Button
             variant=""
             className="close"
@@ -223,7 +245,7 @@ const EditRateModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="secondary"
+                            variant="light"
                             name="radio"
                             value={radio.value}
                             checked={carGarageStatus === radio.value}
@@ -248,7 +270,7 @@ const EditRateModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="secondary"
+                            variant="light"
                             name="radio"
                             value={radio.value}
                             checked={gasAvailableStatus === radio.value}
@@ -274,7 +296,7 @@ const EditRateModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="secondary"
+                            variant="light"
                             name="radio"
                             value={radio.value}
                             checked={electricityAvailableStatus === radio.value}
@@ -508,17 +530,42 @@ const EditRateModal = ({ onClick, active, data }) => {
                   <div className="col-md-12">
                     <div class="form-group">
                       <label for="idcard">Property Description</label>
-                      <textarea
-                        className="w-100 form-control"
-                        name=""
-                        id=""
-                        cols="30"
-                        rows="5"
-                        value={values.description}
-                        onChange={(e) =>
-                          handleChange("description", e.target.value)
-                        }
-                      ></textarea>
+                      <Editor
+                        editorState={editorState}
+                        wrapperClassName="demo-wrapper"
+                        editorClassName="demo-editor"
+                        onEditorStateChange={onEditorStateChange}
+                        toolbar={{
+                          options: [
+                            "inline",
+                            "blockType",
+                            "fontSize",
+                            "list",
+                            "textAlign",
+                            "colorPicker",
+                            "link",
+                            "embedded",
+                            "emoji",
+                            "remove",
+                            "history",
+                          ],
+                          inline: { inDropdown: true },
+                          list: { inDropdown: true },
+                          textAlign: { inDropdown: true },
+                          link: { inDropdown: true },
+                          history: { inDropdown: true },
+                          // image: {
+                          //     urlEnabled: true,
+                          //     uploadEnabled: true,
+                          //     uploadCallback: uploadImageCallBack,
+                          //     alignmentEnabled: true,
+                          //     defaultSize: {
+                          //         height: 'auto',
+                          //         width: 'auto',
+                          //     }
+                          // }
+                        }}
+                      />
                     </div>
                   </div>
                 </div>

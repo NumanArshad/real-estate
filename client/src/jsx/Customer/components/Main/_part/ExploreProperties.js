@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
-import { homeDataContext } from "../../../../../context/HomeDataContext";
+import React from "react";
+import { isArrayCheck } from "../../../../../utils/helper";
 import Explore1 from "../../../assets/images/explore1.jpeg";
 import ExploreProperty from "../../../assets/utilities/ExploreProperty.json";
 
-function Index() {
-  const { propertiesList } = useContext(homeDataContext)
-  console.log({ propertiesList })
+function Index({ data }) {
   return (
     <React.Fragment>
       <div className="exploreProperty">
@@ -20,8 +18,8 @@ function Index() {
                 >
                   <h1>Explore Properties</h1>
                   <p>
-                    ESTABLISHED IN 2000, ALI SAQLAIN ESTATE & BUILDERS OFFERS
-                    THE BEST INVESTMENT CONSULTANCY IN REAL ESTATE SECTOR.
+                    ESTABLISHED IN 2000, SAMRAS ESTATE & BUILDERS OFFERS THE
+                    BEST INVESTMENT CONSULTANCY IN REAL ESTATE SECTOR.
                   </p>
                 </div>
               </div>
@@ -33,40 +31,44 @@ function Index() {
             data-aos-duration="1500"
           >
             <div className="row">
-              {propertiesList.map((data) => {
-                return (
-                  <div key={data.id} className="col-md-6 col-lg-4">
-                    <div className="card">
-                      <img src={`/images/${data?.images[0]}`} alt="property" />
-                      <div className="card-body">
-                        <h1>{data.title}...</h1>
-                        <h3>{data.price}Rs</h3>
-                        <p>{data.description}</p>
-                        <ul>
-                          <li hidden={!data?.bedRoomCount}>
-                            <i className="fa-solid fa-bed" ></i> <span>{data?.bedRoomCount}</span>
-                          </li>
-                          <li hidden={!data?.bathRoomCount}>
-                            <i className="fa-solid fa-shower"></i>{" "}
-                            <span>{data?.bathRoomCount}</span>
-                          </li>
-                          <li hidden={!data?.carGarage}>
-                            <i className="fa-solid fa-car"></i> <span>1</span>
-                          </li>
-                          <li >
-                            <i className="fa-solid fa-chart-area"></i>{" "}
-                            <span>{data?.landArea}</span>
-                          </li>
-                        </ul>
+              {isArrayCheck(data) &&
+                data.map((data) => {
+                  return (
+                    <div key={data.id} className="col-md-6 col-lg-4">
+                      <div className="card">
+                        <img src={Explore1} alt="property" />
+                        <div className="card-body">
+                          <h1>{data.title}...</h1>
+                          <h3>{data.price}Rs</h3>
+                          <p>{data.description}</p>
+                          <ul>
+                            <li>
+                              <i className="fa-solid fa-bed"></i> <span>5</span>
+                            </li>
+                            <li>
+                              <i className="fa-solid fa-shower"></i>{" "}
+                              <span>6</span>
+                            </li>
+                            <li>
+                              <i className="fa-solid fa-car"></i> <span>1</span>
+                            </li>
+                            <li>
+                              <i className="fa-solid fa-chart-area"></i>{" "}
+                              <span>1</span>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
-            <div className="loadMore">
-              <button className="btn btn-outline-success">Load More</button>
-            </div>
+
+            {isArrayCheck(data) && data.length > 6 ? (
+              <div className="loadMore">
+                <button className="btn btn-outline-success">Load More</button>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

@@ -22,31 +22,31 @@ const ModalContent = ({ onClick, active, data }) => {
         </Modal.Header>
         <Modal.Body className="modal-body">
           <div className="agent-details">
-          <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Name</h5>
-              <p className="m-0">{data?.first_name + " " + data?.last_name}</p>
+              <p className="m-0">{data?.name}</p>
             </div>
             <hr />
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Tag Line</h5>
-              <p className="m-0">
-                Aslam
-              </p>
+              <p className="m-0">{data?.townInformation?.tagLine}</p>
             </div>
             <hr />
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Why Choose us </h5>
-              <p className="m-0">{data?.idCard}</p>
+              <p className="m-0">{data?.townInformation?.WhyChooseUs}</p>
             </div>
             <hr />
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Official Address</h5>
-              <p className="m-0">{data?.phone}</p>
+              <p className="m-0">
+                {data?.townInformation?.officeAddress[0]?.address}
+              </p>
             </div>
             <hr />
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Location Guide</h5>
-              <p className="m-0">{data?.email}</p>
+              <p className="m-0">{data?.townInformation?.LocationGuide}</p>
             </div>
             <hr />
             <div className="d-flex justify-content-between align-items-center">
@@ -56,28 +56,30 @@ const ModalContent = ({ onClick, active, data }) => {
             <hr />
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Affordable Payment Plan</h5>
-              <p className="m-0">{data?.address}</p>
+              <p className="m-0">
+                {data?.townInformation?.AffordablePaymentPlan}
+              </p>
             </div>
             <hr />
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Block</h5>
-              <p className="m-0">{data?.role}</p>
+              <p className="m-0">{data?.block}</p>
             </div>
 
             <hr />
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Area</h5>
-              <p className="m-0">{data?.gender}</p>
+              <p className="m-0">{data?.area}</p>
             </div>
             <hr />
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">City</h5>
-              <p className="m-0">{data?.designation}</p>
+              <p className="m-0">{data?.city}</p>
             </div>
             <hr />
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Has Block</h5>
-              <p className="m-0">{data?.designation}</p>
+              <p className="m-0">{data?.hasBlock}</p>
             </div>
             <hr />
             <div className="d-flex justify-content-between align-items-center">
@@ -92,12 +94,12 @@ const ModalContent = ({ onClick, active, data }) => {
             <hr />
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Active</h5>
-              <p className="m-0">{data?.designation}</p>
+              <p className="m-0">{data?.isActive}</p>
             </div>
             <hr />
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Is On Construction</h5>
-              <p className="m-0">{data?.designation}</p>
+              <p className="m-0">{data?.isOnConstruction}</p>
             </div>
             <hr />
             <div className="d-flex flex-row justify-content-center mt-2">

@@ -94,5 +94,5 @@ export const data = [
     title: "Deals for Apartments in Bahria Orchard Lahore",
     description:
       "March, April, and May are famous as the best time of the year for buying commercial property and...",
-  }
+  },
 ];

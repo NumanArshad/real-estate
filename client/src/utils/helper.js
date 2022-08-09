@@ -301,6 +301,15 @@ export const removeMethodArray = (arrayData, objectToRemoved) => {
   return arr;
 };
 
+export const removeMethodArrayUsingStringData = (arrayData, index) => {
+  Log("Remove Method Before==>", arrayData);
+  let arr = arrayData ? arrayData : [];
+  arr = arr.filter((dat) => String(dat) !== String(index));
+  Log("Remove Method After==>", arr);
+
+  return arr;
+};
+
 export const removeMethodArrayForSlider = (arrayData, objectToRemoved) => {
   let arr = arrayData ? arrayData : [];
   arr = arr?.filter((data) => data?.image != objectToRemoved?.image);
@@ -499,4 +508,34 @@ export const getRandomIdForkanva = () => {
 export const checkObjectKeys = (object) => {
   const isEmpty = Object.values(object).every((x) => x === null || x === "");
   return isEmpty;
+};
+
+export const validateString = (
+  string,
+  character = 25,
+  placeholder = "Dummy"
+) => {
+  if (!string) {
+    return placeholder;
+  }
+  if (
+    string &&
+    String(string).length > 0 &&
+    String(string).length < character
+  ) {
+    return string;
+  } else {
+    return String(string).substring(0, character) + "...";
+  }
+};
+
+export const makeid = (length) => {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 };

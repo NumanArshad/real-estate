@@ -1,14 +1,9 @@
-import moment from "moment";
-import React, { useContext } from "react";
+import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { homeDataContext } from "../../../../../context/HomeDataContext";
 import HomeBanner5 from "../../../assets/images/HomeBanner5.jpg";
-import { data } from "../../../assets/utilities/blogsData";
-
+import Data from "../../../assets/utilities/blogsData.json";
 function Blogs() {
-
-  const { blogsList } = useContext(homeDataContext)
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -38,7 +33,7 @@ function Blogs() {
               <p>Our Blogs are Valuable Source of Financial Decision Making </p>
             </div>
             <Carousel responsive={responsive}>
-              {blogsList.map((data, index) => {
+              {Data.map((data, index) => {
                 return (
                   <div
                     key={index}
@@ -47,23 +42,6 @@ function Blogs() {
                     data-aos-duration="1500"
                   >
                     <div className="p-2">
-                      <img src={`https://res.cloudinary.com/risingpearls/image/upload/v1659163070/${data?.image}`} className="w-100" alt="" />
-                      <div className="d-flex gap-3">
-                        <p className="p-2 d-flex gap-2 mb-0 mt-2">
-                          <i class="fa-solid fa-calendar"></i>
-                          <h6> {moment(data?.updated_at).format('LL')}</h6>
-                        </p>
-                        <p className="p-2 d-flex gap-2 mb-0 mt-2">
-                          <i class="fa-solid fa-tag"></i>
-                          <h6 className="tag"> {data?.tag ?? `Blog`}</h6>
-                        </p>
-                      </div>
-                      <h3>{data?.title}</h3>
-                      <div dangerouslySetInnerHTML={{ __html: data?.content }} ></div>
-                      {/* <div>{data?.content}</div> */}
-                      <span>Continue reading</span>
-                    </div>
-                    {/* <div className="p-2">
                       <img src={data.img} className="w-100" alt="" />
                       <div className="d-flex gap-3">
                         <p className="p-2 d-flex gap-2 mb-0 mt-2">
@@ -78,7 +56,7 @@ function Blogs() {
                       <h3>{data.title}</h3>
                       <p>{data.description}</p>
                       <span>Continue reading</span>
-                    </div> */}
+                    </div>
                     <hr className="mb-0 mt-2" />
                     <p className="p-2 d-flex gap-2">
                       <i className="fa-solid fa-user"></i>

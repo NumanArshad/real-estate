@@ -24,6 +24,7 @@ export const createUser =
         refreshState();
       }
     } catch (e) {
+      makeToast("error", e.message);
       console_log("createUser error", e);
 
       // makeToast("createUser error", e.message);

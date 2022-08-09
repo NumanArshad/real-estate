@@ -10,25 +10,35 @@ import Blogs from "./_part/Blogs";
 import Footer from "../Footer/Index";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { HomeDataContextProvider } from "../../../../context/HomeDataContext";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getHomeProperties,
+  getHomeSalesAgents,
+} from "../../../../store/actions/CustomerActions/Home";
 function Main() {
+  const { home_data, sale_agents } = useSelector((state) => state._home);
+  console.log("Home Data", home_data, sale_agents);
+  const dispatch = useDispatch();
   useEffect(() => {
     AOS.init();
     AOS.refresh();
+    dispatch(getHomeProperties());
+    dispatch(getHomeSalesAgents());
   }, []);
-
   return (
-    <HomeDataContextProvider>
-      <Header />
-      <Carousel />
-      <ExploreProperties />
-      <DevelopLove />
-      <ExploreTown />
-      <OurAgents />
-      <OurServices />
-      <Blogs />
-      <Footer />
-    </HomeDataContextProvider>
+    <React.Fragment>
+      <div className="home">
+        <Header />
+        <Carousel />
+        <ExploreProperties data={home_data?.activeProperties?.data} />
+        <DevelopLove />
+        <ExploreTown />
+        <OurAgents data={sale_agents} />
+        <OurServices />
+        <Blogs />
+        <Footer />
+      </div>
+    </React.Fragment>
   );
 }
 

@@ -130,7 +130,7 @@ const PropertyRates = () => {
     <div className="col-12">
       <div className="card">
         <div className="card-header">
-          <h4 className="card-title">Property Rates</h4>
+          <h4 className="card-title">Property</h4>
           <h4
             className="btn btn-primary"
             onClick={() => {

@@ -15,6 +15,9 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { createBlog } from "../../../../../store/actions/Blog";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { convertToRaw, EditorState } from "draft-js";
+import draftToHtml from "draftjs-to-html";
+
 const AddBlogModal = ({ onClick, active, data }) => {
   const [radioValue, setRadioValue] = useState("pending");
 
@@ -23,14 +26,14 @@ const AddBlogModal = ({ onClick, active, data }) => {
     { name: "Approved", value: "approved" },
   ];
   const [url, setUrl] = useState("");
+  const [editorState, seteditorState] = useState("");
   const dispatch = useDispatch();
 
   const [values, setValues] = React.useState({
     name: "This is title",
     description: "This is descriptions",
     images: "",
-    content:
-      "<h3>Best Property | Bahria</h3><p>We have 3/5/7/10 marla plots.</p><ul><li>Beautiful Area</li><li>Garden&nbsp;</li><li>Mosque</li></ul>",
+    content: EditorState.createEmpty(),
   });
 
   const handleChange = (prop, event) => {
@@ -41,8 +44,8 @@ const AddBlogModal = ({ onClick, active, data }) => {
       name: "This is title",
       description: "This is descriptions",
       images: "",
-      content:
-        "<h3>Best Property | Bahria</h3><p>We have 3/5/7/10 marla plots.</p><ul><li>Beautiful Area</li><li>Garden&nbsp;</li><li>Mosque</li></ul>",
+      content: EditorState.createEmpty(),
+      // "<h3>Best Property | Bahria</h3><p>We have 3/5/7/10 marla plots.</p><ul><li>Beautiful Area</li><li>Garden&nbsp;</li><li>Mosque</li></ul>",
     });
   };
   const handleAdd = (e) => {
@@ -64,6 +67,20 @@ const AddBlogModal = ({ onClick, active, data }) => {
     };
     reader.readAsDataURL(file);
   };
+
+  const onEditorStateChange = (editorState) => {
+    console.log("editorState", editorState.getCurrentContent());
+    seteditorState(editorState);
+    handleChange(
+      "content",
+      draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    );
+    console.log(
+      "content",
+      draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    );
+  };
+
   return (
     <Modal size="lg" className=" fade" id="aAddDietMenus" show={active}>
       <div className="modal-content">
@@ -83,7 +100,7 @@ const AddBlogModal = ({ onClick, active, data }) => {
             <form>
               <div className="contaib">
                 <div className="row">
-                  <div className="col-md-6">
+                  <div className="col-md-12">
                     <div class="form-group">
                       <label for="name">Name</label>
                       <input
@@ -97,7 +114,7 @@ const AddBlogModal = ({ onClick, active, data }) => {
                       />
                     </div>
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-12">
                     <div class="form-group">
                       <label for="idcard">Description</label>
                       <textarea
@@ -106,7 +123,51 @@ const AddBlogModal = ({ onClick, active, data }) => {
                         value={values.description}
                         onChange={(e) =>
                           handleChange("description", e.target.value)
-                        } className="w-100 form-control" rows="5"></textarea>
+                        }
+                        className="w-100 form-control"
+                        rows="5"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div className="col-md-12">
+                    <div class="form-group whyChooseUS">
+                      <label for="idcard">Content</label>
+                      <Editor
+                        editorState={editorState}
+                        wrapperClassName="demo-wrapper"
+                        editorClassName="demo-editor"
+                        onEditorStateChange={onEditorStateChange}
+                        toolbar={{
+                          options: [
+                            "inline",
+                            "blockType",
+                            "fontSize",
+                            "list",
+                            "textAlign",
+                            "colorPicker",
+                            "link",
+                            "embedded",
+                            "emoji",
+                            "remove",
+                            "history",
+                          ],
+                          inline: { inDropdown: true },
+                          list: { inDropdown: true },
+                          textAlign: { inDropdown: true },
+                          link: { inDropdown: true },
+                          history: { inDropdown: true },
+                          // image: {
+                          //     urlEnabled: true,
+                          //     uploadEnabled: true,
+                          //     uploadCallback: uploadImageCallBack,
+                          //     alignmentEnabled: true,
+                          //     defaultSize: {
+                          //         height: 'auto',
+                          //         width: 'auto',
+                          //     }
+                          // }
+                        }}
+                      />
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -154,19 +215,7 @@ const AddBlogModal = ({ onClick, active, data }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-12">
-                    <div class="form-group whyChooseUS">
-                      <label for="idcard">Content</label>
-                      {/* <Editor
-                      editorState={editorState}
-                      toolbarClassName="toolbarClassName"
-                      wrapperClassName="wrapperClassName"
-                      editorClassName="editorClassName"
-                      onEditorStateChange={this.onEditorStateChange}
-                    />; */}
-                    </div>
-                  </div>
-                  <div className="col-md-12">
+                  <div className="col-md-6">
                     <div class="form-group">
                       <label for="Action">Is Approved</label>
                       <br />
@@ -176,7 +225,7 @@ const AddBlogModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="primary"
+                            variant="light"
                             name="radio"
                             className="rounded-0"
                             value={radio.value}
@@ -191,6 +240,7 @@ const AddBlogModal = ({ onClick, active, data }) => {
                       </ButtonGroup>
                     </div>
                   </div>
+
                 </div>
               </div>
               <div className="text-center">

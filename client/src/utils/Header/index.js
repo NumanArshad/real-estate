@@ -335,15 +335,6 @@ export const COLUMN_HERADER = {
     },
     {
       id: 2,
-      name: "Project Name",
-      width: "180px",
-      selector: (row) => row.name,
-      sortable: true,
-      reorder: true,
-      center: true,
-    },
-    {
-      id: 2,
       name: "Town",
       width: "180px",
       selector: (row) => row.name,
@@ -353,9 +344,9 @@ export const COLUMN_HERADER = {
     },
     {
       id: 6,
-      name: "Price form",
-      width: "200px",
-      selector: (row) => row.city,
+      name: "Plot",
+      width: "250px",
+      selector: (row) => row.plot,
       sortable: true,
       reorder: true,
       center: true,
