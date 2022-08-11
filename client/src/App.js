@@ -23,6 +23,7 @@ import Detail from "./jsx/Customer/components/Blog/Detail";
 import BahriaDetail from "./jsx/Customer/components/BahriaTownProperty/Detail";
 import Contact from "./jsx/Customer/components/ContactUs/Index";
 import Updates from "./jsx/Customer/components/ConstructionUpdates/Index";
+import Homes from "./jsx/Customer/components/ConstructionUpdates/Homes";
 
 const SignUp = lazy(() => import("./jsx/pages/Registration"));
 const ForgotPassword = lazy(() => import("./jsx/pages/ForgotPassword"));
@@ -114,9 +115,12 @@ function App(props) {
       <Route exact path="/updates">
         <Updates />
       </Route>
+      <Route exact path="/homes">
+        <Homes />
+      </Route>
     </Switch>
   );
-  if (isAuthenticated) {
+  if (!isAuthenticated) {
     return (
       <>
         <Suspense

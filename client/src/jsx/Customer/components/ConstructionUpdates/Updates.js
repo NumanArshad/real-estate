@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import UpdatesData from "../../assets/utilities/updates.json";
+import { Link } from "react-router-dom";
 function Updates() {
   const settings = {
     dots: true,
@@ -62,9 +63,11 @@ function Updates() {
                   </div>
                 </div>
                 <div className="text-center">
-                  <button className="mt-5 mb-4 visitProject">
-                    Visit Project
-                  </button>
+                  <Link to="/homes">
+                    <button className="mt-5 mb-4 visitProject">
+                      Visit Project
+                    </button>
+                  </Link>
                 </div>
               </div>
             );
