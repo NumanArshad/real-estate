@@ -122,20 +122,20 @@ class SideBar extends Component {
               id="dashboard"
               className={`${path === "" ? "mm-active" : ""}`}
             >
-              <Link to="/">
+              <Link to="/admin/">
                 <i className="flaticon-381-networking"></i>
                 <span className="nav-text">Dashboard</span>
               </Link>
               {/* <ul>
                 <li>
-                  <Link className={`${path === "" ? "mm-active" : ""}`} to="/">
+                  <Link className={`${path === "" ? "mm-active" : ""}`} to="/admin/">
                     Dashboard
                   </Link>
                 </li>
               </ul> */}
             </li>
             {/* <li className={`${path === "room" ? "mm-active" : ""}`}>
-              <Link to="/room">
+              <Link to="/admin/room">
                 <i className="fa fa-calendar"></i>
                 <span className="nav-text">Room</span>
               </Link>
@@ -146,7 +146,7 @@ class SideBar extends Component {
               id="sale-agent"
               className={`${path === "sale-agent" ? "mm-active" : ""}`}
             >
-              <Link to="/sale-agent">
+              <Link to="/admin/sale-agent">
                 <i class="fa-solid fa-people-group"></i>
                 <span className="nav-text">Client/SaleAgent</span>
               </Link>
@@ -156,7 +156,7 @@ class SideBar extends Component {
               id="town"
               className={`${path === "town" ? "mm-active" : ""}`}
             >
-              <Link to="/town">
+              <Link to="/admin/town">
                 <i class="fa-solid fa-house"></i>
                 <span className="nav-text">Town</span>
               </Link>
@@ -166,7 +166,7 @@ class SideBar extends Component {
               id="blog"
               className={`${path === "blog" ? "mm-active" : ""}`}
             >
-              <Link to="/blog">
+              <Link to="/admin/blog">
                 <i class="fa-solid fa-blog"></i>
                 <span className="nav-text">Blogs</span>
               </Link>
@@ -176,13 +176,13 @@ class SideBar extends Component {
               id="market-rate"
               className={`${path === "market-rate" ? "mm-active" : ""}`}
             >
-              <Link to="/market-rate">
+              <Link to="/admin/market-rate">
                 <i class="fa-solid fa-shop"></i>
                 <span className="nav-text">Market Rate</span>
               </Link>
             </li>
             {/* <li className={`${path === "construction-update" ? "mm-active" : ""}`}>
-              <Link to="/construction-update">
+              <Link to="/admin/construction-update">
                 <i className="fa fa-calendar"></i>
                 <span className="nav-text">Construction Updates</span>
               </Link>
@@ -192,7 +192,7 @@ class SideBar extends Component {
               id="maps-modal"
               className={`${path === "maps-modal" ? "mm-active" : ""}`}
             >
-              <Link to="/maps-modal">
+              <Link to="/admin/maps-modal">
                 <i class="fa-solid fa-map-location-dot"></i>
                 <span className="nav-text">Maps</span>
               </Link>
@@ -202,7 +202,7 @@ class SideBar extends Component {
               id="property-rates"
               className={`${path === "property-rates" ? "mm-active" : ""}`}
             >
-              <Link to="/property-rates">
+              <Link to="/admin/property-rates">
                 <i class="fa-solid fa-landmark"></i>
                 <span className="nav-text">Property</span>
               </Link>
