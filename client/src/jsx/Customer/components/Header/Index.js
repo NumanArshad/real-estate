@@ -11,7 +11,7 @@ function Index() {
   return (
     <React.Fragment>
       <SubHeader />
-      <Navbar expand="lg">
+      <Navbar expand="lg" color="#fff">
         <div className="container">
           <Link to="/">
             <Navbar.Brand>

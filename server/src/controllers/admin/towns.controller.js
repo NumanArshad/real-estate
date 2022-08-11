@@ -27,6 +27,7 @@ var addNewTown = async (req, res) => {
     var data = {
       ...req.body,
       createdBy: id,
+      gallery: req.imageUrl,
     };
     const newTown = await Town.create(data);
 

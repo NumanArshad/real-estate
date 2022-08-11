@@ -1,4 +1,5 @@
 import React from "react";
+import { image_url } from "../../../../../utils/config";
 import { isArrayCheck } from "../../../../../utils/helper";
 import Explore1 from "../../../assets/images/explore1.jpeg";
 import ExploreProperty from "../../../assets/utilities/ExploreProperty.json";
@@ -36,25 +37,34 @@ function Index({ data }) {
                   return (
                     <div key={data.id} className="col-md-6 col-lg-4">
                       <div className="card">
-                        <img src={Explore1} alt="property" />
+                        <img
+                          src={
+                            isArrayCheck(data?.images)
+                              ? image_url + data?.images[0]
+                              : Explore1
+                          }
+                          alt="property"
+                        />
                         <div className="card-body">
                           <h1>{data.title}...</h1>
                           <h3>{data.price}Rs</h3>
                           <p>{data.description}</p>
                           <ul>
                             <li>
-                              <i className="fa-solid fa-bed"></i> <span>5</span>
+                              <i className="fa-solid fa-bed"></i>{" "}
+                              <span>{data?.bedRoomCount}</span>
                             </li>
                             <li>
                               <i className="fa-solid fa-shower"></i>{" "}
-                              <span>6</span>
+                              <span>{data?.bathRoomCount}</span>
                             </li>
                             <li>
-                              <i className="fa-solid fa-car"></i> <span>1</span>
+                              <i className="fa-solid fa-car"></i>{" "}
+                              <span>{data?.bedRoomCount}</span>
                             </li>
                             <li>
                               <i className="fa-solid fa-chart-area"></i>{" "}
-                              <span>1</span>
+                              <span>{data?.marla}</span>
                             </li>
                           </ul>
                         </div>
