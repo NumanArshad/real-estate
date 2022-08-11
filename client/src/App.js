@@ -39,37 +39,37 @@ function App(props) {
   let timeOut = null;
   useEffect(() => {
     dispatch(checkAuth());
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        _id: "62ee8f58024509820bf3712b",
-        email: "admin@gmail.com",
-        password:
-          "$2a$10$ihmTOxIjuV2k6RmNAx.COe7uSJIvRJkB2qK4aIAxUv0T..t2GXNWi",
-        first_name: "admin",
-        last_name: "abc",
-        profile:
-          "https://remapconsulting.com/wp-content/uploads/2018/03/Image-placeholder-man.jpg",
-        designation: "",
-        role: "admin",
-        forgotPinCode: "",
-        phone: "03123456789",
-        address: "",
-        city: "",
-        idCard: "",
-        gender: "male",
-        changePassword: true,
-        isActive: true,
-        created_at: "2022-08-06T15:57:12.948Z",
-        updated_at: "2022-08-06T15:57:12.948Z",
-        __v: 0,
-      })
-    );
+    // localStorage.setItem(
+    //   "user",
+    //   JSON.stringify({
+    //     _id: "62ee8f58024509820bf3712b",
+    //     email: "admin@gmail.com",
+    //     password:
+    //       "$2a$10$ihmTOxIjuV2k6RmNAx.COe7uSJIvRJkB2qK4aIAxUv0T..t2GXNWi",
+    //     first_name: "admin",
+    //     last_name: "abc",
+    //     profile:
+    //       "https://remapconsulting.com/wp-content/uploads/2018/03/Image-placeholder-man.jpg",
+    //     designation: "",
+    //     role: "admin",
+    //     forgotPinCode: "",
+    //     phone: "03123456789",
+    //     address: "",
+    //     city: "",
+    //     idCard: "",
+    //     gender: "male",
+    //     changePassword: true,
+    //     isActive: true,
+    //     created_at: "2022-08-06T15:57:12.948Z",
+    //     updated_at: "2022-08-06T15:57:12.948Z",
+    //     __v: 0,
+    //   })
+    // );
 
-    localStorage.setItem(
-      "jwtToken",
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYzg1YWM0NGJmZTBiN2NkMWU4OGRiYiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjU5OTY2NTc1fQ.xu9y1EmaG1xoimYtR7nh4eQSsKYou04A5ubHVpgC-P0"
-    );
+    // localStorage.setItem(
+    //   "jwtToken",
+    //   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYzg1YWM0NGJmZTBiN2NkMWU4OGRiYiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjU5OTY2NTc1fQ.xu9y1EmaG1xoimYtR7nh4eQSsKYou04A5ubHVpgC-P0"
+    // );
   }, []);
 
   let routes = (
