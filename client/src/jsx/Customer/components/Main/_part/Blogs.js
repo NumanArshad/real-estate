@@ -5,7 +5,6 @@ import "react-multi-carousel/lib/styles.css";
 import { homeDataContext } from "../../../../../context/HomeDataContext";
 import { IMAGE_BASE_URL } from "../../../../../utils/constants";
 import HomeBanner5 from "../../../assets/images/HomeBanner5.jpg";
-import { data } from "../../../assets/utilities/blogsData";
 
 function Blogs() {
 
@@ -79,7 +78,7 @@ function Blogs() {
                       <h3>{data.title}</h3>
                       <p>{data.description}</p>
                       <span>Continue reading</span>
-                    </div> */}
+                </div> */}
                     <hr className="mb-0 mt-2" />
                     <p className="p-2 d-flex gap-2">
                       <i className="fa-solid fa-user"></i>

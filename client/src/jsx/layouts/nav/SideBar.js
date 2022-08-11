@@ -52,11 +52,76 @@ class SideBar extends Component {
 
     console.log("Path", path);
 
+    const firstItem = (item) => {
+      if (item === "dashboard") {
+        document.getElementById("dashboard").classList.add("mm-active");
+        document.getElementById("sale-agent").classList.remove("mm-active");
+        document.getElementById("town").classList.remove("mm-active");
+        document.getElementById("blog").classList.remove("mm-active");
+        document.getElementById("market-rate").classList.remove("mm-active");
+        document.getElementById("maps-modal").classList.remove("mm-active");
+        document.getElementById("property-rates").classList.remove("mm-active");
+      } else if (item === "sale-agent") {
+        document.getElementById("dashboard").classList.remove("mm-active");
+        document.getElementById("sale-agent").classList.add("mm-active");
+        document.getElementById("town").classList.remove("mm-active");
+        document.getElementById("blog").classList.remove("mm-active");
+        document.getElementById("market-rate").classList.remove("mm-active");
+        document.getElementById("maps-modal").classList.remove("mm-active");
+        document.getElementById("property-rates").classList.remove("mm-active");
+      } else if (item === "town") {
+        document.getElementById("dashboard").classList.remove("mm-active");
+        document.getElementById("sale-agent").classList.remove("mm-active");
+        document.getElementById("town").classList.add("mm-active");
+        document.getElementById("blog").classList.remove("mm-active");
+        document.getElementById("market-rate").classList.remove("mm-active");
+        document.getElementById("maps-modal").classList.remove("mm-active");
+        document.getElementById("property-rates").classList.remove("mm-active");
+      } else if (item === "blog") {
+        document.getElementById("dashboard").classList.remove("mm-active");
+        document.getElementById("sale-agent").classList.remove("mm-active");
+        document.getElementById("town").classList.remove("mm-active");
+        document.getElementById("blog").classList.add("mm-active");
+        document.getElementById("market-rate").classList.remove("mm-active");
+        document.getElementById("maps-modal").classList.remove("mm-active");
+        document.getElementById("property-rates").classList.remove("mm-active");
+      } else if (item === "market-rate") {
+        document.getElementById("dashboard").classList.remove("mm-active");
+        document.getElementById("sale-agent").classList.remove("mm-active");
+        document.getElementById("town").classList.remove("mm-active");
+        document.getElementById("blog").classList.remove("mm-active");
+        document.getElementById("market-rate").classList.add("mm-active");
+        document.getElementById("maps-modal").classList.remove("mm-active");
+        document.getElementById("property-rates").classList.remove("mm-active");
+      } else if (item === "maps-modal") {
+        document.getElementById("dashboard").classList.remove("mm-active");
+        document.getElementById("sale-agent").classList.remove("mm-active");
+        document.getElementById("town").classList.remove("mm-active");
+        document.getElementById("blog").classList.remove("mm-active");
+        document.getElementById("market-rate").classList.remove("mm-active");
+        document.getElementById("maps-modal").classList.add("mm-active");
+        document.getElementById("property-rates").classList.remove("mm-active");
+      } else {
+        document.getElementById("dashboard").classList.remove("mm-active");
+        document.getElementById("sale-agent").classList.remove("mm-active");
+        document.getElementById("town").classList.remove("mm-active");
+        document.getElementById("blog").classList.remove("mm-active");
+        document.getElementById("market-rate").classList.remove("mm-active");
+        document.getElementById("maps-modal").classList.remove("mm-active");
+        document.getElementById("property-rates").classList.add("mm-active");
+      }
+      console.log("First", item);
+    };
+
     return (
       <div className="deznav">
         <PerfectScrollbar className="deznav-scroll">
           <MM className="metismenu" id="menu">
-            <li className={`${path === "" ? "mm-active" : ""}`}>
+            <li
+              onClick={() => firstItem("dashboard")}
+              id="dashboard"
+              className={`${path === "" ? "mm-active" : ""}`}
+            >
               <Link to="/">
                 <i className="flaticon-381-networking"></i>
                 <span className="nav-text">Dashboard</span>
@@ -76,27 +141,43 @@ class SideBar extends Component {
               </Link>
             </li> */}
 
-            <li className={`${path === "sale-agent" ? "mm-active" : ""}`}>
+            <li
+              onClick={() => firstItem("sale-agent")}
+              id="sale-agent"
+              className={`${path === "sale-agent" ? "mm-active" : ""}`}
+            >
               <Link to="/sale-agent">
-                <i className="fa fa-calendar"></i>
+                <i class="fa-solid fa-people-group"></i>
                 <span className="nav-text">Client/SaleAgent</span>
               </Link>
             </li>
-            <li className={`${path === "town" ? "mm-active" : ""}`}>
+            <li
+              onClick={() => firstItem("town")}
+              id="town"
+              className={`${path === "town" ? "mm-active" : ""}`}
+            >
               <Link to="/town">
-                <i className="fa fa-calendar"></i>
+                <i class="fa-solid fa-house"></i>
                 <span className="nav-text">Town</span>
               </Link>
             </li>
-            <li className={`${path === "blog" ? "mm-active" : ""}`}>
+            <li
+              onClick={() => firstItem("blog")}
+              id="blog"
+              className={`${path === "blog" ? "mm-active" : ""}`}
+            >
               <Link to="/blog">
-                <i className="fa fa-calendar"></i>
+                <i class="fa-solid fa-blog"></i>
                 <span className="nav-text">Blogs</span>
               </Link>
             </li>
-            <li className={`${path === "market-rate" ? "mm-active" : ""}`}>
+            <li
+              onClick={() => firstItem("market-rate")}
+              id="market-rate"
+              className={`${path === "market-rate" ? "mm-active" : ""}`}
+            >
               <Link to="/market-rate">
-                <i className="fa fa-calendar"></i>
+                <i class="fa-solid fa-shop"></i>
                 <span className="nav-text">Market Rate</span>
               </Link>
             </li>
@@ -106,16 +187,24 @@ class SideBar extends Component {
                 <span className="nav-text">Construction Updates</span>
               </Link>
             </li> */}
-            <li className={`${path === "maps-modal" ? "mm-active" : ""}`}>
+            <li
+              onClick={() => firstItem("maps-modal")}
+              id="maps-modal"
+              className={`${path === "maps-modal" ? "mm-active" : ""}`}
+            >
               <Link to="/maps-modal">
-                <i className="fa fa-calendar"></i>
-                <span className="nav-text">Maps Modal</span>
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span className="nav-text">Maps</span>
               </Link>
             </li>
-            <li className={`${path === "property-rates" ? "mm-active" : ""}`}>
+            <li
+              onClick={() => firstItem("property-rates")}
+              id="property-rates"
+              className={`${path === "property-rates" ? "mm-active" : ""}`}
+            >
               <Link to="/property-rates">
-                <i className="fa fa-calendar"></i>
-                <span className="nav-text">Property Rates</span>
+                <i class="fa-solid fa-landmark"></i>
+                <span className="nav-text">Property</span>
               </Link>
             </li>
           </MM>

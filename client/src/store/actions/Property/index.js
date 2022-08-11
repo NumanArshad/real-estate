@@ -26,6 +26,7 @@ export const createProperty =
       }
     } catch (e) {
       console_log("createProperty error", e);
+      makeToast("error", e);
 
       // makeToast("createProperty error", e.message);
     }

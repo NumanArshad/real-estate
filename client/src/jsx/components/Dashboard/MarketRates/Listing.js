@@ -4,11 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import DataTable from "react-data-table-component";
 
 import { COLUMN_HERADER } from "../../../../utils/Header/index.js";
-import { formatedDate, formatedTime } from "../../../../utils/helper.js";
+import {
+  formatedDate,
+  formatedTime,
+  isArrayCheck,
+} from "../../../../utils/helper.js";
 import { getAllUsers } from "../../../../store/actions/User/index.js";
 import AddRateModal from "./_part/AddRateModal.js";
 import EditRateModal from "./_part/EditRateModal.js";
 import ModalContent from "./_part/Modal.js";
+import { getAllTowns } from "../../../../store/actions/Town/index.js";
+import { getAllMarketRates } from "../../../../store/actions/MarketRates/index.js";
 
 const BlogListing = () => {
   const [ApointmnetDetails, setApointmnetDetails] = useState("");
@@ -16,8 +22,8 @@ const BlogListing = () => {
   const [open, setopen] = useState(false);
   const [edit, setedit] = useState(false);
   const [openDetails, setopenDetails] = useState(false);
-  const { users_listing } = useSelector((state) => state._saleAgent);
-  // const users_listing = [
+  const { market_rates_listings } = useSelector((state) => state._marketRates);
+  // const market_rates_listings = [
   //   {
   //     _id: "62c86bf7933609268efc17b3",
   //     email: "user@gmail.io",
@@ -67,35 +73,34 @@ const BlogListing = () => {
   const [row, setrow] = useState([]);
 
   useEffect(() => {
-    if (users_listing) {
+    dispatch(getAllTowns());
+    if (market_rates_listings) {
       makeRow();
     } else {
-      dispatch(getAllUsers());
+      dispatch(getAllMarketRates());
     }
-  }, [users_listing]);
+  }, [market_rates_listings]);
   //  id: 0, designer: 'Salman', price: 100, buyer: 'Jhon', buyerAddress: 'Lahore', status: 'pending'
 
   const makeRow = () => {
     var data =
-      Array.isArray(users_listing) && users_listing.length > 0
-        ? users_listing.map((data, id) => ({
+      Array.isArray(market_rates_listings) && market_rates_listings.length > 0
+        ? market_rates_listings.map((data, id) => ({
             id: id + 1,
-            image: (
-              <img
-                src={data?.profile}
-                style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
-                alt="Dummy"
-              />
+            name: data?.town?.name,
+            plot: (
+              <div>
+                {isArrayCheck(data?.plot) &&
+                  data?.plot?.map((dat) => (
+                    <div className="">
+                      <p className="p-0 m-0">Type :{dat?.type}</p>
+                      <p className="p-0 m-0">
+                        Price :{dat?.priceFrom} - {dat?.priceTo}
+                      </p>
+                    </div>
+                  ))}
+              </div>
             ),
-            name: data?.first_name + " " + data?.last_name,
-            idCard: data?.idCard,
-            phone: data?.phone,
-            email: data?.email,
-            city: data?.city,
-            address: data?.address,
-            role: data?.role,
-            gender: data?.gender,
-            designation: data?.designation,
             action: (
               <div className="d-flex align-items-center">
                 <button
@@ -120,13 +125,13 @@ const BlogListing = () => {
             ),
           }))
         : [];
-    // console.log('Row Data', users_listing);
+    // console.log('Row Data', market_rates_listings);
     setrow(data);
   };
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllMarketRates());
     console.log("Listing Page");
   }, []);
 
@@ -147,33 +152,34 @@ const BlogListing = () => {
         <div className="card-body">
           <DataTable
             columns={COLUMN_HERADER.rate_listing_header}
-            data={[
-              {
-                id: 1,
-                action: (
-                  <div className="d-flex align-items-center">
-                    <button
-                      onClick={() => {
-                        // setApointmnetDetails(data);
-                        setedit(true);
-                      }}
-                      className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                    >
-                      <i className="fa fa-edit"></i>
-                    </button>
-                    <button
-                      onClick={() => {
-                        // setApointmnetDetails(data);
-                        setopenDetails(true);
-                      }}
-                      className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                    >
-                      <i className="fa fa-info"></i>
-                    </button>
-                  </div>
-                ),
-              },
-            ]}
+            data={row}
+            // data={[
+            //   {
+            //     id: 1,
+            //     action: (
+            //       <div className="d-flex align-items-center">
+            //         <button
+            //           onClick={() => {
+            //             // setApointmnetDetails(data);
+            //             setedit(true);
+            //           }}
+            //           className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+            //         >
+            //           <i className="fa fa-edit"></i>
+            //         </button>
+            //         <button
+            //           onClick={() => {
+            //             // setApointmnetDetails(data);
+            //             setopenDetails(true);
+            //           }}
+            //           className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+            //         >
+            //           <i className="fa fa-info"></i>
+            //         </button>
+            //       </div>
+            //     ),
+            //   },
+            // ]}
             defaultSortFieldId={1}
             pagination
             responsive

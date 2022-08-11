@@ -21,8 +21,8 @@ function Index() {
                 >
                   <h1>Explore Properties</h1>
                   <p>
-                    ESTABLISHED IN 2000, ALI SAQLAIN ESTATE & BUILDERS OFFERS
-                    THE BEST INVESTMENT CONSULTANCY IN REAL ESTATE SECTOR.
+                    ESTABLISHED IN 2000, SAMRAS ESTATE & BUILDERS OFFERS THE
+                    BEST INVESTMENT CONSULTANCY IN REAL ESTATE SECTOR.
                   </p>
                 </div>
               </div>
@@ -65,9 +65,12 @@ function Index() {
                 );
               })}
             </div>
+
+            {/* {isArrayCheck(data) && data.length > 6 ? ( */}
             <div className="loadMore">
               <button className="btn btn-outline-success">Load More</button>
             </div>
+            {/* ) : null} */}
           </div>
         </div>
       </div>

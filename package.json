@@ -3,17 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-    "engines": {
+  "engines": {
     "node": "v14.16.1"
   },
   "scripts": {
-   "start:staging":"cd ./server && npm install && npm run staging:backend",
-    "heroku-postbuild":  "cd ./client && npm install && npm run build"  },
+    "start:staging": "cd ./server && npm install && npm run staging:backend",
+    "heroku-postbuild": "cd ./client && npm install && npm run build"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NumanArshad/real-estate.git"
   },
-    "keywords": [],
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {

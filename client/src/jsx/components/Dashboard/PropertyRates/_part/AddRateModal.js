@@ -11,6 +11,12 @@ import Input from "@mui/material/Input";
 import upload from "../../../../../images/user-round.jpg";
 import Dummy from "../../../../../images/upload-image.svg";
 import { createProperty } from "../../../../../store/actions/Property";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { convertToRaw, EditorState } from "draft-js";
+import draftToHtml from "draftjs-to-html";
+import { plainObjectToFormData } from "../../../PluginsMenu/Nestable/utils";
+import { addMethodArray, isArrayCheck } from "../../../../../utils/helper";
 
 const AddRateModal = ({ onClick, active, data }) => {
   const [carGarageStatus, setcarGarageStatus] = useState(0);
@@ -24,6 +30,9 @@ const AddRateModal = ({ onClick, active, data }) => {
     { name: "No", value: 0 },
   ];
   const dispatch = useDispatch();
+  const [editorState, seteditorState] = useState("");
+  const [url, setUrl] = useState("");
+
   const [values, setValues] = React.useState({
     title: "Rs 10 Thousand",
     bedRoomCount: 1,
@@ -46,6 +55,8 @@ const AddRateModal = ({ onClick, active, data }) => {
     description: "This is best place to live.",
     price: 10000,
     textPrice: "Ten Thousand Only",
+    content: EditorState.createEmpty(),
+    files: [],
   });
 
   const handleChange = (prop, event) => {
@@ -74,6 +85,8 @@ const AddRateModal = ({ onClick, active, data }) => {
       description: "This is best place to live.",
       price: 10000,
       textPrice: "Ten Thousand Only",
+      content: EditorState.createEmpty(),
+      files: [],
     });
   };
   const handleAdd = (e) => {
@@ -83,16 +96,20 @@ const AddRateModal = ({ onClick, active, data }) => {
       carGarage: carGarageStatus,
       gasAvailable: gasAvailableStatus,
       electricityAvailable: electricityAvailableStatus,
+      //  files: [],
     });
+
     if (values) {
       dispatch(
         createProperty(
-          {
+          plainObjectToFormData({
             ...values,
             carGarage: carGarageStatus,
             gasAvailable: gasAvailableStatus,
             electricityAvailable: electricityAvailableStatus,
-          },
+
+            //    files: url,
+          }),
           onClick,
           refreshState
         )
@@ -103,18 +120,35 @@ const AddRateModal = ({ onClick, active, data }) => {
   };
   const imageUpload = (e) => {
     e.preventDefault();
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    reader.onloadend = (e) => {
-      // setUrl(e.target.result);
-    };
-    reader.readAsDataURL(file);
+    // let reader = new FileReader();
+    // let file = e.target.files[0];
+    // reader.onloadend = (e) => {
+    //   setUrl(addMethodArray(url, e.target.result));
+    // };
+    // reader.readAsDataURL(file);
+    const file = e.target.files[0];
+    setUrl(prev => [...prev, URL.createObjectURL(file)])
+    setValues(prev => ({ ...prev, files: [...prev.files, file] }))
   };
+
+  const onEditorStateChange = (editorState) => {
+    console.log("editorState", editorState.getCurrentContent());
+    seteditorState(editorState);
+    handleChange(
+      "content",
+      draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    );
+    console.log(
+      "content",
+      draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    );
+  };
+
   return (
     <Modal size="lg" className=" fade" id="aAddDietMenus" show={active}>
       <div className="modal-content">
         <Modal.Header className="modal-header">
-          <Modal.Title className="modal-title">Add Property Rate</Modal.Title>
+          <Modal.Title className="modal-title">Add Property</Modal.Title>
           <Button
             variant=""
             className="close"
@@ -206,6 +240,12 @@ const AddRateModal = ({ onClick, active, data }) => {
                     </div>
                   </div>
                   <div className="col-md-6">
+                    {console.log(
+                      "Card Parkingn",
+                      carGarageStatus,
+                      gasAvailableStatus,
+                      electricityAvailableStatus
+                    )}
                     <div class="form-group">
                       <label for="Action">Car Parking</label>
                       <br />
@@ -215,12 +255,11 @@ const AddRateModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="secondary"
+                            variant="light"
                             name="radio"
                             value={radio.value}
                             checked={carGarageStatus === radio.value}
                             onChange={(e) => {
-                              console.log("Status", e.currentTarget.value);
                               setcarGarageStatus(Number(e.currentTarget.value));
                             }}
                           >
@@ -240,7 +279,7 @@ const AddRateModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="secondary"
+                            variant="light"
                             name="radio"
                             value={radio.value}
                             checked={gasAvailableStatus === radio.value}
@@ -266,7 +305,7 @@ const AddRateModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="secondary"
+                            variant="light"
                             name="radio"
                             value={radio.value}
                             checked={electricityAvailableStatus === radio.value}
@@ -310,13 +349,13 @@ const AddRateModal = ({ onClick, active, data }) => {
                         class="form-control"
                         id="tagline"
                         placeholder="Location"
-                        // value={values.}
-                        // onChange={(e) =>
-                        //   handleChange(
-                        //     "electricityAvailable",
-                        //     e.target.value
-                        //   )
-                        // }
+                      // value={values.}
+                      // onChange={(e) =>
+                      //   handleChange(
+                      //     "electricityAvailable",
+                      //     e.target.value
+                      //   )
+                      // }
                       />
                     </div>
                   </div>
@@ -496,7 +535,7 @@ const AddRateModal = ({ onClick, active, data }) => {
                     </div>
                   </div>
                 </div>
-                <div className="row">
+                {/* <div className="row">
                   <div className="col-md-12">
                     <div class="form-group">
                       <label for="idcard">Property Description</label>
@@ -511,6 +550,81 @@ const AddRateModal = ({ onClick, active, data }) => {
                           handleChange("description", e.target.value)
                         }
                       ></textarea>
+                    </div>
+                  </div>
+                </div> */}
+
+                <div class="row">
+                  <div className="col-md-12">
+                    <div className="form-group multipleImageUpload">
+                      <label for="image">Images</label>
+                      <div className="text-field">
+                        <div className="user-img">
+                          {isArrayCheck(url) &&
+                            url.map((dat) => (
+                              <img src={dat} className="uploaded" alt="user" />
+                            ))}
+
+                          <label htmlFor="contained-button-file">
+                            <Input
+                              onChange={(e) => imageUpload(e)}
+                              inputProps={{ accept: "image/" }}
+                              id="contained-button-file"
+                              className="d-none"
+                              type="file"
+                              name="image"
+                            />
+                            {/* <img src={Dummy} className="uploadImg" alt="" /> */}
+                            <div className="uploadImage">
+                              <i className="fa fa-plus"></i>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-md-12">
+                    <div class="form-group">
+                      <label for="idcard">Property Description</label>
+                      <Editor
+                        editorState={editorState}
+                        wrapperClassName="demo-wrapper"
+                        editorClassName="demo-editor"
+                        onEditorStateChange={onEditorStateChange}
+                        toolbar={{
+                          options: [
+                            "inline",
+                            "blockType",
+                            "fontSize",
+                            "list",
+                            "textAlign",
+                            "colorPicker",
+                            "link",
+                            "embedded",
+                            "emoji",
+                            "remove",
+                            "history",
+                          ],
+                          inline: { inDropdown: true },
+                          list: { inDropdown: true },
+                          textAlign: { inDropdown: true },
+                          link: { inDropdown: true },
+                          history: { inDropdown: true },
+                          // image: {
+                          //     urlEnabled: true,
+                          //     uploadEnabled: true,
+                          //     uploadCallback: uploadImageCallBack,
+                          //     alignmentEnabled: true,
+                          //     defaultSize: {
+                          //         height: 'auto',
+                          //         width: 'auto',
+                          //     }
+                          // }
+                        }}
+                      />
                     </div>
                   </div>
                 </div>

@@ -10,9 +10,7 @@ const ModalContent = ({ onClick, active, data }) => {
     <Modal size="lg" className=" fade" id="aAddDietMenus" show={active}>
       <div className="modal-content">
         <Modal.Header className="modal-header">
-          <Modal.Title className="modal-title">
-            Property Rates Details
-          </Modal.Title>
+          <Modal.Title className="modal-title">Propert Details</Modal.Title>
           <Button
             variant=""
             className="close"

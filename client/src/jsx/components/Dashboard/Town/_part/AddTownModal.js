@@ -12,19 +12,29 @@ import upload from "../../../../../images/user-round.jpg";
 import Dummy from "../../../../../images/upload-image.svg";
 import { MESSAGE } from "../../../../../utils/Message-List";
 import { createTown } from "../../../../../store/actions/Town";
+import { addMethod } from "yup";
+import {
+  addMethodArray,
+  isArrayCheck,
+  removeMethodArray,
+  removeMethodArrayUsingIndex,
+  removeMethodArrayUsingStringData,
+} from "../../../../../utils/helper";
+import { plainObjectToFormData } from "../../../PluginsMenu/Nestable/utils";
 
 const AddTownModal = ({ onClick, active, data }) => {
-  const [hasBlockStatus, sethasBlockStatus] = useState("1");
-  const [isActive, setisActive] = useState("1");
-  const [isOnConstruction, setisOnConstruction] = useState("1");
+  const [hasBlockStatus, sethasBlockStatus] = useState(1);
+  const [isActive, setisActive] = useState(1);
+  const [isOnConstruction, setisOnConstruction] = useState(1);
 
   const radios = [
-    { name: "Yes", value: "1" },
-    { name: "No", value: "2" },
+    { name: "Yes", value: 1 },
+    { name: "No", value: 0 },
   ];
   const [url, setUrl] = useState("");
-  const [name, setname] = useState("");
-  const [passcode, setpasscode] = useState("");
+  const [text1, settext1] = useState("");
+  const [text2, settext2] = useState("");
+  const [text3, settext3] = useState("");
   const dispatch = useDispatch();
   const optionsArray = [
     { key: "au", label: "Australia" },
@@ -54,6 +64,7 @@ const AddTownModal = ({ onClick, active, data }) => {
     address: "Joahr Town Lahore",
     email: "new@gmail.com",
     phone: "0924568765431",
+    phone2: "0924568765431",
     whatsapp: "+92098736563789",
   });
 
@@ -81,6 +92,8 @@ const AddTownModal = ({ onClick, active, data }) => {
   const handleAdd = (e) => {
     e.preventDefault();
     console.log("On Click Add", values, values2);
+
+    const dataObj = plainObjectToFormData(makeData(values, values2));
     if (
       values.name &&
       values.area &&
@@ -89,7 +102,7 @@ const AddTownModal = ({ onClick, active, data }) => {
       values2.address &&
       values2.phone
     ) {
-      dispatch(createTown(makeData(values, values2), onClick, refreshState));
+      dispatch(createTown(dataObj, onClick, refreshState));
     } else {
       makeToast("error", MESSAGE.emptyStringValidation);
     }
@@ -99,7 +112,7 @@ const AddTownModal = ({ onClick, active, data }) => {
     let reader = new FileReader();
     let file = e.target.files[0];
     reader.onloadend = (e) => {
-      setUrl(e.target.result);
+      setUrl(addMethodArray(url, e.target.result));
     };
     reader.readAsDataURL(file);
   };
@@ -109,17 +122,26 @@ const AddTownModal = ({ onClick, active, data }) => {
       hasBlock: obj1.hasBlock,
       block: obj1.block,
       name: obj1.name,
+      tagLine: "Peace Place to Live",
       area: obj1.area,
       city: obj1.city,
       country: obj1.country,
       address: obj1.address,
       isOnConstruction: true,
       isActive: true,
-      tagLine: "Peace Place to Live",
-      WhyChooseUs: null,
-      LocationGuide: null,
-      AffordablePaymentPlan: null,
-      officeAddress: [obj2],
+      WhyChooseUs: obj1?.WhyChooseUs,
+      LocationGuide: obj1?.LocationGuide,
+      AffordablePaymentPlan: obj1?.AffordablePaymentPlan,
+      townInformation: {
+        name: obj1.name,
+        tagLine: obj1?.tagLine,
+        WhyChooseUs: obj1?.WhyChooseUs,
+        LocationGuide: obj1?.LocationGuide,
+        AffordablePaymentPlan: obj1?.AffordablePaymentPlan,
+        paymentPlanImage: [],
+        officeAddress: [obj2],
+      },
+      files: url,
     };
   };
   return (
@@ -265,29 +287,56 @@ const AddTownModal = ({ onClick, active, data }) => {
                         id="whyChooseUs"
                         rows="3"
                         placeholder="Why Choose Us"
-                        onChange={(e) =>
-                          handleChange("WhyChooseUs", e.target.value)
+                        onChange={
+                          (e) => {
+                            settext1(e.target.value);
+                          }
+                          // handleChange("WhyChooseUs", e.target.value)
                         }
-                        value={values.WhyChooseUs}
+                        value={text1}
                       ></textarea>
-                      <div className="tagInput">
-                        <div className="tags">
-                          <p>tag1</p>
-                          <i className="fa fa-times"></i>
+
+                      {text1 && (
+                        <button
+                          class="btn btn-sm btn-primary rounded bg-dark text-white mx-auto"
+                          onClick={(e) => {
+                            // e.preventDefault();
+
+                            const data = addMethodArray(
+                              values.WhyChooseUs,
+                              text1
+                            );
+                            handleChange("WhyChooseUs", data);
+                            settext1("");
+                          }}
+                        >
+                          Add
+                        </button>
+                      )}
+
+                      {isArrayCheck(values.WhyChooseUs) && (
+                        <div className="tagInput">
+                          {values.WhyChooseUs?.map((data, id) => (
+                            <div
+                              className="tags"
+                              style={{ cursor: "pointer" }}
+                              onClick={(e) => {
+                                // e.preventDefault();
+                                const arr = removeMethodArrayUsingStringData(
+                                  values.WhyChooseUs,
+                                  data
+                                );
+                                if (arr) {
+                                  handleChange("WhyChooseUs", arr);
+                                }
+                              }}
+                            >
+                              <p>{data}</p>
+                              <i className="fa fa-times"></i>
+                            </div>
+                          ))}
                         </div>
-                        <div className="tags">
-                          <p>amazing</p>
-                          <i className="fa fa-times"></i>
-                        </div>
-                        <div className="tags">
-                          <p>Fantabulus</p>
-                          <i className="fa fa-times"></i>
-                        </div>
-                        <div className="tags">
-                          <p>tag2</p>
-                          <i className="fa fa-times"></i>
-                        </div>
-                      </div>
+                      )}
                     </div>
 
                     <div class="form-group">
@@ -298,29 +347,56 @@ const AddTownModal = ({ onClick, active, data }) => {
                         id="locationGuide"
                         rows="3"
                         placeholder="Location Guide"
-                        onChange={(e) =>
-                          handleChange("LocationGuide", e.target.value)
+                        onChange={
+                          (e) => {
+                            settext2(e.target.value);
+                          }
+                          // handleChange("LocationGuide", e.target.value)
                         }
-                        value={values.LocationGuide}
+                        value={text2}
                       ></textarea>
-                      <div className="tagInput">
-                        <div className="tags">
-                          <p>tag1</p>
-                          <i className="fa fa-times"></i>
+
+                      {text2 && (
+                        <button
+                          class="btn btn-sm btn-primary rounded bg-dark text-white mx-auto"
+                          onClick={(e) => {
+                            // e.preventDefault();
+
+                            const data = addMethodArray(
+                              values.LocationGuide,
+                              text2
+                            );
+                            handleChange("LocationGuide", data);
+                            settext2("");
+                          }}
+                        >
+                          Add
+                        </button>
+                      )}
+
+                      {isArrayCheck(values.LocationGuide) && (
+                        <div className="tagInput">
+                          {values.LocationGuide?.map((data, id) => (
+                            <div
+                              className="tags"
+                              style={{ cursor: "pointer" }}
+                              onClick={(e) => {
+                                // e.preventDefault();
+                                const arr = removeMethodArrayUsingStringData(
+                                  values.LocationGuide,
+                                  data
+                                );
+                                if (arr) {
+                                  handleChange("LocationGuide", arr);
+                                }
+                              }}
+                            >
+                              <p>{data}</p>
+                              <i className="fa fa-times"></i>
+                            </div>
+                          ))}
                         </div>
-                        <div className="tags">
-                          <p>amazing</p>
-                          <i className="fa fa-times"></i>
-                        </div>
-                        <div className="tags">
-                          <p>Fantabulus</p>
-                          <i className="fa fa-times"></i>
-                        </div>
-                        <div className="tags">
-                          <p>tag2</p>
-                          <i className="fa fa-times"></i>
-                        </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -334,12 +410,58 @@ const AddTownModal = ({ onClick, active, data }) => {
                         name="paymentPlan"
                         id="paymentPlan"
                         rows="3"
-                        onChange={(e) =>
-                          handleChange("AffordablePaymentPlan", e.target.value)
+                        onChange={
+                          (e) => {
+                            settext3(e.target.value);
+                          }
+                          // handleChange("AffordablePaymentPlan", e.target.value)
                         }
-                        value={values.AffordablePaymentPlan}
+                        value={text3}
                       ></textarea>
-                      <div className="tagInput">
+
+                      {text3 && (
+                        <button
+                          class="btn btn-sm btn-primary rounded bg-dark text-white mx-auto"
+                          onClick={(e) => {
+                            // e.preventDefault();
+
+                            const data = addMethodArray(
+                              values.AffordablePaymentPlan,
+                              text3
+                            );
+                            handleChange("AffordablePaymentPlan", data);
+                            settext3("");
+                          }}
+                        >
+                          Add
+                        </button>
+                      )}
+
+                      {isArrayCheck(values.AffordablePaymentPlan) && (
+                        <div className="tagInput">
+                          {values.AffordablePaymentPlan?.map((data, id) => (
+                            <div
+                              className="tags"
+                              style={{ cursor: "pointer" }}
+                              onClick={(e) => {
+                                // e.preventDefault();
+                                const arr = removeMethodArrayUsingStringData(
+                                  values.AffordablePaymentPlan,
+                                  data
+                                );
+                                if (arr) {
+                                  handleChange("AffordablePaymentPlan", arr);
+                                }
+                              }}
+                            >
+                              <p>{data}</p>
+                              <i className="fa fa-times"></i>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* <div className="tagInput">
                         <div className="tags">
                           <p>tag1</p>
                           <i className="fa fa-times"></i>
@@ -356,7 +478,7 @@ const AddTownModal = ({ onClick, active, data }) => {
                           <p>tag2</p>
                           <i className="fa fa-times"></i>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -366,37 +488,6 @@ const AddTownModal = ({ onClick, active, data }) => {
                   </div>
                 </div>
                 <div class="row">
-                  <div className="col-md-6">
-                    <div class="form-group whyChooseUS">
-                      <label for="WhyChooseUS">Address</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="whyChooseUs"
-                        aria-describedby="emailHelp"
-                        placeholder="Address"
-                        onChange={(e) =>
-                          handleChangeOfficeAddress("address", e.target.value)
-                        }
-                        value={values2.address}
-                      />
-                    </div>
-
-                    <div class="form-group">
-                      <label for="LocationGuide">Phone</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="LocationGuide"
-                        aria-describedby="emailHelp"
-                        placeholder="Phone Number"
-                        onChange={(e) =>
-                          handleChangeOfficeAddress("phone", e.target.value)
-                        }
-                        value={values2.phone}
-                      />
-                    </div>
-                  </div>
                   <div className="col-md-6">
                     <div class="form-group">
                       <label for="AffordablePaymentPlan">Email Id</label>
@@ -428,125 +519,53 @@ const AddTownModal = ({ onClick, active, data }) => {
                       />
                     </div>
                   </div>
-                </div>
 
-                <div class="row">
-                  <div className="col-md-6">
-                    <div className="form-group multipleImageUpload">
-                      <label for="image">Payment Plan Image</label>
-                      <div className="text-field">
-                        <div className="user-img">
-                          {url ? (
-                            <>
-                              <img src={url} className="uploaded" alt="user" />
-                              <label htmlFor="contained-button-file">
-                                <Input
-                                  onChange={(e) => imageUpload(e)}
-                                  inputProps={{ accept: "image/" }}
-                                  id="contained-button-file"
-                                  className="d-none"
-                                  type="file"
-                                  name="image"
-                                />
-                                {/* <img src={Dummy} className="uploadImg" alt="" /> */}
-                                <div className="uploadImage">
-                                  <i className="fa fa-plus"></i>
-                                </div>
-                              </label>
-                            </>
-                          ) : (
-                            <>
-                              <img src={upload} className="uploaded" alt="" />
-                              <label htmlFor="contained-button-file">
-                                <Input
-                                  onChange={(e) => imageUpload(e)}
-                                  inputProps={{ accept: "image/" }}
-                                  id="contained-button-file"
-                                  className="d-none"
-                                  type="file"
-                                  name="image"
-                                />
-                                <div className="uploadImage">
-                                  <i className="fa fa-plus"></i>
-                                </div>
-                              </label>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-6">
-                    <div className="form-group multipleImageUpload">
-                      <label for="image">Gallery</label>
-                      <div className="text-field">
-                        <div className="user-img">
-                          {url ? (
-                            <>
-                              <img src={url} className="uploaded" alt="user" />
-                              <label htmlFor="contained-button-file">
-                                <Input
-                                  onChange={(e) => imageUpload(e)}
-                                  inputProps={{ accept: "image/" }}
-                                  id="contained-button-file"
-                                  className="d-none"
-                                  type="file"
-                                  name="image"
-                                />
-                                {/* <img src={Dummy} className="uploadImg" alt="" /> */}
-                                <div className="uploadImage">
-                                  <i className="fa fa-plus"></i>
-                                </div>
-                              </label>
-                            </>
-                          ) : (
-                            <>
-                              <img src={upload} className="uploaded" alt="" />
-                              <label htmlFor="contained-button-file">
-                                <Input
-                                  onChange={(e) => imageUpload(e)}
-                                  inputProps={{ accept: "image/" }}
-                                  id="contained-button-file"
-                                  className="d-none"
-                                  type="file"
-                                  name="image"
-                                />
-                                <div className="uploadImage">
-                                  <i className="fa fa-plus"></i>
-                                </div>
-                              </label>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row">
                   <div className="col-md-6">
                     <div class="form-group">
-                      <label for="Action">Has Block</label>
-                      <br />
-                      <ButtonGroup className="mb-2 toggleBtns">
-                        {radios.map((radio, idx) => (
-                          <ToggleButton
-                            key={idx}
-                            id={`radio-${idx}`}
-                            type="radio"
-                            variant="secondary"
-                            name="radio"
-                            value={radio.value}
-                            checked={hasBlockStatus === radio.value}
-                            onChange={(e) =>
-                              sethasBlockStatus(e.currentTarget.value)
-                            }
-                          >
-                            {radio.name}
-                          </ToggleButton>
-                        ))}
-                      </ButtonGroup>
+                      <label for="LocationGuide">Phone</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="LocationGuide"
+                        aria-describedby="emailHelp"
+                        placeholder="Phone Number"
+                        onChange={(e) =>
+                          handleChangeOfficeAddress("phone", e.target.value)
+                        }
+                        value={values2.phone}
+                      />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="LocationGuide">Phone 2</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="LocationGuide"
+                        aria-describedby="emailHelp"
+                        placeholder="Phone Number"
+                        onChange={(e) =>
+                          handleChangeOfficeAddress("phone2", e.target.value)
+                        }
+                        value={values2.phone2}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-12">
+                    <div class="form-group whyChooseUS">
+                      <label for="WhyChooseUS">Address</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="whyChooseUs"
+                        aria-describedby="emailHelp"
+                        placeholder="Address"
+                        onChange={(e) =>
+                          handleChangeOfficeAddress("address", e.target.value)
+                        }
+                        value={values2.address}
+                      />
                     </div>
                   </div>
                 </div>
@@ -562,11 +581,13 @@ const AddTownModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="secondary"
+                            variant="light"
                             name="radio"
                             value={radio.value}
                             checked={isActive === radio.value}
-                            onChange={(e) => setisActive(e.currentTarget.value)}
+                            onChange={(e) =>
+                              setisActive(Number(e.currentTarget.value))
+                            }
                           >
                             {radio.name}
                           </ToggleButton>
@@ -585,18 +606,121 @@ const AddTownModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="secondary"
+                            variant="light"
                             name="radio"
                             value={radio.value}
                             checked={isOnConstruction === radio.value}
                             onChange={(e) =>
-                              setisOnConstruction(e.currentTarget.value)
+                              setisOnConstruction(Number(e.currentTarget.value))
                             }
                           >
                             {radio.name}
                           </ToggleButton>
                         ))}
                       </ButtonGroup>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div className="col-md-6">
+                    <div class="form-group">
+                      <label for="Action">Has Block </label>
+                      <br />
+                      <ButtonGroup className="mb-2 toggleBtns">
+                        {radios.map((radio, idx) => (
+                          <ToggleButton
+                            key={idx}
+                            id={`radio-${idx}`}
+                            type="radio"
+                            variant="light"
+                            name="radio"
+                            value={radio.value}
+                            checked={hasBlockStatus === radio.value}
+                            onChange={(e) =>
+                              sethasBlockStatus(Number(e.currentTarget.value))
+                            }
+                          >
+                            {radio.name}
+                          </ToggleButton>
+                        ))}
+                      </ButtonGroup>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  {/* <div className="col-md-6">
+                    <div className="form-group multipleImageUpload">
+                      <label for="image">Payment Plan Image</label>
+                      <div className="text-field">
+                        <div className="user-img">
+                          {url ? (
+                            <>
+                              <img src={url} className="uploaded" alt="user" />
+                              <label htmlFor="contained-button-file">
+                                <Input
+                                  onChange={(e) => imageUpload(e)}
+                                  inputProps={{ accept: "image/" }}
+                                  id="contained-button-file"
+                                  className="d-none"
+                                  type="file"
+                                  name="image"
+                                />
+                                <div className="uploadImage">
+                                  <i className="fa fa-plus"></i>
+                                </div>
+                              </label>
+                            </>
+                          ) : (
+                            <>
+                              <img src={upload} className="uploaded" alt="" />
+                              <label htmlFor="contained-button-file">
+                                <Input
+                                  onChange={(e) => imageUpload(e)}
+                                  inputProps={{ accept: "image/" }}
+                                  id="contained-button-file"
+                                  className="d-none"
+                                  type="file"
+                                  name="image"
+                                />
+                                <div className="uploadImage">
+                                  <i className="fa fa-plus"></i>
+                                </div>
+                              </label>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div> */}
+
+                  <div className="col-md-6">
+                    <div className="form-group multipleImageUpload">
+                      <label for="image">Gallery</label>
+                      <div className="text-field">
+                        <div className="user-img">
+                          {isArrayCheck(url) &&
+                            url.map((dat) => (
+                              <img src={dat} className="uploaded" alt="user" />
+                            ))}
+
+                          <label htmlFor="contained-button-file">
+                            <Input
+                              onChange={(e) => imageUpload(e)}
+                              inputProps={{ accept: "image/" }}
+                              id="contained-button-file"
+                              className="d-none"
+                              type="file"
+                              name="image"
+                            />
+                            {/* <img src={Dummy} className="uploadImg" alt="" /> */}
+                            <div className="uploadImage">
+                              <i className="fa fa-plus"></i>
+                            </div>
+                          </label>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

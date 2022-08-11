@@ -10,6 +10,7 @@ import makeToast from "../../../../../utils/Toaster";
 import Input from "@mui/material/Input";
 import upload from "../../../../../images/user-round.jpg";
 import Dummy from "../../../../../images/upload-image.svg";
+import { image_url } from "../../../../../utils/config";
 const EditUserModal = ({ onClick, active, data }) => {
   const [url, setUrl] = useState("");
   const [name, setname] = useState("");
@@ -77,7 +78,9 @@ const EditUserModal = ({ onClick, active, data }) => {
       designation: data?.designation,
       email: data?.email,
       userId: data?._id,
+      // url: ,
     });
+    setUrl(data?.profile);
   }, [data]);
   return (
     <Modal size="lg" className=" fade" id="aAddDietMenus" show={active}>
@@ -105,7 +108,11 @@ const EditUserModal = ({ onClick, active, data }) => {
                         <div className="user-img">
                           {url ? (
                             <>
-                              <img src={url} className="uploaded" alt="user" />
+                              <img
+                                src={image_url + url}
+                                className="uploaded"
+                                alt="user"
+                              />
                               <label htmlFor="contained-button-file">
                                 <Input
                                   onChange={(e) => imageUpload(e)}

@@ -8,15 +8,16 @@ import { Link } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import SubHeader from "../SubHeader/Index";
 function Index() {
-  
   return (
     <React.Fragment>
       <SubHeader />
       <Navbar expand="lg">
         <div className="container">
-          <Navbar.Brand href="/">
-            <img src={Logo} alt="logo" />
-          </Navbar.Brand>
+          <Link to="/">
+            <Navbar.Brand>
+              <img src={Logo} alt="logo" />
+            </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav>
@@ -30,9 +31,7 @@ function Index() {
                 </li>
                 <li>
                   <NavDropdown title="PROPERTIES" id="navbarScrollingDropdown">
-                    <NavDropdown.Item href="">
-                      BAHRIA TOWN LAHORE
-                    </NavDropdown.Item>
+                    <Link to="/bahria-town">BAHRIA TOWN LAHORE</Link>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="">
                       BAHRIA TOWN KARACHI
@@ -67,10 +66,10 @@ function Index() {
                   </NavDropdown>
                 </li>
                 <li>
-                  <Link to="">construction Updates</Link>
+                  <Link to="/updates">construction Updates</Link>
                 </li>
                 <li>
-                  <Link to="">Contact</Link>
+                  <Link to="/contact">Contact</Link>
                 </li>
               </ul>
             </Nav>

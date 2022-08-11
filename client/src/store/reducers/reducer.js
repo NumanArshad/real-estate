@@ -8,6 +8,7 @@ import Property from "./Property";
 import SaleAgent from "./SaleAgent";
 import Town from "./Town";
 import User from "./User";
+import Home from "./CustomerReducer/Home";
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   _mapModal: MapModal,
   _marketRates: MarketRates,
   _property: Property,
+  _home: Home,
 });
 
 export default reducer;

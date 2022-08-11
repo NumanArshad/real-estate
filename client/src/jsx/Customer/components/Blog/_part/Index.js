@@ -1,14 +1,18 @@
 import React from "react";
-import { data } from "../../../assets/utilities/blogsDetail";
+import Data from "../../../assets/utilities/blogsData.json";
+import Banner from "../../Layouts/Banner/Banner";
+import { Link } from "react-router-dom";
 function Index() {
   return (
-    <div className="blogsMain">
-      <div className="container">
-        <div className="row">
-              {data.map((data, index) => {
-                  return (
-                      <div className="col-md-4 px-2">
-                      <div
+    <>
+      <Banner />
+      <div className="blogsMain">
+        <div className="container">
+          <div className="row">
+            {Data.map((data, index) => {
+              return (
+                <div className="col-md-4 px-2">
+                  <div
                     key={index}
                     className="sliderCard mt-3"
                     data-aos="zoom-in"
@@ -28,15 +32,18 @@ function Index() {
                       </div>
                       <h3>{data.title}</h3>
                       <p>{data.description}</p>
-                      <span>Continue reading</span>
+                      <Link to="/blog-detail">
+                        <span>Continue reading</span>
+                      </Link>
                     </div>
-          </div>
                   </div>
-                );
-              })}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

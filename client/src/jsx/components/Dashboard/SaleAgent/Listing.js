@@ -9,6 +9,7 @@ import { getAllUsers } from "../../../../store/actions/User/index.js";
 import AddRoomModal from "./_part/AddRoomModal.js";
 import EditRoomModal from "./_part/EditRoomModal.js";
 import ModalContent from "./_part/Modal.js";
+import { image_url } from "../../../../utils/config.js";
 
 const SaleAgentListing = () => {
   const [ApointmnetDetails, setApointmnetDetails] = useState("");
@@ -82,7 +83,7 @@ const SaleAgentListing = () => {
             id: id + 1,
             image: (
               <img
-                src={data?.profile}
+                src={image_url + data?.profile}
                 style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
                 alt="Dummy"
               />
@@ -147,33 +148,34 @@ const SaleAgentListing = () => {
         <div className="card-body">
           <DataTable
             columns={COLUMN_HERADER.agent_listing_header}
-            data={[
-              {
-                id: 1,
-                action: (
-                  <div className="d-flex align-items-center">
-                    <button
-                      onClick={() => {
-                        // setApointmnetDetails(data);
-                        setedit(true);
-                      }}
-                      className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                    >
-                      <i className="fa fa-edit"></i>
-                    </button>
-                    <button
-                      onClick={() => {
-                        // setApointmnetDetails(data);
-                        setopenDetails(true);
-                      }}
-                      className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                    >
-                      <i className="fa fa-info"></i>
-                    </button>
-                  </div>
-                ),
-              },
-            ]}
+            data={row}
+            // data={[
+            //   {
+            //     id: 1,
+            //     action: (
+            //       <div className="d-flex align-items-center">
+            //         <button
+            //           onClick={() => {
+            //             // setApointmnetDetails(data);
+            //             setedit(true);
+            //           }}
+            //           className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+            //         >
+            //           <i className="fa fa-edit"></i>
+            //         </button>
+            //         <button
+            //           onClick={() => {
+            //             // setApointmnetDetails(data);
+            //             setopenDetails(true);
+            //           }}
+            //           className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+            //         >
+            //           <i className="fa fa-info"></i>
+            //         </button>
+            //       </div>
+            //     ),
+            //   },
+            // ]}
             defaultSortFieldId={1}
             pagination
             responsive

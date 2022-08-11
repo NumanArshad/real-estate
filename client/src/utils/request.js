@@ -6,7 +6,7 @@ const request = () => {
   instance.interceptors.request.use(async (config) => {
     var jwtToken = await localStorage.getItem("jwtToken");
     config.headers.Authorization = jwtToken ? jwtToken : "";
-    config.baseURL = `/api`;
+    config.baseURL = `/api/`;
     return config;
   });
   instance.interceptors.response.use(
@@ -18,7 +18,6 @@ const request = () => {
       // makeToast('error', error.response.data.message);
       if ([401, 403].includes(error.response.status)) {
         window.location.href = "/";
-        localStorage.clear()
       }
       return error.response;
     }

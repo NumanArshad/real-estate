@@ -106,12 +106,12 @@ const EditTownModal = ({ onClick, active, data }) => {
       city: data?.city,
       country: data?.country,
       address: data?.address,
-      isOnConstruction: false,
-      isActive: true,
+      isOnConstruction: data?.isOnConstruction,
+      isActive: data?.isActive,
       tagLine: data?.tagLine,
-      WhyChooseUs: null,
-      LocationGuide: null,
-      AffordablePaymentPlan: null,
+      WhyChooseUs: data?.townInformation?.WhyChooseUs,
+      LocationGuide: data?.townInformation?.LocationGuide,
+      AffordablePaymentPlan: data?.townInformation?.AffordablePaymentPlan,
     });
 
     if (isArrayCheck(data?.officeAddress)) {
@@ -478,7 +478,7 @@ const EditTownModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="secondary"
+                            variant="light"
                             name="radio"
                             value={radio.value}
                             checked={hasBlockStatus === radio.value}
@@ -505,7 +505,7 @@ const EditTownModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="secondary"
+                            variant="light"
                             name="radio"
                             value={radio.value}
                             checked={isActive === radio.value}
@@ -528,7 +528,7 @@ const EditTownModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="secondary"
+                            variant="light"
                             name="radio"
                             value={radio.value}
                             checked={isOnConstruction === radio.value}

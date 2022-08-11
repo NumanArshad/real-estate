@@ -42,12 +42,13 @@ const AddUserModal = ({ onClick, active, data }) => {
       designation: "Sale Ex",
       password: "12345678",
       email: "",
+      url: "",
     });
   };
   const handleAdd = (e) => {
     e.preventDefault();
     if (values.email && values.password && values.first_name) {
-      const formData = plainObjectToFormData(values)
+      const formData = plainObjectToFormData(values);
       dispatch(createUser(formData, onClick, refreshState));
     } else {
       makeToast("error", "Kindly fill all the fields!");
@@ -57,7 +58,7 @@ const AddUserModal = ({ onClick, active, data }) => {
     e.preventDefault();
     let reader = new FileReader();
     let file = e.target.files[0];
-    setValues(prev => ({ ...prev, file }))
+    setValues((prev) => ({ ...prev, file }));
     reader.onloadend = (e) => {
       setUrl(e.target.result);
     };
@@ -67,7 +68,7 @@ const AddUserModal = ({ onClick, active, data }) => {
     <Modal size="lg" className=" fade" id="aAddDietMenus" show={active}>
       <div className="modal-content">
         <Modal.Header className="modal-header">
-          <Modal.Title className="modal-title">Agent Details</Modal.Title>
+          <Modal.Title className="modal-title">Create New Agent</Modal.Title>
           <Button
             variant=""
             className="close"
@@ -202,27 +203,25 @@ const AddUserModal = ({ onClick, active, data }) => {
                     </div>
                     <div class="form-group">
                       <label for="Role">Role</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="Role"
-                        aria-describedby="emailHelp"
+                       <select name="Role" aria-describedby="emailHelp"
                         placeholder="Enter Role"
                         value={values.role}
-                        onChange={(e) => handleChange("role", e.target.value)}
-                      />
+                        onChange={(e) => handleChange("role", e.target.value)} class="form-control" id="Role">
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                      </select>
                     </div>
                     <div class="form-group">
                       <label for="Gender">Gender</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="Gender"
+                      <select class="form-control"
+                        id="Gender" name="Gender"
                         aria-describedby="emailHelp"
                         placeholder="Enter Gender"
                         value={values.gender}
-                        onChange={(e) => handleChange("gender", e.target.value)}
-                      />
+                        onChange={(e) => handleChange("gender", e.target.value)}>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
                     </div>
                     <div class="form-group">
                       <label for="Designation">Designation</label>

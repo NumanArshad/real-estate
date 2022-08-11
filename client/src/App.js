@@ -4,7 +4,7 @@ import Index from "./jsx/index";
 import { connect, useDispatch, useSelector } from "react-redux";
 /// Style
 import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.css";
 import { Route, Switch } from "react-router-dom";
 import Register from "./jsx/pages/Registration";
@@ -18,6 +18,11 @@ import Blog from "./jsx/Customer/components/Blog/Index";
 import Video from "./jsx/Customer/components/Video/Index";
 import LahoreMarketRates from "./jsx/Customer/components/LahoreMarketRates/Index";
 import KarachiMarketRates from "./jsx/Customer/components/KarachiMarketRates/Index";
+import BahriaTown from "./jsx/Customer/components/BahriaTownProperty/index";
+import Detail from "./jsx/Customer/components/Blog/Detail";
+import BahriaDetail from "./jsx/Customer/components/BahriaTownProperty/Detail";
+import Contact from "./jsx/Customer/components/ContactUs/Index";
+import Updates from "./jsx/Customer/components/ConstructionUpdates/Index";
 
 const SignUp = lazy(() => import("./jsx/pages/Registration"));
 const ForgotPassword = lazy(() => import("./jsx/pages/ForgotPassword"));
@@ -37,33 +42,33 @@ function App(props) {
     // localStorage.setItem(
     //   "user",
     //   JSON.stringify({
-    //     phone: "",
-    //     address: "",
-    //     city: "",
-    //     idCard: "",
-    //     _id: "62c85ac44bfe0b7cd1e88dbb",
+    //     _id: "62ee8f58024509820bf3712b",
     //     email: "admin@gmail.com",
     //     password:
-    //       "$2a$10$JvDftI2OWMzRGX7Krk5E6uNLnP2XMGFZ.bfkN4JrOpxD3Dsi/WBT.",
-    //     first_name: "zz",
-    //     last_name: "",
+    //       "$2a$10$ihmTOxIjuV2k6RmNAx.COe7uSJIvRJkB2qK4aIAxUv0T..t2GXNWi",
+    //     first_name: "admin",
+    //     last_name: "abc",
     //     profile:
     //       "https://remapconsulting.com/wp-content/uploads/2018/03/Image-placeholder-man.jpg",
     //     designation: "",
     //     role: "admin",
     //     forgotPinCode: "",
+    //     phone: "03123456789",
+    //     address: "",
+    //     city: "",
+    //     idCard: "",
     //     gender: "male",
     //     changePassword: true,
     //     isActive: true,
-    //     created_at: "2022-07-08T16:26:44.456Z",
-    //     updated_at: "2022-07-08T16:26:44.456Z",
+    //     created_at: "2022-08-06T15:57:12.948Z",
+    //     updated_at: "2022-08-06T15:57:12.948Z",
     //     __v: 0,
     //   })
     // );
 
     // localStorage.setItem(
     //   "jwtToken",
-    //   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYzg1YWM0NGJmZTBiN2NkMWU4OGRiYiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjU3OTkwODAwfQ.Sd7Mlhwh9TphWEP58MBvObxmFwxvXc_EOhB8RPTI1ww"
+    //   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYzg1YWM0NGJmZTBiN2NkMWU4OGRiYiIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjU5OTY2NTc1fQ.xu9y1EmaG1xoimYtR7nh4eQSsKYou04A5ubHVpgC-P0"
     // );
   }, []);
 
@@ -72,7 +77,6 @@ function App(props) {
       <Route exact path="/">
         {/* <Loginn /> */}
         <Main />
-
       </Route>
       <Route exact path="/register">
         <Register />
@@ -86,6 +90,9 @@ function App(props) {
       <Route exact path="/blog">
         <Blog />
       </Route>
+      <Route exact path="/blog-detail">
+        <Detail />
+      </Route>
       <Route exact path="/video">
         <Video />
       </Route>
@@ -95,7 +102,18 @@ function App(props) {
       <Route exact path="/karachi-market-rates">
         <KarachiMarketRates />
       </Route>
-
+      <Route exact path="/bahria-town">
+        <BahriaTown />
+      </Route>
+      <Route exact path="/bahria-town-detail">
+        <BahriaDetail />
+      </Route>
+      <Route exact path="/contact">
+        <Contact />
+      </Route>
+      <Route exact path="/updates">
+        <Updates />
+      </Route>
     </Switch>
   );
   if (isAuthenticated) {

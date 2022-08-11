@@ -206,7 +206,7 @@ const EditBlogModal = ({ onClick, active, data }) => {
                             key={idx}
                             id={`radio-${idx}`}
                             type="radio"
-                            variant="primary"
+                            variant="light"
                             name="radio"
                             value={radio.value}
                             checked={radioValue === radio.value}
