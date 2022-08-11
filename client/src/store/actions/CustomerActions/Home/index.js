@@ -35,7 +35,7 @@ export const getHomeSalesAgents = () => async (dispatch) => {
       console_log("Data", data?.responseData);
       dispatch({
         type: GET_HOME_PAGE_AGENTS,
-        payload: data?.response,
+        payload: data?.user,
       });
     }
   } catch (e) {
