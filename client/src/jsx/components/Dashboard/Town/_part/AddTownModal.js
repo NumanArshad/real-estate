@@ -58,6 +58,7 @@ const AddTownModal = ({ onClick, active, data }) => {
     WhyChooseUs: null,
     LocationGuide: null,
     AffordablePaymentPlan: null,
+    files: [],
   });
 
   const [values2, setValues2] = React.useState({
@@ -91,9 +92,9 @@ const AddTownModal = ({ onClick, active, data }) => {
   };
   const handleAdd = (e) => {
     e.preventDefault();
-    console.log("On Click Add", values, values2);
 
     const dataObj = plainObjectToFormData(makeData(values, values2));
+    console.log("Response ==>", makeData(values, values2));
     if (
       values.name &&
       values.area &&
@@ -109,15 +110,14 @@ const AddTownModal = ({ onClick, active, data }) => {
   };
   const imageUpload = (e) => {
     e.preventDefault();
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    reader.onloadend = (e) => {
-      setUrl(addMethodArray(url, e.target.result));
-    };
-    reader.readAsDataURL(file);
+    const file = e.target.files[0];
+    setUrl((prev) => [...prev, URL.createObjectURL(file)]);
+    setValues((prev) => ({ ...prev, files: [...prev.files, file] }));
   };
 
   const makeData = (obj1, obj2) => {
+    console.log("Make Data 1", obj1);
+    console.log("Make Data 2", obj2);
     return {
       hasBlock: obj1.hasBlock,
       block: obj1.block,
@@ -141,7 +141,7 @@ const AddTownModal = ({ onClick, active, data }) => {
         paymentPlanImage: [],
         officeAddress: [obj2],
       },
-      files: url,
+      files: obj1?.files,
     };
   };
   return (

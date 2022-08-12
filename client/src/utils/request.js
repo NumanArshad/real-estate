@@ -5,7 +5,7 @@ const request = () => {
   let instance = axios.create({});
   instance.interceptors.request.use(async (config) => {
     var jwtToken = await localStorage.getItem("jwtToken");
-    config.headers.Authorization = jwtToken ? jwtToken : "";
+    config.headers.Authorization = jwtToken ? `Bearer ${jwtToken}` : "";
     config.baseURL = `/api/`;
     return config;
   });
@@ -18,6 +18,7 @@ const request = () => {
       // makeToast('error', error.response.data.message);
       if ([401, 403].includes(error.response.status)) {
         window.location.href = "/";
+        localStorage.clear()
       }
       return error.response;
     }

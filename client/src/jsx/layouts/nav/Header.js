@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header-content">
-        <nav className="navbar navbar-expand">
+        <nav className="navbar navbar-expand" style={{ background: "#FFFFFF" }}>
           <div className="collapse navbar-collapse justify-content-between">
             <div className="header-left"></div>
             <ul className="navbar-nav header-right">

@@ -107,8 +107,6 @@ const AddRateModal = ({ onClick, active, data }) => {
             carGarage: carGarageStatus,
             gasAvailable: gasAvailableStatus,
             electricityAvailable: electricityAvailableStatus,
-
-            //    files: url,
           }),
           onClick,
           refreshState
@@ -120,15 +118,9 @@ const AddRateModal = ({ onClick, active, data }) => {
   };
   const imageUpload = (e) => {
     e.preventDefault();
-    // let reader = new FileReader();
-    // let file = e.target.files[0];
-    // reader.onloadend = (e) => {
-    //   setUrl(addMethodArray(url, e.target.result));
-    // };
-    // reader.readAsDataURL(file);
     const file = e.target.files[0];
-    setUrl(prev => [...prev, URL.createObjectURL(file)])
-    setValues(prev => ({ ...prev, files: [...prev.files, file] }))
+    setUrl((prev) => [...prev, URL.createObjectURL(file)]);
+    setValues((prev) => ({ ...prev, files: [...prev.files, file] }));
   };
 
   const onEditorStateChange = (editorState) => {
@@ -349,13 +341,13 @@ const AddRateModal = ({ onClick, active, data }) => {
                         class="form-control"
                         id="tagline"
                         placeholder="Location"
-                      // value={values.}
-                      // onChange={(e) =>
-                      //   handleChange(
-                      //     "electricityAvailable",
-                      //     e.target.value
-                      //   )
-                      // }
+                        // value={values.}
+                        // onChange={(e) =>
+                        //   handleChange(
+                        //     "electricityAvailable",
+                        //     e.target.value
+                        //   )
+                        // }
                       />
                     </div>
                   </div>

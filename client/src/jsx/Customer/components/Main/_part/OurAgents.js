@@ -1,10 +1,12 @@
 import React from "react";
+import { image_url } from "../../../../../utils/config";
 import { isArrayCheck, validateString } from "../../../../../utils/helper";
 import Agent1 from "../../../assets/images/agent1.jpg";
 import Agent2 from "../../../assets/images/agent2.jpg";
 import Agent3 from "../../../assets/images/agent3.jpg";
 
 function Index({ data }) {
+  console.log("Data ==>", data);
   return (
     <React.Fragment>
       <div className="ourAgents">
@@ -38,7 +40,7 @@ function Index({ data }) {
                     data.map((data) => {
                       return (
                         <div className="col-md-6 col-lg-4 card">
-                          <img src={data?.profile} alt="agent" />
+                          <img src={image_url + data?.profile} alt="agent" />
                           <h1>{data?.first_name + " " + data?.last_name}</h1>
                           <h2>{data?.designation}</h2>
                           <p>
