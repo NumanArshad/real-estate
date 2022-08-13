@@ -38,7 +38,7 @@ function Blogs() {
               <p>Our Blogs are Valuable Source of Financial Decision Making </p>
             </div>
             <Carousel responsive={responsive}>
-              {blogsList.map((data, index) => {
+              {blogsList?.map((data, index) => {
                 return (
                   <div
                     key={index}
@@ -47,7 +47,7 @@ function Blogs() {
                     data-aos-duration="1500"
                   >
                     <div className="p-2">
-                      <img src={`${IMAGE_BASE_URL}${data?.image}`} className="w-100" alt="" />
+                      <img src={data?.image?.includes("https") ? data?.image : `${IMAGE_BASE_URL}${data?.image}`} className="w-100" alt="" />
                       <div className="d-flex gap-3">
                         <p className="p-2 d-flex gap-2 mb-0 mt-2">
                           <i class="fa-solid fa-calendar"></i>
