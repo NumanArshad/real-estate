@@ -21,6 +21,8 @@ import KarachiMarketRates from "./jsx/Customer/components/KarachiMarketRates/Ind
 import BahriaTown from "./jsx/Customer/components/BahriaTownProperty/index";
 import Detail from "./jsx/Customer/components/Blog/Detail";
 import BahriaDetail from "./jsx/Customer/components/BahriaTownProperty/Detail";
+import PropertyDetail from "./jsx/Customer/components/PropertyDetailContainer/Detail";
+
 import Contact from "./jsx/Customer/components/ContactUs/Index";
 import Updates from "./jsx/Customer/components/ConstructionUpdates/Index";
 import Home from "./jsx/components/Dashboard/Home";
@@ -123,6 +125,10 @@ function App(props) {
     }, {
       url: "updates",
       component: Updates, permission: PERMISSION.EXTERNAL_USER
+    }
+    , {
+      url: "properties/:id",
+      component: PropertyDetail, permission: PERMISSION.EXTERNAL_USER
     }
   ]
 

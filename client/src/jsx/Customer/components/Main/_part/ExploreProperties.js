@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { homeDataContext } from "../../../../../context/HomeDataContext";
 import { IMAGE_BASE_URL } from "../../../../../utils/constants";
-import Explore1 from "../../../assets/images/explore1.jpeg";
-import ExploreProperty from "../../../assets/utilities/ExploreProperty.json";
 
 function Index() {
   const { propertiesList } = useContext(homeDataContext)
   console.log({ propertiesList })
+
+  const history = useHistory()
   return (
     <React.Fragment>
       <div className="exploreProperty">
@@ -36,7 +37,10 @@ function Index() {
             <div className="row">
               {propertiesList.map((data) => {
                 return (
-                  <div key={data.id} className="col-md-6 col-lg-4">
+                  <div key={data.id} className="col-md-6 col-lg-4" style={{ "cursor": "pointer" }} onClick={event => {
+                    console.log("thee")
+                    history.push(`/properties/${data?._id}`)
+                  }}>
                     <div className="card">
                       <img src={`${IMAGE_BASE_URL}${data?.images[0]}`} alt="property" />
                       <div className="card-body">
