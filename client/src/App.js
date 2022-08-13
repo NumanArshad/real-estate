@@ -99,10 +99,10 @@ function App(props) {
       url: "about",
       component: About, permission: PERMISSION.EXTERNAL_USER
     }, {
-      url: "blog",
+      url: "blogs",
       component: Blog, permission: PERMISSION.EXTERNAL_USER
     }, {
-      url: "blog-detail",
+      url: "blogs/:id",
       component: Detail, permission: PERMISSION.EXTERNAL_USER
     }, {
       url: "video",

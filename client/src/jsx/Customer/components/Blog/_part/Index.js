@@ -4,6 +4,7 @@ import Banner from "../../Layouts/Banner/Banner";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
+//blog list card
 function Index({ data }) {
   return (
     <>
@@ -34,7 +35,7 @@ function Index({ data }) {
                       </div>
                       <h3>{blog?.name}</h3>
                       <p>{blog?.description}</p>
-                      <Link to="/blog-detail">
+                      <Link to={`/blogs/${blog?._id}`}>
                         <span>Continue reading</span>
                       </Link>
                     </div>
