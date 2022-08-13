@@ -9,10 +9,13 @@ import {
   GET_MY_APOINTMENTS,
   GET_MY_PROFILE,
 } from "../Action.Constant";
+import { isLoading } from "../Loader";
 
 export const createProperty =
   (userData, close, refreshState) => async (dispatch) => {
     console_log("createProperty ==>", userData);
+    dispatch(isLoading(true));
+
     try {
       const res = await request.post("/properties/create", userData);
       const { message, status, data } = res.data;
@@ -23,10 +26,12 @@ export const createProperty =
         dispatch(getAllProperties());
         close();
         refreshState();
+        dispatch(isLoading(false));
       }
     } catch (e) {
       console_log("createProperty error", e);
       makeToast("error", e);
+      dispatch(isLoading(false));
 
       // makeToast("createProperty error", e.message);
     }
@@ -36,6 +41,8 @@ export const updateProperty =
   (object, close, message = null) =>
   async (dispatch) => {
     console_log("updateProperty", object);
+    dispatch(isLoading(true));
+
     try {
       const res = await request.put(
         "/properties/update/" + object?._id,
@@ -51,9 +58,11 @@ export const updateProperty =
         console_log("Data", data);
         close();
         dispatch(getAllProperties());
+        dispatch(isLoading(false));
       }
     } catch (e) {
       console_log("updateProperty error", e);
+      dispatch(isLoading(false));
 
       // makeToast("createUser error", e.message);
     }

@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createRoom, createUser } from "../../../../../store/actions/User";
 import makeToast from "../../../../../utils/Toaster";
 import Input from "@mui/material/Input";
 import upload from "../../../../../images/user-round.jpg";
 import Dummy from "../../../../../images/upload-image.svg";
 import { plainObjectToFormData } from "../../../PluginsMenu/Nestable/utils";
+import LoaderPulse from "../../../LoaderPulse";
 
 const AddUserModal = ({ onClick, active, data }) => {
   const [url, setUrl] = useState("");
   const [name, setname] = useState("");
   const [passcode, setpasscode] = useState("");
   const dispatch = useDispatch();
+  const { api_loading } = useSelector((state) => state._loader);
 
   const [values, setValues] = React.useState({
     first_name: "User",
@@ -25,6 +27,7 @@ const AddUserModal = ({ onClick, active, data }) => {
     designation: "Sale Ex",
     password: "12345678",
     email: "",
+    isActive: true,
   });
 
   const handleChange = (prop, event) => {
@@ -203,22 +206,30 @@ const AddUserModal = ({ onClick, active, data }) => {
                     </div>
                     <div class="form-group">
                       <label for="Role">Role</label>
-                       <select name="Role" aria-describedby="emailHelp"
+                      <select
+                        name="Role"
+                        aria-describedby="emailHelp"
                         placeholder="Enter Role"
                         value={values.role}
-                        onChange={(e) => handleChange("role", e.target.value)} class="form-control" id="Role">
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
+                        onChange={(e) => handleChange("role", e.target.value)}
+                        class="form-control"
+                        id="Role"
+                      >
+                        <option value="user">User</option>
+                        {/* <option value="saab">Saab</option> */}
                       </select>
                     </div>
                     <div class="form-group">
                       <label for="Gender">Gender</label>
-                      <select class="form-control"
-                        id="Gender" name="Gender"
+                      <select
+                        class="form-control"
+                        id="Gender"
+                        name="Gender"
                         aria-describedby="emailHelp"
                         placeholder="Enter Gender"
                         value={values.gender}
-                        onChange={(e) => handleChange("gender", e.target.value)}>
+                        onChange={(e) => handleChange("gender", e.target.value)}
+                      >
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                       </select>
@@ -256,7 +267,11 @@ const AddUserModal = ({ onClick, active, data }) => {
               </div>
               <div className="text-center">
                 <button class="btn btn-primary" onClick={handleAdd}>
-                  Submit
+                  {api_loading ? (
+                    <LoaderPulse active={true} color={"#fff"} />
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               </div>
             </form>

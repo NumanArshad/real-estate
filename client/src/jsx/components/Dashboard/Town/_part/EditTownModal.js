@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createRoom, createUser } from "../../../../../store/actions/User";
 import makeToast from "../../../../../utils/Toaster";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -11,11 +11,13 @@ import Input from "@mui/material/Input";
 import upload from "../../../../../images/user-round.jpg";
 import Dummy from "../../../../../images/upload-image.svg";
 import { isArrayCheck } from "../../../../../utils/helper";
+import LoaderPulse from "../../../LoaderPulse";
 
 const EditTownModal = ({ onClick, active, data }) => {
   const [hasBlockStatus, sethasBlockStatus] = useState("1");
   const [isActive, setisActive] = useState("1");
   const [isOnConstruction, setisOnConstruction] = useState("1");
+  const { api_loading } = useSelector((state) => state._loader);
 
   const radios = [
     { name: "Yes", value: "1" },
@@ -546,7 +548,11 @@ const EditTownModal = ({ onClick, active, data }) => {
               </div>
               <div className="text-center">
                 <button class="btn btn-primary" onClick={handleAdd}>
-                  Submit
+                  {api_loading ? (
+                    <LoaderPulse active={true} color={"#fff"} />
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               </div>
             </form>

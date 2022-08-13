@@ -15,15 +15,18 @@ import {
   addMethodArray,
   isArrayCheck,
   makeid,
+  removeMethodArrayMarketingRate,
 } from "../../../../../utils/helper";
 import {
   createMarketRates,
   updateMarketRates,
 } from "../../../../../store/actions/MarketRates";
+import LoaderPulse from "../../../LoaderPulse";
 
 const EditRateModal = ({ onClick, active, data }) => {
   const [radioValue, setRadioValue] = useState("1");
   const { towns_listing } = useSelector((state) => state._town);
+  const { api_loading } = useSelector((state) => state._loader);
 
   const radios = [
     { name: "True", value: "1" },
@@ -61,13 +64,17 @@ const EditRateModal = ({ onClick, active, data }) => {
   };
   const handleAdd = (e) => {
     e.preventDefault();
-    if (values.town && isArrayCheck(values.plot)) {
-      dispatch(
-        updateMarketRates({ ...values, id: data?._id }, onClick, refreshState)
-      );
-    } else {
-      makeToast("error", "Kindly fill all the fields!");
-    }
+    // if (values.town && isArrayCheck(values.plot)) {
+    dispatch(
+      updateMarketRates(
+        { plot: values.plot, id: data?._id, town: data?.town },
+        onClick,
+        refreshState
+      )
+    );
+    // } else {
+    //   makeToast("error", "Kindly fill all the fields!");
+    // }
   };
   const handleSave = (e) => {
     e.preventDefault();
@@ -199,7 +206,15 @@ const EditRateModal = ({ onClick, active, data }) => {
                               <td>
                                 <button
                                   class="btn btn-sm btn-primary"
-                                  onClick={() => {}}
+                                  onClick={() => {
+                                    handleChange(
+                                      "plot",
+                                      removeMethodArrayMarketingRate(
+                                        values.plot,
+                                        data?.type
+                                      )
+                                    );
+                                  }}
                                 >
                                   Delete
                                 </button>
@@ -240,7 +255,11 @@ const EditRateModal = ({ onClick, active, data }) => {
               {isArrayCheck(values.plot) && (
                 <div className="text-center">
                   <button class="btn btn-primary" onClick={handleAdd}>
-                    Submit
+                    {api_loading ? (
+                      <LoaderPulse active={true} color={"#fff"} />
+                    ) : (
+                      "Submit"
+                    )}
                   </button>
                 </div>
               )}

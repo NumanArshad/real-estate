@@ -80,46 +80,50 @@ const SaleAgentListing = () => {
     var data =
       Array.isArray(users_listing) && users_listing.length > 0
         ? users_listing.map((data, id) => ({
-          id: id + 1,
-          image: (
-            <img
-              src={data?.profile?.includes("http") ? data?.profile : `/images/${data?.profile}`}
-              style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
-              alt="Dummy"
-            />
-          ),
-          name: data?.first_name + " " + data?.last_name,
-          idCard: data?.idCard,
-          phone: data?.phone,
-          email: data?.email,
-          city: data?.city,
-          address: data?.address,
-          role: data?.role,
-          gender: data?.gender,
-          designation: data?.designation,
-          action: (
-            <div className="d-flex align-items-center">
-              <button
-                onClick={() => {
-                  setApointmnetDetails(data);
-                  setedit(true);
-                }}
-                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-              >
-                <i className="fa fa-edit"></i>
-              </button>
-              <button
-                onClick={() => {
-                  setApointmnetDetails(data);
-                  setopenDetails(true);
-                }}
-                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-              >
-                <i className="fa fa-info"></i>
-              </button>
-            </div>
-          ),
-        }))
+            id: id + 1,
+            image: (
+              <img
+                src={
+                  data?.profile?.includes("http")
+                    ? data?.profile
+                    : image_url + data?.profile
+                }
+                style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
+                alt="Dummy"
+              />
+            ),
+            name: data?.first_name + " " + data?.last_name,
+            idCard: data?.idCard,
+            phone: data?.phone,
+            email: data?.email,
+            city: data?.city,
+            address: data?.address,
+            role: data?.role,
+            gender: data?.gender,
+            designation: data?.designation,
+            action: (
+              <div className="d-flex align-items-center">
+                <button
+                  onClick={() => {
+                    setApointmnetDetails(data);
+                    setedit(true);
+                  }}
+                  className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+                >
+                  <i className="fa fa-edit"></i>
+                </button>
+                <button
+                  onClick={() => {
+                    setApointmnetDetails(data);
+                    setopenDetails(true);
+                  }}
+                  className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+                >
+                  <i className="fa fa-info"></i>
+                </button>
+              </div>
+            ),
+          }))
         : [];
     // console.log('Row Data', users_listing);
     setrow(data);

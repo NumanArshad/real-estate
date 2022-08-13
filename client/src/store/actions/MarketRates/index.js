@@ -2,10 +2,13 @@ import { console_log, isArrayCheck, Log } from "../../../utils/helper";
 import request from "../../../utils/request";
 import makeToast from "../../../utils/Toaster";
 import { GET_ALL_MAP_MODAL, GET_ALL_MARKET_RATES } from "../Action.Constant";
+import { isLoading } from "../Loader";
 
 export const createMarketRates =
   (userData, close, refreshState) => async (dispatch) => {
     console_log("createMarketRates ==>", userData);
+    dispatch(isLoading(true));
+
     try {
       const res = await request.post("/market-rates/add", userData);
       const { message, status, data } = res.data;
@@ -16,9 +19,11 @@ export const createMarketRates =
         dispatch(getAllMarketRates());
         close();
         refreshState();
+        dispatch(isLoading(false));
       }
     } catch (e) {
       console_log("createMarketRates error", e);
+      dispatch(isLoading(false));
 
       // makeToast("createMarketRates error", e.message);
     }
@@ -28,6 +33,8 @@ export const updateMarketRates =
   (userData, close, message = null) =>
   async (dispatch) => {
     console_log("updateMarketRates", userData);
+    dispatch(isLoading(true));
+
     try {
       const res = await request.post("/market-rates/update", userData);
       const { message, status, data } = res.data;
@@ -37,9 +44,11 @@ export const updateMarketRates =
         console_log("Data", data);
         close();
         dispatch(getAllMarketRates());
+        dispatch(isLoading(false));
       }
     } catch (e) {
       console_log("updateMarketRates error", e);
+      dispatch(isLoading(false));
 
       // makeToast("createUser error", e.message);
     }

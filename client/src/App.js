@@ -1,4 +1,11 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import {
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 /// Components
 import Index from "./jsx/index";
 import { connect, useDispatch, useSelector } from "react-redux";
@@ -34,8 +41,7 @@ import ConstructionListing from "./jsx/components/Dashboard/ConstructionUpdates/
 import MapsListing from "./jsx/components/Dashboard/MapsModal/Listing";
 import PropertyRates from "./jsx/components/Dashboard/PropertyRates/Listing";
 
-
-///Public 
+///Public
 /// Pages
 import Registration from "./jsx/pages/Registration";
 // import Login from "./jsx/pages/Login";
@@ -63,86 +69,193 @@ function App(props) {
   let timeOut = null;
   useEffect(() => {
     dispatch(checkAuth());
-
   }, []);
 
   const PERMISSION = {
     AUTHORIZED: 0,
     UN_AUTHORIZED: 1,
-    EXTERNAL_USER: 2
-  }
+    EXTERNAL_USER: 2,
+  };
   const myRoutes = [
-    { url: "dashboard", component: Home, permission: PERMISSION.AUTHORIZED, layout: AdminLayout },
+    {
+      url: "dashboard",
+      component: Home,
+      permission: PERMISSION.AUTHORIZED,
+      layout: AdminLayout,
+    },
     // { url: "room", component: RoomListing },
-    { url: "sale-agent", component: SaleAgentListing, permission: PERMISSION.AUTHORIZED, layout: AdminLayout },
-    { url: "town", component: TownListing, permission: PERMISSION.AUTHORIZED, layout: AdminLayout },
-    { url: "blog", component: BlogListing, permission: PERMISSION.AUTHORIZED, layout: AdminLayout },
-    { url: "market-rate", component: MarketRates, permission: PERMISSION.AUTHORIZED, layout: AdminLayout },
-    { url: "construction-update", component: ConstructionListing, permission: PERMISSION.AUTHORIZED, layout: AdminLayout },
-    { url: "maps-modal", component: MapsListing, permission: PERMISSION.AUTHORIZED, layout: AdminLayout },
-    { url: "property-rates", component: PropertyRates, permission: PERMISSION.AUTHORIZED, layout: AdminLayout },
-    { url: "page-register", component: Registration, permission: PERMISSION.UN_AUTHORIZED, layout: PublicLayout },
-    { url: "page-lock-screen", component: LockScreen, permission: PERMISSION.UN_AUTHORIZED, layout: PublicLayout },
-    { url: "page-login", component: Login, permission: PERMISSION.UN_AUTHORIZED, layout: PublicLayout },
-    { url: "page-error-400", component: Error400, permission: PERMISSION.UN_AUTHORIZED, layout: PublicLayout },
-    { url: "page-error-403", component: Error403, permission: PERMISSION.UN_AUTHORIZED, layout: PublicLayout },
-    { url: "page-error-404", component: Error404, permission: PERMISSION.UN_AUTHORIZED, layout: PublicLayout },
-    { url: "page-error-500", component: Error500, permission: PERMISSION.UN_AUTHORIZED, layout: PublicLayout },
-    { url: "page-error-503", component: Error503, permission: PERMISSION.UN_AUTHORIZED, layout: PublicLayout },
+    {
+      url: "sale-agent",
+      component: SaleAgentListing,
+      permission: PERMISSION.AUTHORIZED,
+      layout: AdminLayout,
+    },
+    {
+      url: "town",
+      component: TownListing,
+      permission: PERMISSION.AUTHORIZED,
+      layout: AdminLayout,
+    },
+    {
+      url: "blog",
+      component: BlogListing,
+      permission: PERMISSION.AUTHORIZED,
+      layout: AdminLayout,
+    },
+    {
+      url: "market-rate",
+      component: MarketRates,
+      permission: PERMISSION.AUTHORIZED,
+      layout: AdminLayout,
+    },
+    {
+      url: "construction-update",
+      component: ConstructionListing,
+      permission: PERMISSION.AUTHORIZED,
+      layout: AdminLayout,
+    },
+    {
+      url: "maps-modal",
+      component: MapsListing,
+      permission: PERMISSION.AUTHORIZED,
+      layout: AdminLayout,
+    },
+    {
+      url: "property-rates",
+      component: PropertyRates,
+      permission: PERMISSION.AUTHORIZED,
+      layout: AdminLayout,
+    },
+    {
+      url: "page-register",
+      component: Registration,
+      permission: PERMISSION.UN_AUTHORIZED,
+      layout: PublicLayout,
+    },
+    {
+      url: "page-lock-screen",
+      component: LockScreen,
+      permission: PERMISSION.UN_AUTHORIZED,
+      layout: PublicLayout,
+    },
+    {
+      url: "page-login",
+      component: Login,
+      permission: PERMISSION.UN_AUTHORIZED,
+      layout: PublicLayout,
+    },
+    {
+      url: "page-error-400",
+      component: Error400,
+      permission: PERMISSION.UN_AUTHORIZED,
+      layout: PublicLayout,
+    },
+    {
+      url: "page-error-403",
+      component: Error403,
+      permission: PERMISSION.UN_AUTHORIZED,
+      layout: PublicLayout,
+    },
+    {
+      url: "page-error-404",
+      component: Error404,
+      permission: PERMISSION.UN_AUTHORIZED,
+      layout: PublicLayout,
+    },
+    {
+      url: "page-error-500",
+      component: Error500,
+      permission: PERMISSION.UN_AUTHORIZED,
+      layout: PublicLayout,
+    },
+    {
+      url: "page-error-503",
+      component: Error503,
+      permission: PERMISSION.UN_AUTHORIZED,
+      layout: PublicLayout,
+    },
     {
       url: "",
-      component: Main, permission: PERMISSION.EXTERNAL_USER
-    }, {
+      component: Main,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "customer",
-      component: Main, permission: PERMISSION.EXTERNAL_USER
-    }, {
+      component: Main,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "about",
-      component: About, permission: PERMISSION.EXTERNAL_USER
-    }, {
+      component: About,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "blog",
-      component: Blog, permission: PERMISSION.EXTERNAL_USER
-    }, {
+      component: Blog,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "blog-detail",
-      component: Detail, permission: PERMISSION.EXTERNAL_USER
-    }, {
+      component: Detail,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "video",
-      component: Video, permission: PERMISSION.EXTERNAL_USER
-    }, {
+      component: Video,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "lahore-market-rates",
-      component: LahoreMarketRates, permission: PERMISSION.EXTERNAL_USER
-    }, {
+      component: LahoreMarketRates,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "karachi-market-rates",
-      component: KarachiMarketRates, permission: PERMISSION.EXTERNAL_USER
-    }, {
+      component: KarachiMarketRates,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "bahria-town",
-      component: BahriaTown, permission: PERMISSION.EXTERNAL_USER
-    }, {
+      component: BahriaTown,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "bahria-town-detail",
-      component: BahriaDetail, permission: PERMISSION.EXTERNAL_USER
-    }, {
+      component: BahriaDetail,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "contact",
-      component: Contact, permission: PERMISSION.EXTERNAL_USER
-    }, {
+      component: Contact,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "updates",
-      component: Updates, permission: PERMISSION.EXTERNAL_USER
-    }
-    , {
+      component: Updates,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "properties/:id",
-      component: PropertyDetail, permission: PERMISSION.EXTERNAL_USER
-    }
-  ]
+      component: PropertyDetail,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+  ];
 
-  const getRouteByPermission = useCallback((routePermission) =>
-    myRoutes.filter(({ permission }) => permission === routePermission)
-    , [])
+  const getRouteByPermission = useCallback(
+    (routePermission) =>
+      myRoutes.filter(({ permission }) => permission === routePermission),
+    []
+  );
 
   const routeList = useMemo(() => {
     if (isAuthenticated) {
-      return getRouteByPermission(PERMISSION.AUTHORIZED)
+      return getRouteByPermission(PERMISSION.AUTHORIZED);
     }
-    return [...getRouteByPermission(PERMISSION.UN_AUTHORIZED), ...getRouteByPermission(PERMISSION.EXTERNAL_USER)]
-  }, [isAuthenticated, getRouteByPermission])
-
+    return [
+      ...getRouteByPermission(PERMISSION.UN_AUTHORIZED),
+      ...getRouteByPermission(PERMISSION.EXTERNAL_USER),
+    ];
+  }, [isAuthenticated, getRouteByPermission]);
 
   // let routes = (
   //   <Switch>
@@ -189,8 +302,6 @@ function App(props) {
   //   </Switch>
   // );
 
-
-
   // if (isAuthenticated) {
   //   return (
   //     <>
@@ -229,42 +340,60 @@ function App(props) {
   //   );
   // }
 
-  return <div className="vh-100">
-    <Suspense
-      fallback={
-        <div id="preloader">
-          <div className="sk-three-bounce">
-            <div className="sk-child sk-bounce1"></div>
-            <div className="sk-child sk-bounce2"></div>
-            <div className="sk-child sk-bounce3"></div>
+  return (
+    <div className="vh-100">
+      <Suspense
+        fallback={
+          <div id="preloader">
+            <div className="sk-three-bounce">
+              <div className="sk-child sk-bounce1"></div>
+              <div className="sk-child sk-bounce2"></div>
+              <div className="sk-child sk-bounce3"></div>
+            </div>
           </div>
-        </div>
-      }
-    >
-      <Switch>
-        {
-          routeList.map(({ url, component: Component, permission, layout: Layout }, index) => {
-            let routePath = `/${url}`;
-            if (permission === PERMISSION.AUTHORIZED) {
-              routePath = `/admin${routePath}`
-            }
-            if (Layout) {
-              return <Route exact path={routePath} key={index} render={props =>
-                <Layout>
-                  <Component {...props} />
-                </Layout>} />
-            }
-            else {
-              return <Route exact path={routePath} key={index} component={Component} />
-            }
-          })
         }
-        {isAuthenticated && <Redirect to="/admin/dashboard" />}
-        <Route component={Error400} />
-      </Switch>
-
-    </Suspense >
-  </div >
+      >
+        <Switch>
+          {routeList.map(
+            (
+              { url, component: Component, permission, layout: Layout },
+              index
+            ) => {
+              let routePath = `/${url}`;
+              if (permission === PERMISSION.AUTHORIZED) {
+                routePath = `/admin${routePath}`;
+              }
+              if (Layout) {
+                return (
+                  <Route
+                    exact
+                    path={routePath}
+                    key={index}
+                    render={(props) => (
+                      <Layout>
+                        <Component {...props} />
+                      </Layout>
+                    )}
+                  />
+                );
+              } else {
+                return (
+                  <Route
+                    exact
+                    path={routePath}
+                    key={index}
+                    component={Component}
+                  />
+                );
+              }
+            }
+          )}
+          {isAuthenticated && <Redirect to="/admin/dashboard" />}
+          <Route component={Error400} />
+        </Switch>
+      </Suspense>
+    </div>
+  );
 }
 
 export default App;

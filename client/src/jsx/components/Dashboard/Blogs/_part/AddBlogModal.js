@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createRoom, createUser } from "../../../../../store/actions/User";
 import makeToast from "../../../../../utils/Toaster";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -17,9 +17,11 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { convertToRaw, EditorState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
+import LoaderPulse from "../../../LoaderPulse";
 
 const AddBlogModal = ({ onClick, active, data }) => {
   const [radioValue, setRadioValue] = useState("pending");
+  const { api_loading } = useSelector((state) => state._loader);
 
   const radios = [
     { name: "Pending", value: "pending" },
@@ -240,12 +242,15 @@ const AddBlogModal = ({ onClick, active, data }) => {
                       </ButtonGroup>
                     </div>
                   </div>
-
                 </div>
               </div>
               <div className="text-center">
                 <button class="btn btn-primary" onClick={handleAdd}>
-                  Submit
+                  {api_loading ? (
+                    <LoaderPulse active={true} color={"#fff"} />
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               </div>
             </form>
