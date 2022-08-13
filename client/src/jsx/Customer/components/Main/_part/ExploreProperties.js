@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { homeDataContext } from "../../../../../context/HomeDataContext";
-import { IMAGE_BASE_URL } from "../../../../../utils/constants";
+import { getImageUrlByName } from "../../../../../utils/helper";
 
 function Index() {
   const { propertiesList } = useContext(homeDataContext)
@@ -42,7 +42,7 @@ function Index() {
                     history.push(`/properties/${data?._id}`)
                   }}>
                     <div className="card">
-                      <img src={`${IMAGE_BASE_URL}${data?.images[0]}`} alt="property" />
+                      <img src={getImageUrlByName(data?.images[0])} alt="property" />
                       <div className="card-body">
                         <h1>{data.title}...</h1>
                         <h3>{data.price}Rs</h3>

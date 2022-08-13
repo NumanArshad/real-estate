@@ -200,6 +200,11 @@ function App(props) {
       permission: PERMISSION.EXTERNAL_USER,
     },
     {
+      url: "blogs/:id",
+      component: Detail,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
       url: "video",
       component: Video,
       permission: PERMISSION.EXTERNAL_USER,
