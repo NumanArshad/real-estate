@@ -11,7 +11,7 @@ import moment from "moment";
 import { getImageUrlByName } from "../../../../../utils/helper";
 
 function BlogDetail({ data }) {
-  const { name, description, content, image, updated_at, createdBy: { first_name, last_name } } = data ?? {}
+  const { name, description, content, image, updated_at, createdBy } = data ?? {}
   return (
     <>
       <Banner />
@@ -26,7 +26,7 @@ function BlogDetail({ data }) {
                     {name}
                   </h1>
                   <div className="d-flex gap-3 flex-wrap align-items-center mt-3">
-                    <h2>by {`${first_name} ${last_name}`}</h2>
+                    {createdBy && <h2 >by {`${createdBy.first_name} ${createdBy.last_name}`}</h2>}
                     <p className="p-2 d-flex gap-2 mb-0 mt-2">
                       <i class="fa-solid fa-calendar"></i>
                       <h6> {moment(updated_at).format(`LLL`)}</h6>
