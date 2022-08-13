@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { homeDataContext } from "../../../../../context/HomeDataContext";
-import { IMAGE_BASE_URL } from "../../../../../utils/constants";
+import { getImageUrlByName } from "../../../../../utils/helper";
 import HomeBanner5 from "../../../assets/images/HomeBanner5.jpg";
 
 function Blogs() {
@@ -47,7 +47,7 @@ function Blogs() {
                     data-aos-duration="1500"
                   >
                     <div className="p-2">
-                      <img src={data?.image?.includes("https") ? data?.image : `${IMAGE_BASE_URL}${data?.image}`} className="w-100" alt="" />
+                      <img src={getImageUrlByName(data?.image)} className="w-100" alt="" />
                       <div className="d-flex gap-3">
                         <p className="p-2 d-flex gap-2 mb-0 mt-2">
                           <i class="fa-solid fa-calendar"></i>
@@ -80,10 +80,10 @@ function Blogs() {
                       <span>Continue reading</span>
                 </div> */}
                     <hr className="mb-0 mt-2" />
-                    <p className="p-2 d-flex gap-2">
+                    {data?.createdBy && <p className="p-2 d-flex gap-2">
                       <i className="fa-solid fa-user"></i>
-                      <h6>by {data.author}</h6>
-                    </p>
+                      <h6 >by {`${data?.createdBy?.first_name} ${data?.createdBy?.last_name}`}</h6>
+                    </p>}
                   </div>
                 );
               })}

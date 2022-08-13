@@ -7,7 +7,8 @@ import Details from "./Details";
 import Features from "./Features";
 import MortageCalculator from "./MortageCalculator";
 import Contactinformation from "./Contactinformation";
-import { IMAGE_BASE_URL } from "../../../../../utils/constants";
+import { getImageUrlByName } from "../../../../../utils/helper";
+
 function DetailPage({ propertyDetail, saleAgent }) {
   const { title, description, price, status, city, area, images, type, bedRoomCount, bathRoomCount, carGarage } = propertyDetail ?? {}
   return (
@@ -46,7 +47,7 @@ function DetailPage({ propertyDetail, saleAgent }) {
                 {images?.map((imageName) => <Carousel.Item>
                   <img
                     className="d-block w-100"
-                    src={`${IMAGE_BASE_URL}${imageName}`}
+                    src={getImageUrlByName(imageName)}
                     alt="Second slide"
                   />
                 </Carousel.Item>)}
