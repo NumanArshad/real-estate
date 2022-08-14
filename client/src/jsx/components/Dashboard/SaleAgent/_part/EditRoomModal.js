@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   createRoom,
   createUser,
@@ -11,11 +11,13 @@ import Input from "@mui/material/Input";
 import upload from "../../../../../images/user-round.jpg";
 import Dummy from "../../../../../images/upload-image.svg";
 import { image_url } from "../../../../../utils/config";
+import LoaderPulse from "../../../LoaderPulse";
 const EditUserModal = ({ onClick, active, data }) => {
   const [url, setUrl] = useState("");
   const [name, setname] = useState("");
   const [passcode, setpasscode] = useState("");
   const dispatch = useDispatch();
+  const { api_loading } = useSelector((state) => state._loader);
 
   const [values, setValues] = React.useState({
     first_name: "User",
@@ -282,7 +284,11 @@ const EditUserModal = ({ onClick, active, data }) => {
               </div>
               <div className="text-center">
                 <button class="btn btn-primary" onClick={handleAdd}>
-                  Submit
+                  {api_loading ? (
+                    <LoaderPulse active={true} color={"#fff"} />
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               </div>
             </form>

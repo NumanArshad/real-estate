@@ -11,12 +11,18 @@ import Input from "@mui/material/Input";
 import upload from "../../../../../images/user-round.jpg";
 import Dummy from "../../../../../images/upload-image.svg";
 import { useSelector } from "react-redux";
-import { addMethodArray, isArrayCheck } from "../../../../../utils/helper";
+import {
+  addMethodArray,
+  isArrayCheck,
+  removeMethodArrayMarketingRate,
+} from "../../../../../utils/helper";
 import { createMarketRates } from "../../../../../store/actions/MarketRates";
+import LoaderPulse from "../../../LoaderPulse";
 
 const AddRateModal = ({ onClick, active, data }) => {
   const [radioValue, setRadioValue] = useState("1");
   const { towns_listing } = useSelector((state) => state._town);
+  const { api_loading } = useSelector((state) => state._loader);
 
   const radios = [
     { name: "True", value: "1" },
@@ -54,11 +60,12 @@ const AddRateModal = ({ onClick, active, data }) => {
   };
   const handleAdd = (e) => {
     e.preventDefault();
-    if (values.town && isArrayCheck(values.plot)) {
-      dispatch(createMarketRates(values, onClick, refreshState));
-    } else {
-      makeToast("error", "Kindly fill all the fields!");
-    }
+    console.log("town", values);
+    // if (values.town && isArrayCheck(values.plot)) {
+    dispatch(createMarketRates(values, onClick, refreshState));
+    // } else {
+    //   makeToast("error", "Kindly fill all the fields!");
+    // }
   };
   const handleSave = (e) => {
     e.preventDefault();
@@ -92,33 +99,41 @@ const AddRateModal = ({ onClick, active, data }) => {
             <form>
               <div className="contaib">
                 <div className="row">
-                  <div className="col-md-12">
-                    <div class="form-group">
-                      <label for="name">Town</label>
-                      <select
-                        name=""
-                        className="form-control"
-                        id=""
-                        onChange={(e) => handleChange("town", e.target.value)}
-                      >
-                        {isArrayCheck(towns_listing) &&
-                          towns_listing.map((data, id) => (
-                            <option value={data?._id}>{data?.name}</option>
-                          ))}
-                      </select>
+                  {isArrayCheck(towns_listing) ? (
+                    <div className="col-md-12">
+                      <div class="form-group">
+                        <label for="name">Town</label>
+                        <select
+                          name=""
+                          className="form-control"
+                          id=""
+                          onChange={(e) => handleChange("town", e.target.value)}
+                        >
+                          <option value={""}>{"Select Town"}</option>
+
+                          {isArrayCheck(towns_listing) &&
+                            towns_listing.map((data, id) => (
+                              <option value={data?._id}>{data?.name}</option>
+                            ))}
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="idcard">Plot Type/Size (Marla)</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="tagline"
+                          placeholder="Plot Type"
+                          onChange={(e) => handleChange("type", e.target.value)}
+                          value={values.type}
+                        />
+                      </div>
                     </div>
-                    <div class="form-group">
-                      <label for="idcard">Plot Type/Size (Marla)</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="tagline"
-                        placeholder="Plot Type"
-                        onChange={(e) => handleChange("type", e.target.value)}
-                        value={values.type}
-                      />
-                    </div>
-                  </div>
+                  ) : (
+                    <label for="idcard">
+                      Kindly add town before submitting.
+                    </label>
+                  )}
                   <div className="col-md-12">
                     <div className="row">
                       <div className="col-md-6">
@@ -179,7 +194,15 @@ const AddRateModal = ({ onClick, active, data }) => {
                               <td>
                                 <button
                                   class="btn btn-sm btn-primary"
-                                  onClick={handleAdd}
+                                  onClick={() => {
+                                    handleChange(
+                                      "plot",
+                                      removeMethodArrayMarketingRate(
+                                        values.plot,
+                                        data?.type
+                                      )
+                                    );
+                                  }}
                                 >
                                   Delete
                                 </button>
@@ -220,7 +243,11 @@ const AddRateModal = ({ onClick, active, data }) => {
               {isArrayCheck(values.plot) && (
                 <div className="text-center">
                   <button class="btn btn-primary" onClick={handleAdd}>
-                    Submit
+                    {api_loading ? (
+                      <LoaderPulse active={true} color={"#fff"} />
+                    ) : (
+                      "Submit"
+                    )}
                   </button>
                 </div>
               )}

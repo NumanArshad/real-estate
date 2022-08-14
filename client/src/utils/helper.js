@@ -310,6 +310,15 @@ export const removeMethodArrayUsingStringData = (arrayData, index) => {
   return arr;
 };
 
+export const removeMethodArrayMarketingRate = (arrayData, index) => {
+  Log("Remove Method Before==>", arrayData);
+  let arr = arrayData ? arrayData : [];
+  arr = arr.filter((dat) => String(dat.type) !== String(index));
+  Log("Remove Method After==>", arr);
+
+  return arr;
+};
+
 export const removeMethodArrayForSlider = (arrayData, objectToRemoved) => {
   let arr = arrayData ? arrayData : [];
   arr = arr?.filter((data) => data?.image != objectToRemoved?.image);

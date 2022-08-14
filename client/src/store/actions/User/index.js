@@ -8,10 +8,12 @@ import {
   GET_MY_APOINTMENTS,
   GET_MY_PROFILE,
 } from "../Action.Constant";
+import { isLoading } from "../Loader";
 
 export const createUser =
   (userData, close, refreshState) => async (dispatch) => {
     console_log("createRoom", userData);
+    dispatch(isLoading(true));
     try {
       const res = await request.post("/users/add", userData);
       const { message, status, data } = res.data;
@@ -22,10 +24,12 @@ export const createUser =
         dispatch(getAllUsers());
         close();
         refreshState();
+        dispatch(isLoading(false));
       }
     } catch (e) {
       makeToast("error", e.message);
       console_log("createUser error", e);
+      dispatch(isLoading(false));
 
       // makeToast("createUser error", e.message);
     }
@@ -35,6 +39,8 @@ export const updateUser =
   (userData, close, message = null) =>
   async (dispatch) => {
     console_log("updateUser", userData);
+    dispatch(isLoading(true));
+
     try {
       const res = await request.post("/users/update", userData);
       const { message, status, data } = res.data;
@@ -44,9 +50,11 @@ export const updateUser =
         console_log("Data", data);
         close();
         dispatch(getAllUsers());
+        dispatch(isLoading(false));
       }
     } catch (e) {
       console_log("updateUser error", e);
+      dispatch(isLoading(false));
 
       // makeToast("createUser error", e.message);
     }
