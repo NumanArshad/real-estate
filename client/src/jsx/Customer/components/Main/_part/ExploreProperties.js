@@ -4,7 +4,7 @@ import { homeDataContext } from "../../../../../context/HomeDataContext";
 import { getImageUrlByName } from "../../../../../utils/helper";
 
 function Index() {
-  const { propertiesList } = useContext(homeDataContext)
+  const { propertiesList, setPaginationValue } = useContext(homeDataContext)
   console.log({ propertiesList })
 
   const history = useHistory()
@@ -35,7 +35,7 @@ function Index() {
             data-aos-duration="1500"
           >
             <div className="row">
-              {propertiesList.map((data) => {
+              {propertiesList?.data?.map((data) => {
                 return (
                   <div key={data.id} className="col-md-6 col-lg-4" style={{ "cursor": "pointer" }} onClick={event => {
                     console.log("thee")
@@ -70,11 +70,15 @@ function Index() {
               })}
             </div>
 
-            {/* {isArrayCheck(data) && data.length > 6 ? ( */}
-            <div className="loadMore">
-              <button className="btn btn-outline-success">Load More</button>
-            </div>
-            {/* ) : null} */}
+            {propertiesList?.data?.length < propertiesList?.total ?
+              <div className="loadMore">
+                <button className="btn btn-outline-success" onClick={event => {
+                  event.preventDefault()
+                  setPaginationValue(prev => ({ page: prev?.page + 1 }))
+
+                }}>Load More</button>
+              </div>
+              : null}
           </div>
         </div>
       </div>
