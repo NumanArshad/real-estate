@@ -80,19 +80,19 @@ function Updates({ data }) {
                   </div>
                 );
               })
-            : UpdatesData.map((data, index) => {
+            : UpdatesData.map((dat, index) => {
                 return (
                   <div key={index} className="col-12">
                     <div className="bg-primaryColor rounded-2 p-3 mt-5 mb-2">
                       <h1 className="text-white text-center mb-0">
-                        {data.name}
+                        {dat.name}
                       </h1>
                     </div>
-                    <p className="text-center">{data.date}</p>
+                    <p className="text-center">{dat.date}</p>
                     <div className="row mx-0">
                       <div className="col-12">
                         <Slider {...settings}>
-                          {data.images.map((img, index2) => {
+                          {dat.images.map((img, index2) => {
                             return (
                               <div>
                                 <img
