@@ -120,7 +120,7 @@ class SideBar extends Component {
             <li
               onClick={() => firstItem("dashboard")}
               id="dashboard"
-              className={`${path === "" ? "mm-active" : ""}`}
+              className={`${path === "dashboard" ? "mm-active" : ""}`}
             >
               <Link to="/admin/">
                 <i className="flaticon-381-networking"></i>
