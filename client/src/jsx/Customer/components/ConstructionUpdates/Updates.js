@@ -51,7 +51,6 @@ function Updates({ data }) {
                 <p className="text-center">{data.date}</p>
                 <div className="row mx-0">
                   <div className="col-12">
-                    {JSON.stringify(townContruction.townInformation.gallery)}
                     <Slider {...settings}>
                       {townContruction.townInformation.gallery.map((img, index2) => {
                         return (
