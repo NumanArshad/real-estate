@@ -3,34 +3,42 @@ import React, { useEffect, useState } from "react"
 import request from "../utils/request"
 
 const DEFAULT_DATA = {
-    propertiesList: [],
+    propertiesList: { data: [], total: 0 },
     propertiesByCategory: [],
     saleAgents: [],
-    blogsList: []
+    blogsList: [],
+    setPaginationValue: null
 }
 const homeDataContext = React.createContext(DEFAULT_DATA)
 
 const HomeDataContextProvider = ({
     children }) => {
 
-    const [data, setData] = useState(DEFAULT_DATA)
+    const { propertiesList: DEFAULT_PROPERTIES_LIST, ...REST_DEFAULT_DATA } = DEFAULT_DATA
+
+    const [data, setData] = useState(REST_DEFAULT_DATA)
+
+    const [propertiesList, setPropertiesList] = useState(DEFAULT_PROPERTIES_LIST)
+
+    const [paginationValue, setPaginationValue] = useState({ page: 1 })
 
     useEffect(() => {
-        request.get("/properties/activeProperties").then((res) => {
+
+        request.get(`/properties/activeProperties?page=${paginationValue.page}`).then((res) => {
             console.log("res data is", res)
             const { activeProperties, propertiesByCategory, saleAgents, approvedBlogsList } = res.data?.data
-            setData({
-                propertiesList: activeProperties?.data,
-                propertiesByCategory,
-                saleAgents,
-                blogsList: approvedBlogsList
-            })
+            setPropertiesList(prev => ({ ...activeProperties, data: [...prev.data, ...activeProperties?.data] }))
+            if (paginationValue.page === 1) {
+                setData({
+                    propertiesByCategory,
+                    saleAgents,
+                    blogsList: approvedBlogsList
+                })
+            }
         })
-    }, [])
+    }, [paginationValue])
 
-
-
-    return <homeDataContext.Provider value={data}>
+    return <homeDataContext.Provider value={{ setPaginationValue, propertiesList, ...data }}>
         {children}
     </homeDataContext.Provider>
 

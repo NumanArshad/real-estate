@@ -48,6 +48,7 @@
     "date-fns": "^2.16.1",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
+    "env-cmd": "^10.1.0",
     "firebase": "^9.8.1",
     "formik": "^2.2.6",
     "html-to-draftjs": "^1.5.0",
@@ -88,6 +89,7 @@
     "react-select": "^3.1.1",
     "react-slick": "^0.27.13",
     "react-sparklines": "^1.7.0",
+    "react-spinners": "^0.13.4",
     "react-star-ratings-component": "^1.0.1",
     "react-svg-map": "^2.1.2",
     "react-table": "^7.7.0",
@@ -108,11 +110,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "env-cmd -f .env.staging react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "https://real-state-staging.herokuapp.com",
   "eslintConfig": {
     "extends": [
       "react-app",

@@ -1,10 +1,10 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { formatedDate, formatedTime } from "../../../../../utils/helper";
+import { formatedDate, formatedTime, getImageUrlByName } from "../../../../../utils/helper";
 import { updateUser } from "../../../../../store/actions/User/index";
 import Dummy from "../../../../../images/1.jpg";
-import { image_url } from "../../../../../utils/config";
+
 const ModalContent = ({ onClick, active, data }) => {
   const dispatch = useDispatch();
   return (
@@ -26,7 +26,7 @@ const ModalContent = ({ onClick, active, data }) => {
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Image</h5>
               <p className="m-0">
-                <img src={image_url + data?.profile} alt="Dummy" />
+                <img src={getImageUrlByName(data?.profile)} alt="Dummy" />
               </p>
             </div>
             <hr />

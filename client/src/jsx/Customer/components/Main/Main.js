@@ -11,6 +11,8 @@ import Footer from "../Footer/Index";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useDispatch, useSelector } from "react-redux";
+import { HomeDataContextProvider } from "../../../../context/HomeDataContext";
+
 import {
   getHomeProperties,
   getHomeSalesAgents,
@@ -22,23 +24,23 @@ function Main() {
   useEffect(() => {
     AOS.init();
     AOS.refresh();
-    dispatch(getHomeProperties());
-    dispatch(getHomeSalesAgents());
+    // dispatch(getHomeProperties());
+    // dispatch(getHomeSalesAgents());
   }, []);
   return (
-    <React.Fragment>
+    <HomeDataContextProvider>
       <div className="home">
         <Header />
         <Carousel />
-        <ExploreProperties data={home_data?.activeProperties?.data} />
+        <ExploreProperties />
         <DevelopLove />
         <ExploreTown />
-        <OurAgents data={sale_agents} />
+        <OurAgents />
         <OurServices />
         <Blogs />
         <Footer />
       </div>
-    </React.Fragment>
+    </HomeDataContextProvider>
   );
 }
 

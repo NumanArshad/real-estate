@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createRoom, createUser } from "../../../../../store/actions/User";
 import makeToast from "../../../../../utils/Toaster";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -17,18 +17,21 @@ import { convertToRaw, EditorState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import { plainObjectToFormData } from "../../../PluginsMenu/Nestable/utils";
 import { addMethodArray, isArrayCheck } from "../../../../../utils/helper";
+import LoaderPulse from "../../../LoaderPulse";
 
 const AddRateModal = ({ onClick, active, data }) => {
   const [carGarageStatus, setcarGarageStatus] = useState(0);
   const [gasAvailableStatus, setgasAvailableStatus] = useState(0);
   const [electricityAvailableStatus, setelectricityAvailableStatus] =
     useState(0);
+  const { api_loading } = useSelector((state) => state._loader);
 
   console.log("carGarageStatus", carGarageStatus);
   const radios = [
     { name: "Yes", value: 1 },
     { name: "No", value: 0 },
   ];
+
   const dispatch = useDispatch();
   const [editorState, seteditorState] = useState("");
   const [url, setUrl] = useState("");
@@ -107,8 +110,6 @@ const AddRateModal = ({ onClick, active, data }) => {
             carGarage: carGarageStatus,
             gasAvailable: gasAvailableStatus,
             electricityAvailable: electricityAvailableStatus,
-
-            //    files: url,
           }),
           onClick,
           refreshState
@@ -120,15 +121,9 @@ const AddRateModal = ({ onClick, active, data }) => {
   };
   const imageUpload = (e) => {
     e.preventDefault();
-    // let reader = new FileReader();
-    // let file = e.target.files[0];
-    // reader.onloadend = (e) => {
-    //   setUrl(addMethodArray(url, e.target.result));
-    // };
-    // reader.readAsDataURL(file);
     const file = e.target.files[0];
-    setUrl(prev => [...prev, URL.createObjectURL(file)])
-    setValues(prev => ({ ...prev, files: [...prev.files, file] }))
+    setUrl((prev) => [...prev, URL.createObjectURL(file)]);
+    setValues((prev) => ({ ...prev, files: [...prev.files, file] }));
   };
 
   const onEditorStateChange = (editorState) => {
@@ -349,13 +344,13 @@ const AddRateModal = ({ onClick, active, data }) => {
                         class="form-control"
                         id="tagline"
                         placeholder="Location"
-                      // value={values.}
-                      // onChange={(e) =>
-                      //   handleChange(
-                      //     "electricityAvailable",
-                      //     e.target.value
-                      //   )
-                      // }
+                        // value={values.}
+                        // onChange={(e) =>
+                        //   handleChange(
+                        //     "electricityAvailable",
+                        //     e.target.value
+                        //   )
+                        // }
                       />
                     </div>
                   </div>
@@ -631,7 +626,11 @@ const AddRateModal = ({ onClick, active, data }) => {
               </div>
               <div className="text-center">
                 <button class="btn btn-primary" onClick={handleAdd}>
-                  Submit
+                  {api_loading ? (
+                    <LoaderPulse active={true} color={"#fff"} />
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               </div>
             </form>

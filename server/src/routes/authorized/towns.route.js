@@ -8,6 +8,7 @@ const router = express.Router();
 
 //controller
 const town = require("../../controllers/admin/towns.controller");
+const { uploadMultipleFile } = require("../../helpers/uploadImages.helper");
 
 //uploader
 // var multer = require("multer");
@@ -16,7 +17,7 @@ const town = require("../../controllers/admin/towns.controller");
 
 //blog
 //  router.post("/addBlog",permit('admin designer'),upload.fields([{ name: 'blogImage', maxCount: 1 }]), blog.addNewBlog);
-router.post("/addTown", town.addNewTown);
+router.post("/addTown", uploadMultipleFile, town.addNewTown);
 //  router.post("/uploadImage",upload.fields([{ name: 'blogImage', maxCount: 1 }]), blog.uploadBlogImage);
 // router.get("/getTown", town.getSingleTown);
 router.get("/getAllTown", town.getAllTown);

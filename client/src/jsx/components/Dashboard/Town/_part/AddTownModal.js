@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createRoom, createUser } from "../../../../../store/actions/User";
 import makeToast from "../../../../../utils/Toaster";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -21,11 +21,13 @@ import {
   removeMethodArrayUsingStringData,
 } from "../../../../../utils/helper";
 import { plainObjectToFormData } from "../../../PluginsMenu/Nestable/utils";
+import LoaderPulse from "../../../LoaderPulse";
 
 const AddTownModal = ({ onClick, active, data }) => {
   const [hasBlockStatus, sethasBlockStatus] = useState(1);
   const [isActive, setisActive] = useState(1);
   const [isOnConstruction, setisOnConstruction] = useState(1);
+  const { api_loading } = useSelector((state) => state._loader);
 
   const radios = [
     { name: "Yes", value: 1 },
@@ -58,6 +60,7 @@ const AddTownModal = ({ onClick, active, data }) => {
     WhyChooseUs: null,
     LocationGuide: null,
     AffordablePaymentPlan: null,
+    files: [],
   });
 
   const [values2, setValues2] = React.useState({
@@ -91,9 +94,9 @@ const AddTownModal = ({ onClick, active, data }) => {
   };
   const handleAdd = (e) => {
     e.preventDefault();
-    console.log("On Click Add", values, values2);
 
     const dataObj = plainObjectToFormData(makeData(values, values2));
+    console.log("Response ==>", makeData(values, values2));
     if (
       values.name &&
       values.area &&
@@ -109,15 +112,14 @@ const AddTownModal = ({ onClick, active, data }) => {
   };
   const imageUpload = (e) => {
     e.preventDefault();
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    reader.onloadend = (e) => {
-      setUrl(addMethodArray(url, e.target.result));
-    };
-    reader.readAsDataURL(file);
+    const file = e.target.files[0];
+    setUrl((prev) => [...prev, URL.createObjectURL(file)]);
+    setValues((prev) => ({ ...prev, files: [...prev.files, file] }));
   };
 
   const makeData = (obj1, obj2) => {
+    console.log("Make Data 1", obj1);
+    console.log("Make Data 2", obj2);
     return {
       hasBlock: obj1.hasBlock,
       block: obj1.block,
@@ -141,7 +143,7 @@ const AddTownModal = ({ onClick, active, data }) => {
         paymentPlanImage: [],
         officeAddress: [obj2],
       },
-      files: url,
+      files: obj1?.files,
     };
   };
   return (
@@ -727,7 +729,11 @@ const AddTownModal = ({ onClick, active, data }) => {
               </div>
               <div className="text-center">
                 <button class="btn btn-primary" onClick={handleAdd}>
-                  Submit
+                  {api_loading ? (
+                    <LoaderPulse active={true} color={"#fff"} />
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               </div>
             </form>

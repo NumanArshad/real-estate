@@ -1,7 +1,7 @@
 import { avatar_url } from "./config";
 import moment from "moment";
 import makeToast from "./Toaster";
-
+import { IMAGE_BASE_URL } from "./constants";
 export const NOT_FOUND_IMAGE =
   "https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png";
 export const isArrayCheck = (arr) => {
@@ -214,12 +214,12 @@ export const getRevenueForProduct = (data) => {
     Number(data?.shipping),
     Number(data?.saleCount),
     (Number(data?.makerPrice) + Number(data?.totalPrice)) *
-      Number(data?.saleCount) +
-      Number(data?.shipping) * Number(data?.saleCount)
+    Number(data?.saleCount) +
+    Number(data?.shipping) * Number(data?.saleCount)
   );
   return (
     (Number(data?.makerPrice) + Number(data?.totalPrice)) *
-      Number(data?.saleCount) +
+    Number(data?.saleCount) +
     Number(data?.shipping) * Number(data?.saleCount)
   );
 };
@@ -233,17 +233,17 @@ export const getProfitForProduct = (data) => {
     Number(data?.shipping),
     Number(data?.saleCount),
     (Number(data?.makerPrice) + Number(data?.totalPrice)) *
-      Number(data?.saleCount) +
-      Number(data?.shipping) * Number(data?.saleCount) -
-      Number(data?.makerPrice) * Number(data?.saleCount)
+    Number(data?.saleCount) +
+    Number(data?.shipping) * Number(data?.saleCount) -
+    Number(data?.makerPrice) * Number(data?.saleCount)
   );
   return (
     (Number(data?.makerPrice) +
       Number(data?.totalPrice) +
       Number(data?.shipping)) *
-      Number(data?.saleCount) -
+    Number(data?.saleCount) -
     (Number(data?.makerPrice) + Number(data?.shipping)) *
-      Number(data?.saleCount)
+    Number(data?.saleCount)
   );
 };
 
@@ -255,7 +255,7 @@ export const getCostForProduct = (data) => {
     Number(data?.shipping),
     Number(data?.saleCount),
     Number(data?.makerPrice) * Number(data?.saleCount) +
-      Number(data?.shipping) * Number(data?.saleCount)
+    Number(data?.shipping) * Number(data?.saleCount)
   );
   return (
     Number(data?.makerPrice) * Number(data?.saleCount) +
@@ -305,6 +305,15 @@ export const removeMethodArrayUsingStringData = (arrayData, index) => {
   Log("Remove Method Before==>", arrayData);
   let arr = arrayData ? arrayData : [];
   arr = arr.filter((dat) => String(dat) !== String(index));
+  Log("Remove Method After==>", arr);
+
+  return arr;
+};
+
+export const removeMethodArrayMarketingRate = (arrayData, index) => {
+  Log("Remove Method Before==>", arrayData);
+  let arr = arrayData ? arrayData : [];
+  arr = arr.filter((dat) => String(dat.type) !== String(index));
   Log("Remove Method After==>", arr);
 
   return arr;
@@ -539,3 +548,14 @@ export const makeid = (length) => {
   }
   return result;
 };
+
+
+export const getImageUrlByName = (imageName) => {
+  if (imageName?.includes("http")) return imageName;
+  // const image = new Image()
+  // image.src = `${IMAGE_BASE_URL}${imageName}`
+  // image.onload = () => { console.log("load sucess", `${IMAGE_BASE_URL}${imageName}`) }
+  // image.onerror = () => { console.log("load error", `${IMAGE_BASE_URL}${imageName}`) }
+
+  return `${IMAGE_BASE_URL}${imageName}`
+}

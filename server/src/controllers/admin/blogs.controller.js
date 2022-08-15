@@ -220,17 +220,48 @@ var filterBlog = async (req, res) => {
 };
 
 
+
+const getBlogDetailById = async (req, res, next) => {
+  try {
+    const blogDetail = await blogsModel.findById({ _id: req.params.id, isApproved: "approved" }).populate("createdBy", { first_name: 1, last_name: 1 });
+    console.log({ blogDetail });
+    if (blogDetail) {
+      return responseHelper.success(res, blogDetail, "Blog Fetch successfully");
+    } else {
+      return responseHelper.requestfailure(res, "No Blog Exist");
+    }
+  } catch (error) {
+    return responseHelper.requestfailure(res, error);
+  }
+};
+
 //////////////////Public Api Method ///////////////////////
 
+///service method///
 const getApprovedBlogsByFilter = async (req) => {
   try {
-    return await blogsModel.find({ isApproved: "approved" }).sort({ created_at: -1 })
+    return await blogsModel.find({ isApproved: "approved" }).populate("createdBy", { first_name: 1, last_name: 1 }).sort({ created_at: -1 })
   }
   catch (error) {
     // responseHelper.requestfailure(res, error);
     throw new Error(error)
   }
 }
+
+
+const getApprovedBlogs = async (req, res) => {
+  try {
+    const blogsList = await getApprovedBlogsByFilter()
+    return responseHelper.success(res, blogsList, null);
+
+  }
+  catch (error) {
+    responseHelper.requestfailure(res, error);
+
+  }
+}
+
+
 
 module.exports = {
   addNewBlog,
@@ -242,5 +273,7 @@ module.exports = {
   filterBlog,
 
   ///public
-  getApprovedBlogsByFilter
+  getApprovedBlogsByFilter,
+  getApprovedBlogs,
+  getBlogDetailById
 };

@@ -83,7 +83,11 @@ const SaleAgentListing = () => {
             id: id + 1,
             image: (
               <img
-                src={image_url + data?.profile}
+                src={
+                  data?.profile?.includes("http")
+                    ? data?.profile
+                    : image_url + data?.profile
+                }
                 style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
                 alt="Dummy"
               />

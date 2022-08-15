@@ -11,7 +11,7 @@ function Index() {
   return (
     <React.Fragment>
       <SubHeader />
-      <Navbar expand="lg">
+      <Navbar expand="lg" color="#fff">
         <div className="container">
           <Link to="/">
             <Navbar.Brand>
@@ -39,7 +39,7 @@ function Index() {
                   </NavDropdown>
                 </li>
                 <li>
-                  <Link to="/blog">Blog</Link>
+                  <Link to="/blogs">Blog</Link>
                 </li>
                 <li>
                   <Link to="/video">Videos</Link>

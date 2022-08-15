@@ -4,7 +4,7 @@ const { model } = require("mongoose");
 const { paginationProps } = require("../../helpers/pagination.helper");
 const responseHelper = require("../../helpers/response.helper");
 const { removeMultipleImageFiles } = require("../../helpers/uploadImages.helper");
-const { getTopThreeActiveSaleAgents } = require("./users.controller");
+const { getTopThreeActiveSaleAgents, saleAgentById } = require("./users.controller");
 const { getApprovedBlogsByFilter } = require("./blogs.controller");
 const addProperty = async (req, res) => {
     try {
@@ -159,6 +159,8 @@ const getAllActiveProperties = async (req, res) => {
     }
 }
 
+
+
 ///property detail with agent information of property
 const propertyDetail = async (req, res) => {
     try {
@@ -166,6 +168,7 @@ const propertyDetail = async (req, res) => {
         //     { _id: req.propertyDetail.saleAgentId },
         //     { forgotPinCode: 0, password: 0 }
         // );
+        console.log(req.propertyDetail)
         const saleAgent = await saleAgentById(req.propertyDetail.saleAgentId)
         return responseHelper.success(
             res,
@@ -176,6 +179,7 @@ const propertyDetail = async (req, res) => {
             `Success!`
         );
     } catch (error) {
+        console.log("err")
         return responseHelper.requestfailure(res, error);
     }
 };

@@ -21,6 +21,7 @@ export const loginUser = (userData, navigate) => async (dispatch) => {
         type: AUTH_USER,
         payload: data,
       });
+      navigate("/admin/dashboard")
     }
   } catch (e) {
     makeToast("error", e.message);
@@ -40,7 +41,7 @@ export const signupUser = (userData, navigate) => async (dispatch) => {
       makeToast("success", message);
       console_log("Data", data);
 
-      navigate("/");
+      navigate("/admin/dashboard")
     }
   } catch (e) {
     makeToast("error", e.message);

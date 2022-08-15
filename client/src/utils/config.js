@@ -1,9 +1,9 @@
 module.exports = {
-  server_url: "http://localhost:8080",
+  server_url: "https://real-state-staging.herokuapp.com",
   // server_url: "https://real-state-staging.herokuapp.com/api",
-  image_url: "http://localhost:8080/",
-  // image_url:
-  // "https://res.cloudinary.com/risingpearls/image/upload/v1659163070/",
+  // image_url: "https://real-state-staging.herokuapp.com/",
+  image_url:
+    "https://res.cloudinary.com/risingpearls/image/upload/v1659163070/",
   // base_url: 'https://bluesilo-fcomm.s3.amazonaws.com/profile/',
   // base_url_new: 'https://bluesilo-fcomm.s3.amazonaws.com/',
   // stripe_publish: process.env.REACT_APP_STRIPE_PUBLISH
