@@ -235,7 +235,7 @@ function App(props) {
       permission: PERMISSION.EXTERNAL_USER,
     },
     {
-      url: "updates",
+      url: "updates", //construction updates
       component: Updates,
       permission: PERMISSION.EXTERNAL_USER,
     },

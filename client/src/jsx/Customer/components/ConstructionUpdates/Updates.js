@@ -3,7 +3,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import UpdatesData from "../../assets/utilities/updates.json";
-function Updates() {
+import { getImageUrlByName } from "../../../../utils/helper";
+function Updates({ data }) {
   const settings = {
     dots: true,
     infinite: true,
@@ -41,20 +42,21 @@ function Updates() {
     <div>
       <div className="container sliderMain">
         <div className="row">
-          {UpdatesData.map((data, index) => {
+          {data.map((townContruction, index) => {
             return (
               <div key={index} className="col-12">
                 <div className="bg-primaryColor rounded-2 p-3 mt-5 mb-2">
-                  <h1 className="text-white text-center mb-0">{data.name}</h1>
+                  <h1 className="text-white text-center mb-0">{`${townContruction.name}(${townContruction.city})`}</h1>
                 </div>
                 <p className="text-center">{data.date}</p>
                 <div className="row mx-0">
                   <div className="col-12">
+                    {JSON.stringify(townContruction.townInformation.gallery)}
                     <Slider {...settings}>
-                      {data.images.map((img, index2) => {
+                      {townContruction.townInformation.gallery.map((img, index2) => {
                         return (
                           <div>
-                            <img src={img} className="w-100 rounded-2" alt="" />
+                            <img src={getImageUrlByName(img)} className="w-100 rounded-2" alt="" />
                           </div>
                         );
                       })}
