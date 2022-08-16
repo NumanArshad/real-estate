@@ -21,6 +21,7 @@ import { checkAuth } from "./store/actions/Auth";
 import makeToast from "./utils/Toaster";
 import Main from "./jsx/Customer/components/Main/Main";
 import About from "./jsx/Customer/components/About/Index";
+import PrivacyPolicy from "./jsx/Customer/components/PrivacyPolicy/PrivacyPolicy";
 import Blog from "./jsx/Customer/components/Blog/Index";
 import Video from "./jsx/Customer/components/Video/Index";
 import LahoreMarketRates from "./jsx/Customer/components/LahoreMarketRates/Index";
@@ -187,6 +188,11 @@ function App(props) {
     {
       url: "about",
       component: About,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
+      url: "privacy-policy",
+      component: PrivacyPolicy,
       permission: PERMISSION.EXTERNAL_USER,
     },
     {

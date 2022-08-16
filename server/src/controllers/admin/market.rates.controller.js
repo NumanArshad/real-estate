@@ -105,7 +105,7 @@ var updateMethod = async (req, res) => {
 var getAllMethod = async (req, res) => {
   try {
     const listData = await DBModal.find({ isActive: true })
-      .populate("createdBy")
+      .populate("createdBy town")
       .sort({ created_at: -1 });
     if (listData) {
       var message = DBModalName + " Data Loaded";
