@@ -9,8 +9,9 @@ import MortageCalculator from "./MortageCalculator";
 import Contactinformation from "./Contactinformation";
 import { getImageUrlByName } from "../../../../../utils/helper";
 
-function DetailPage({ propertyDetail, saleAgent }) {
-  const { title, description, price, status, city, area, images, type, bedRoomCount, bathRoomCount, carGarage } = propertyDetail ?? {}
+function DetailPage({ data }) {
+  const { title, description, price, status, city, area, images, type, bedRoomCount, bathRoomCount, carGarage } = data ?? {}
+
   return (
     <>
       <div className="bg-white p-4">
@@ -185,7 +186,7 @@ function DetailPage({ propertyDetail, saleAgent }) {
                 <Address area={area} city={city} />
               </div>
               <div className="sidebarCard mt-4 rounded-2">
-                <Details  {...propertyDetail} />
+                <Details  {...data} />
               </div>
               <div className="sidebarCard mt-4 rounded-2">
                 <Features />
@@ -194,7 +195,7 @@ function DetailPage({ propertyDetail, saleAgent }) {
                 <MortageCalculator />
               </div>
               <div className="sidebarCard mt-4 rounded-2">
-                <Contactinformation {...saleAgent} />
+                <Contactinformation {...data?.createdBy} />
               </div>
             </div>
             <div className="col-md-4"></div>

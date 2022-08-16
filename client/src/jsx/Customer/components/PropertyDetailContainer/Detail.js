@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 ///property detail page
 function Index() {
   const params = useParams()
-  const [data, setData] = useState({ propertyDetail: undefined, saleAgent: undefined })
+  const [data, setData] = useState(undefined)
   useEffect(() => {
     AOS.init();
     AOS.refresh();
@@ -28,7 +28,7 @@ function Index() {
   return (
     <React.Fragment>
       <Header />
-      <DetailPage {...data} />
+      <DetailPage data={data} />
       <Footer />
     </React.Fragment>
   );

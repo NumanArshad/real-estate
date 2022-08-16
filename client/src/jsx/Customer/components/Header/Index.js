@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../assets/css/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from "react-bootstrap/Nav";
@@ -7,7 +7,20 @@ import Logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import SubHeader from "../SubHeader/Index";
+import { useState } from "react";
+import request from "../../../../utils/request";
 function Index() {
+  const [propertiesNameOptions, setPropertiesNameOptions] = useState([])
+
+  useEffect(() => {
+    request.get("/properties/propertiesDropdownOptions").then((response) => {
+      if (response.status === 200) {
+        setPropertiesNameOptions(response.data?.data)
+      }
+    })
+  }, [])
+
+  console.log({ propertiesNameOptions })
   return (
     <React.Fragment>
       <SubHeader />
@@ -31,11 +44,21 @@ function Index() {
                 </li>
                 <li>
                   <NavDropdown title="PROPERTIES" id="navbarScrollingDropdown">
-                    <Link to="/bahria-town">BAHRIA TOWN LAHORE</Link>
+                    {
+                      propertiesNameOptions.map((data, index, array) => (
+                        <>
+                          <Link to={`properties/${data?._id}`}>{data?.title}</Link>
+                          {(index + 1) === array.length && <NavDropdown.Divider />
+                          }
+                        </>
+                      )
+                      )
+                    }
+                    {/* <Link to="/bahria-town">BAHRIA TOWN LAHORE</Link>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="">
                       BAHRIA TOWN KARACHI
-                    </NavDropdown.Item>
+                    </NavDropdown.Item> */}
                   </NavDropdown>
                 </li>
                 <li>

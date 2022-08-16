@@ -190,7 +190,7 @@ function App(props) {
       permission: PERMISSION.EXTERNAL_USER,
     },
     {
-      url: "blog",
+      url: "blogs",
       component: Blog,
       permission: PERMISSION.EXTERNAL_USER,
     },

@@ -121,6 +121,8 @@ strong {
 .navbar ul li .dropdown-menu.show {
   padding: 0px;
   border-radius: 4px;
+  max-height: 225px;
+  overflow-y: auto;
 }
 .navbar ul li .dropdown-item:active {
   background-color: transparent;
