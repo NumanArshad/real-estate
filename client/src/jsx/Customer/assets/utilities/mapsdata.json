@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Bahria Lahore",
+    "maps": [
+      {
+        "mapName": "Bahria Greens",
+        "mapImg": "/imgs/map1.jpg"
+      },
+      {
+        "mapName": "Jinnah Avenue",
+        "mapImg": "/imgs/map2.jpg"
+      },
+      {
+        "mapName": "Avenue 01",
+        "mapImg": "/imgs/map3.jpg"
+      },
+      {
+        "mapName": "Avenue 02",
+        "mapImg": "/imgs/map4.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Bahria Karachi",
+    "maps": [
+      {
+        "mapName": "Bahria Greens",
+        "mapImg": "/imgs/map1.jpg"
+      },
+      {
+        "mapName": "Jinnah Avenue",
+        "mapImg": "/imgs/map2.jpg"
+      },
+      {
+        "mapName": "Avenue 01",
+        "mapImg": "/imgs/map3.jpg"
+      },
+      {
+        "mapName": "Avenue 02",
+        "mapImg": "/imgs/map4.jpg"
+      }
+    ]
+  }
+]

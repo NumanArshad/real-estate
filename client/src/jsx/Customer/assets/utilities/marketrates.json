@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Sector A",
+    "plots": [
+      {
+        "sector": "10 Marla",
+        "priceFrom": "130 lac",
+        "priceTo": "135 lac"
+      },
+      {
+        "sector": "1 Kanal",
+        "priceFrom": "130 lac",
+        "priceTo": "160 lac"
+      }
+    ]
+  },
+  {
+    "name": "Sector B",
+    "plots": [
+      {
+        "sector": "10 Marla",
+        "priceFrom": "130 lac",
+        "priceTo": "135 lac"
+      },
+      {
+        "sector": "1 Kanal",
+        "priceFrom": "130 lac",
+        "priceTo": "160 lac"
+      }
+    ]
+  },
+  {
+    "name": "Sector C",
+    "plots": [
+      {
+        "sector": "10 Marla",
+        "priceFrom": "130 lac",
+        "priceTo": "135 lac"
+      },
+      {
+        "sector": "1 Kanal",
+        "priceFrom": "130 lac",
+        "priceTo": "160 lac"
+      }
+    ]
+  },
+  {
+    "name": "Sector D",
+    "plots": [
+      {
+        "sector": "10 Marla",
+        "priceFrom": "130 lac",
+        "priceTo": "135 lac"
+      },
+      {
+        "sector": "1 Kanal",
+        "priceFrom": "130 lac",
+        "priceTo": "160 lac"
+      }
+    ]
+  }
+]

@@ -23,9 +23,8 @@ import Main from "./jsx/Customer/components/Main/Main";
 import About from "./jsx/Customer/components/About/Index";
 import Blog from "./jsx/Customer/components/Blog/Index";
 import Video from "./jsx/Customer/components/Video/Index";
-import LahoreMarketRates from "./jsx/Customer/components/LahoreMarketRates/Index";
-import KarachiMarketRates from "./jsx/Customer/components/KarachiMarketRates/Index";
-import BahriaTown from "./jsx/Customer/components/BahriaTownProperty/index";
+
+import Property from "./jsx/Customer/components/BahriaTownProperty/index";
 import Detail from "./jsx/Customer/components/Blog/Detail";
 import BahriaDetail from "./jsx/Customer/components/BahriaTownProperty/Detail";
 import PropertyDetail from "./jsx/Customer/components/PropertyDetailContainer/Detail";
@@ -53,6 +52,11 @@ import Error500 from "./jsx/pages/Error500";
 import Error503 from "./jsx/pages/Error503";
 import AdminLayout from "./jsx/components/adminLayout";
 import PublicLayout from "./jsx/components/publicLayout";
+import Homes from "./jsx/Customer/components/ConstructionUpdates/Homes";
+import MarketRate from "./jsx/Customer/components/MarketRates/MarketRate";
+import Maps from "./jsx/Customer/components/Maps/Maps";
+import OurAgents from "./jsx/Customer/components/OurAgents/OurAgents";
+import SingleAgent from "./jsx/Customer/components/OurAgents/SingleAgent";
 
 const SignUp = lazy(() => import("./jsx/pages/Registration"));
 const ForgotPassword = lazy(() => import("./jsx/pages/ForgotPassword"));
@@ -210,22 +214,12 @@ function App(props) {
       permission: PERMISSION.EXTERNAL_USER,
     },
     {
-      url: "lahore-market-rates",
-      component: LahoreMarketRates,
+      url: "property",
+      component: Property,
       permission: PERMISSION.EXTERNAL_USER,
     },
     {
-      url: "karachi-market-rates",
-      component: KarachiMarketRates,
-      permission: PERMISSION.EXTERNAL_USER,
-    },
-    {
-      url: "bahria-town",
-      component: BahriaTown,
-      permission: PERMISSION.EXTERNAL_USER,
-    },
-    {
-      url: "bahria-town-detail",
+      url: "property-detail",
       component: BahriaDetail,
       permission: PERMISSION.EXTERNAL_USER,
     },
@@ -237,6 +231,31 @@ function App(props) {
     {
       url: "updates",
       component: Updates,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
+      url: "homes",
+      component: Homes,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
+      url: "market-rates",
+      component: MarketRate,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
+      url: "maps",
+      component: Maps,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
+      url: "our-agents",
+      component: OurAgents,
+      permission: PERMISSION.EXTERNAL_USER,
+    },
+    {
+      url: "agent",
+      component: SingleAgent,
       permission: PERMISSION.EXTERNAL_USER,
     },
     {
@@ -292,10 +311,10 @@ function App(props) {
   //     <Route exact path="/karachi-market-rates">
   //       <KarachiMarketRates />
   //     </Route>
-  //     <Route exact path="/bahria-town">
+  //     <Route exact path="/property">
   //       <BahriaTown />
   //     </Route>
-  //     <Route exact path="/bahria-town-detail">
+  //     <Route exact path="/property-detail">
   //       <BahriaDetail />
   //     </Route>
   //     <Route exact path="/contact">

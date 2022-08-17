@@ -3,9 +3,9 @@ import { homeDataContext } from "../../../../../context/HomeDataContext";
 import Agent1 from "../../../assets/images/agent1.jpg";
 import Agent2 from "../../../assets/images/agent2.jpg";
 import Agent3 from "../../../assets/images/agent3.jpg";
-
+import { Link } from "react-router-dom";
 function Index() {
-  const { saleAgents } = useContext(homeDataContext)
+  const { saleAgents } = useContext(homeDataContext);
   return (
     <React.Fragment>
       <div className="ourAgents">
@@ -67,22 +67,22 @@ function Index() {
                   </div>
                 </div> */}
                 <div className="row">
-                  {saleAgents?.map((data) => <div className="col-md-6 col-lg-4 card">
-                    <img src={`${data?.profile}`} alt="agent" />
-                    <h1>{`${data?.first_name} ${data?.last_name}`}</h1>
-                    <h2>{data?.designation}</h2>
-                    <p>
-                      {data?.description}
-                    </p>
-                    <a href="">View Profile</a>
-                  </div>)}
-
-
+                  {saleAgents?.map((data) => (
+                    <div className="col-md-6 col-lg-4 card">
+                      <img src={`${data?.profile}`} alt="agent" />
+                      <h1>{`${data?.first_name} ${data?.last_name}`}</h1>
+                      <h2>{data?.designation}</h2>
+                      <p>{data?.description}</p>
+                      <Link to="/agent">View Profile</Link>
+                    </div>
+                  ))}
                 </div>
                 <div className="loadMore">
-                  <button className="btn btn-outline-success">
-                    View All
-                  </button>
+                  <Link to="/our-agents">
+                    <button className="btn btn-outline-success">
+                      View All
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

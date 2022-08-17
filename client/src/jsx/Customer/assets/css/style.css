@@ -642,6 +642,8 @@ strong {
           box-shadow: 0 70px 70px #00000033;
   -webkit-transform: translate(0, -10px);
           transform: translate(0, -10px);
+  position: relative;
+  z-index: 9;
 }
 
 .ourAgents .agentCards .card img {
@@ -866,54 +868,7 @@ strong {
   height: 100%;
   width: 100%;
   position: absolute;
-}
-
-.marketRates .topBanner {
-  background-color: #f7f7f7;
-  padding: 40px 0px;
-  height: 300px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  text-align: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.marketRates .topBanner h1 {
-  font-size: 50px;
-}
-
-@media screen and (max-width: 575px) {
-  .marketRates .topBanner h1 {
-    font-size: 35px;
-  }
-}
-
-.marketRates .innerPage {
-  background-color: #f7f7f7;
-  padding: 70px 0px;
-}
-
-.marketRates .innerPage .title h3 {
-  font-size: 18px;
-  line-height: 30px;
-  margin-bottom: 20px;
-}
-
-.marketRates .innerPage .accordionSection .MuiAccordion-root {
-  border-radius: 0px;
-  background-color: #d8261b;
-  margin: 10px 0px;
-  color: white;
-}
-
-.marketRates .innerPage .accordionSection .MuiAccordion-root .MuiSvgIcon-root {
-  color: white;
+  display: block !important;
 }
 
 .footer {
@@ -2901,5 +2856,166 @@ strong {
 
 .homesMain .ourLocation iframe {
   display: block;
+}
+
+.marketRates .topBanner {
+  background-color: #f7f7f7;
+  padding: 40px 0px;
+  height: 300px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.marketRates .topBanner h1 {
+  font-size: 50px;
+}
+
+@media screen and (max-width: 575px) {
+  .marketRates .topBanner h1 {
+    font-size: 35px;
+  }
+}
+
+.marketRates .innerPage {
+  background-color: #f7f7f7;
+  padding: 70px 0px;
+}
+
+.marketRates .innerPage .title h3 {
+  font-size: 18px;
+  line-height: 30px;
+  margin-bottom: 20px;
+}
+
+.marketRates .innerPage .accordionSection .accordion-item {
+  -webkit-box-shadow: 0px 0px 10px 0px #00000080;
+          box-shadow: 0px 0px 10px 0px #00000080;
+  margin-bottom: 20px;
+}
+
+.marketRates .innerPage .accordionSection .accordion-button {
+  border-width: 0px;
+  background-color: #d8261b;
+  padding: 20px 20px 20px 20px;
+  color: white;
+  border-radius: 0px !important;
+}
+
+.marketRates .innerPage .accordionSection .accordion-button::after {
+  display: none;
+}
+
+.marketRates .innerPage .accordionSection .table thead th {
+  background: #d8261bba;
+  color: white;
+  padding: 10px;
+}
+
+.marketRates .innerPage .accordionSection .table tr td {
+  padding: 10px;
+}
+
+.mapsBlock img {
+  height: 150px;
+  width: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.findAgentForm form {
+  margin-top: 20px;
+}
+
+.findAgentForm input {
+  height: 41px;
+}
+
+.findAgentForm .form-select {
+  height: 41px;
+  border-radius: 0;
+  background-color: #fff;
+  border: 1px solid #f0f1f5;
+  color: #6e6e6e;
+}
+
+.findAgentForm .form-select:focus {
+  border-color: #423c3b;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.topBanner {
+  background-color: #f7f7f7;
+  padding: 40px 0px;
+  height: 300px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.topBanner h1 {
+  font-size: 50px;
+}
+
+.agentData img {
+  height: 250px;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin: 0 auto;
+}
+
+.agentData hr {
+  border-top: 1px solid black;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.agentData .mail {
+  width: 120px;
+  height: 40px;
+  background: #d8261b;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+}
+
+.agentData .number {
+  width: 120px;
+  height: 40px;
+  border: 1px solid #d8261b;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #d8261b;
+  background: white;
 }
 /*# sourceMappingURL=style.css.map */
