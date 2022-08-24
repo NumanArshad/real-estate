@@ -9,10 +9,13 @@ import {
   GET_MY_APOINTMENTS,
   GET_MY_PROFILE,
 } from "../Action.Constant";
+import { isLoading } from "../Loader";
 
 export const createTown =
   (userData, close, refreshState) => async (dispatch) => {
     console_log("create Town ==>", userData);
+    dispatch(isLoading(true));
+
     try {
       const res = await request.post("/towns/addTown", userData);
       const { message, status, data } = res.data;
@@ -23,9 +26,11 @@ export const createTown =
         dispatch(getAllTowns());
         close();
         refreshState();
+        dispatch(isLoading(false));
       }
     } catch (e) {
       console_log("createTown error", e);
+      dispatch(isLoading(false));
 
       // makeToast("createTown error", e.message);
     }
@@ -35,6 +40,8 @@ export const updateTown =
   (userData, close, message = null) =>
   async (dispatch) => {
     console_log("updateTown", userData);
+    dispatch(isLoading(true));
+
     try {
       const res = await request.post("/towns/updateTown", userData);
       const { message, status, data } = res.data;
@@ -44,9 +51,11 @@ export const updateTown =
         console_log("Data", data);
         close();
         dispatch(getAllTowns());
+        dispatch(isLoading(false));
       }
     } catch (e) {
       console_log("updateTown error", e);
+      dispatch(isLoading(false));
 
       // makeToast("createUser error", e.message);
     }

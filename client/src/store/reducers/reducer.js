@@ -9,6 +9,7 @@ import SaleAgent from "./SaleAgent";
 import Town from "./Town";
 import User from "./User";
 import Home from "./CustomerReducer/Home";
+import Loader from "./Loader";
 
 // ==============================|| COMBINE REDUCER ||============================== //
 
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   _marketRates: MarketRates,
   _property: Property,
   _home: Home,
+  _loader: Loader,
 });
 
 export default reducer;

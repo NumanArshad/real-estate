@@ -34,6 +34,7 @@ import Main from "./Customer/components/Main/Main";
 import ConstructionListing from "./components/Dashboard/ConstructionUpdates/Listing";
 import MapsListing from "./components/Dashboard/MapsModal/Listing";
 import PropertyRates from "./components/Dashboard/PropertyRates/Listing";
+
 const Markup = () => {
   let path = window.location.pathname;
   path = path.split("/");
@@ -53,8 +54,8 @@ const Markup = () => {
     { url: "construction-update", component: ConstructionListing },
     { url: "maps-modal", component: MapsListing },
     { url: "property-rates", component: PropertyRates },
-    // { url: "customer", component: Main },
 
+    // { url: "customer", component: Main },
 
     /// pagesx
     { url: "page-register", component: Registration },

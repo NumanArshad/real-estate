@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../../assets/css/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from "react-bootstrap/Nav";
@@ -7,7 +7,20 @@ import Logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import SubHeader from "../SubHeader/Index";
+import { useState } from "react";
+import request from "../../../../utils/request";
 function Index() {
+  const [propertiesNameOptions, setPropertiesNameOptions] = useState([])
+
+  useEffect(() => {
+    request.get("/properties/propertiesDropdownOptions").then((response) => {
+      if (response.status === 200) {
+        setPropertiesNameOptions(response.data?.data)
+      }
+    })
+  }, [])
+
+  console.log({ propertiesNameOptions })
   return (
     <React.Fragment>
       <SubHeader />
@@ -31,42 +44,38 @@ function Index() {
                 </li>
                 <li>
                   <NavDropdown title="PROPERTIES" id="navbarScrollingDropdown">
-                    <Link to="/bahria-town">BAHRIA TOWN LAHORE</Link>
+                    {
+                      propertiesNameOptions.map((data, index, array) => (
+                        <>
+                          <Link to={`properties/${data?._id}`}>{data?.title}</Link>
+                          {(index + 1) === array.length && <NavDropdown.Divider />
+                          }
+                        </>
+                      )
+                      )
+                    }
+                    {/* <Link to="/bahria-town">BAHRIA TOWN LAHORE</Link>
                     <NavDropdown.Divider />
                     <NavDropdown.Item href="">
                       BAHRIA TOWN KARACHI
-                    </NavDropdown.Item>
+                    </NavDropdown.Item> */}
                   </NavDropdown>
                 </li>
+
                 <li>
-                  <Link to="/blog">Blog</Link>
+                  <Link to="/blogs">Blog</Link>
                 </li>
                 <li>
                   <Link to="/video">Videos</Link>
                 </li>
                 <li>
-                  <NavDropdown
-                    title="MARKET RATES"
-                    id="navbarScrollingDropdown"
-                  >
-                    <NavDropdown.Item href="/lahore-market-rates">
-                      BAHRIA MARKET LAHORE
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="/karachi-market-rates">
-                      BAHRIA MARKET KARACHI
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                  <Link to="/market-rates">Market Rates</Link>
                 </li>
                 <li>
-                  <NavDropdown title="MAPS" id="navbarScrollingDropdown">
-                    <NavDropdown.Item href="">BAHRIA LAHORE</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="">BAHRIA KARACHI</NavDropdown.Item>
-                  </NavDropdown>
+                  <Link to="/maps">Maps</Link>
                 </li>
                 <li>
-                  <Link to="/updates">construction Updates</Link>
+                  <Link to="/updates">Construction Updates</Link>
                 </li>
                 <li>
                   <Link to="/contact">Contact</Link>

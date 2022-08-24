@@ -27,7 +27,8 @@ var addNewTown = async (req, res) => {
     var data = {
       ...req.body,
       createdBy: id,
-      gallery: req.imageUrl,
+      townInformation: { gallery: req.imagesUrl }
+
     };
     const newTown = await Town.create(data);
 
@@ -162,10 +163,34 @@ var removeTown = async (req, res) => {
   }
 };
 
+
+
+//////Public API Method///////////
+
+
+const getAllActiveTownConstructionUpdate = async (req, res) => {
+  try {
+    const listData = await Town.find({ isActive: true, isOnConstruction: true })
+      .populate("createdBy", { first_name: 1, last_name: 1 })
+      .sort({ created_at: -1 });
+    if (listData) {
+      var message = "Construction Updates Loaded";
+      // var responseData = { data: listData };
+      return responseHelper.success(res, listData, message);
+    }
+    let err = "No Town Exist";
+    return responseHelper.requestfailure(res, err);
+  } catch (error) {
+    responseHelper.requestfailure(res, error);
+  }
+}
+
 module.exports = {
   addNewTown,
   updateTown,
   getSingleTown,
   removeTown,
   getAllTown,
+
+  getAllActiveTownConstructionUpdate
 };

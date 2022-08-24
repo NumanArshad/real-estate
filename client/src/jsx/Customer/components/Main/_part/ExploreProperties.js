@@ -1,10 +1,13 @@
-import React from "react";
-import { image_url } from "../../../../../utils/config";
-import { isArrayCheck } from "../../../../../utils/helper";
-import Explore1 from "../../../assets/images/explore1.jpeg";
-import ExploreProperty from "../../../assets/utilities/ExploreProperty.json";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
+import { homeDataContext } from "../../../../../context/HomeDataContext";
+import { getImageUrlByName } from "../../../../../utils/helper";
 
-function Index({ data }) {
+function Index() {
+  const { propertiesList, setPaginationValue } = useContext(homeDataContext)
+  console.log({ propertiesList })
+
+  const history = useHistory()
   return (
     <React.Fragment>
       <div className="exploreProperty">
@@ -32,53 +35,50 @@ function Index({ data }) {
             data-aos-duration="1500"
           >
             <div className="row">
-              {isArrayCheck(data) &&
-                data.map((data) => {
-                  return (
-                    <div key={data.id} className="col-md-6 col-lg-4">
-                      <div className="card">
-                        <img
-                          src={
-                            isArrayCheck(data?.images)
-                              ? image_url + data?.images[0]
-                              : Explore1
-                          }
-                          alt="property"
-                        />
-                        <div className="card-body">
-                          <h1>{data.title}...</h1>
-                          <h3>{data.price}Rs</h3>
-                          <p>{data.description}</p>
-                          <ul>
-                            <li>
-                              <i className="fa-solid fa-bed"></i>{" "}
-                              <span>{data?.bedRoomCount}</span>
-                            </li>
-                            <li>
-                              <i className="fa-solid fa-shower"></i>{" "}
-                              <span>{data?.bathRoomCount}</span>
-                            </li>
-                            <li>
-                              <i className="fa-solid fa-car"></i>{" "}
-                              <span>{data?.bedRoomCount}</span>
-                            </li>
-                            <li>
-                              <i className="fa-solid fa-chart-area"></i>{" "}
-                              <span>{data?.marla}</span>
-                            </li>
-                          </ul>
-                        </div>
+              {propertiesList?.data?.map((data) => {
+                return (
+                  <div key={data.id} className="col-md-6 col-lg-4" style={{ "cursor": "pointer" }} onClick={event => {
+                    console.log("thee")
+                    history.push(`/properties/${data?._id}`)
+                  }}>
+                    <div className="card">
+                      <img src={getImageUrlByName(data?.images[0])} alt="property" />
+                      <div className="card-body">
+                        <h1>{data.title}...</h1>
+                        <h3>{data.price}Rs</h3>
+                        <p>{data.description}</p>
+                        <ul>
+                          <li hidden={!data?.bedRoomCount}>
+                            <i className="fa-solid fa-bed" ></i> <span>{data?.bedRoomCount}</span>
+                          </li>
+                          <li hidden={!data?.bathRoomCount}>
+                            <i className="fa-solid fa-shower"></i>{" "}
+                            <span>{data?.bathRoomCount}</span>
+                          </li>
+                          <li hidden={!data?.carGarage}>
+                            <i className="fa-solid fa-car"></i> <span>1</span>
+                          </li>
+                          <li >
+                            <i className="fa-solid fa-chart-area"></i>{" "}
+                            <span>{data?.landArea}</span>
+                          </li>
+                        </ul>
                       </div>
                     </div>
-                  );
-                })}
+                  </div>
+                );
+              })}
             </div>
 
-            {isArrayCheck(data) && data.length > 6 ? (
+            {propertiesList?.data?.length < propertiesList?.total ?
               <div className="loadMore">
-                <button className="btn btn-outline-success">Load More</button>
+                <button className="btn btn-outline-success" onClick={event => {
+                  event.preventDefault()
+                  setPaginationValue(prev => ({ page: prev?.page + 1 }))
+
+                }}>Load More</button>
               </div>
-            ) : null}
+              : null}
           </div>
         </div>
       </div>

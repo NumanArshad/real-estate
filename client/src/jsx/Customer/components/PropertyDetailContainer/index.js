@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import Header from "../Header/Index";
-import KarachiMarketRates from './_part/Index'
+import BahriaProperty from "./_part/Index";
 import Footer from "../Footer/Index";
 import AOS from "aos";
 import "aos/dist/aos.css";
+
+//property by area i.e bahria town all properties
 function Index() {
   useEffect(() => {
     AOS.init();
@@ -12,7 +14,7 @@ function Index() {
   return (
     <React.Fragment>
       <Header />
-      <KarachiMarketRates/>
+      <BahriaProperty />
       <Footer />
     </React.Fragment>
   );

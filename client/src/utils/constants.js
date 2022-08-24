@@ -362,3 +362,9 @@ export const Day_Availability = [
     ],
   },
 ];
+
+
+
+const { REACT_APP_IMAGE_BASE_URL: IMAGE_BASE_URL } = process.env
+
+export { IMAGE_BASE_URL }

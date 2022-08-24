@@ -227,21 +227,6 @@ const getActiveSaleAgents = async (req) => {
   }
 }
 
-//property detail
-const saleAgentById = async (saleAgentId) => {
-  try {
-    const saleAgent = await User.findById(
-      { _id: saleAgentId },
-      { forgotPinCode: 0, password: 0 }
-    );
-    return saleAgent
-  }
-  catch (error) {
-    throw new Error(error)
-    // responseHelper.requestfailure(res, error);
-  }
-}
-
 // ///properties list on sale agent detail in public api
 // const propertiesBySaleAgentId = async (saleAgentId) => {
 //   try {
@@ -280,7 +265,6 @@ module.exports = {
   activateInActiveUser,
 
   //
-  saleAgentById,
   getAllActiveSaleAgents,
   saleAgentByIdWithPropertyReviewList,
   getTopThreeActiveSaleAgents

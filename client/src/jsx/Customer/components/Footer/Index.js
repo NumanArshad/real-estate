@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Index() {
   return (
@@ -127,8 +128,10 @@ function Index() {
                 </li>
                 <li>
                   <span>
-                    <i className="fa-solid fa-chevron-right"></i> Terms and
-                    Conditions
+                    <Link className="text-white" to={"/privacy-policy"}>
+                      <i className="fa-solid fa-chevron-right"></i> Terms and
+                      Conditions
+                    </Link>
                   </span>
                 </li>
               </ul>
@@ -143,29 +146,29 @@ function Index() {
       </div>
       <div className="footerBottom">
         <div className="container">
-            <div className="d-sm-flex justify-content-sm-between justify-content-center align-items-center">
-              <p>
-                © Ali Saqlain Real Estate & Builders- All rights Reserved |
-                Developed by XnRel
-              </p>
-              <div className="footerSocial d-flex justify-content-center mt-sm-0 mt-3">
-                <a href="">
-                  <i class="fa-brands fa-facebook-f"></i>
-                </a>
-                <a href="">
-                  <i class="fa-brands fa-twitter"></i>
-                </a>
-                <a href="">
-                  <i class="fa-brands fa-linkedin"></i>
-                </a>
-                <a href="">
-                  <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="">
-                  <i class="fa-brands fa-youtube"></i>
-                </a>
-              </div>
+          <div className="d-sm-flex justify-content-sm-between justify-content-center align-items-center">
+            <p>
+              © Ali Saqlain Real Estate & Builders- All rights Reserved |
+              Developed by XnRel
+            </p>
+            <div className="footerSocial d-flex justify-content-center mt-sm-0 mt-3">
+              <a href="">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+              <a href="">
+                <i class="fa-brands fa-twitter"></i>
+              </a>
+              <a href="">
+                <i class="fa-brands fa-linkedin"></i>
+              </a>
+              <a href="">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a href="">
+                <i class="fa-brands fa-youtube"></i>
+              </a>
             </div>
+          </div>
         </div>
       </div>
     </div>

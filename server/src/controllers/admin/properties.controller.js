@@ -8,9 +8,13 @@ const { getTopThreeActiveSaleAgents } = require("./users.controller");
 const { getApprovedBlogsByFilter } = require("./blogs.controller");
 const addProperty = async (req, res) => {
     try {
+        const { id } = req.token_decoded;
+
         const newProperty = await propertyModel.create({
             ...req.body,
             images: req.imagesUrl,
+            createdBy: id
+
         });
         if (newProperty) {
             return responseHelper.success(
@@ -101,7 +105,7 @@ const activateInActiveProperty = async (req, res) => {
 
 const propertyById = async (req, res, next) => {
     try {
-        const propertyDetail = await propertyModel.findById({ _id: req.params.id });
+        const propertyDetail = await propertyModel.findById({ _id: req.params.id }).populate("createdBy", { first_name: 1, last_name: 1, profile: 1 });
         console.log({ propertyDetail });
         if (propertyDetail) {
             req.propertyDetail = propertyDetail;
@@ -128,8 +132,6 @@ const getAllActiveProperties = async (req, res) => {
         if (req.query?.status) {
             searchQuery["$or"] = [{ status: req.query?.status }]
         }
-
-
 
         const data = await propertyModel.find(searchQuery).skip(skip).limit(limit).sort({ created_at: -1 });
         const total = await propertyModel.find(searchQuery).countDocuments();
@@ -159,23 +161,29 @@ const getAllActiveProperties = async (req, res) => {
     }
 }
 
+const getAllPropertiesDropDownOptions = async (req, res) => {
+    try {
+        const data = await propertyModel.find({ isActive: true }, { title: 1 }).sort({ created_at: -1 });
+        return responseHelper.success(res, data, "Success")
+    }
+    catch (error) {
+        return responseHelper.requestfailure(res, error)
+    }
+}
+
+
+
 ///property detail with agent information of property
 const propertyDetail = async (req, res) => {
     try {
-        // const saleAgent = await userModel.findById(
-        //     { _id: req.propertyDetail.saleAgentId },
-        //     { forgotPinCode: 0, password: 0 }
-        // );
-        const saleAgent = await saleAgentById(req.propertyDetail.saleAgentId)
+        console.log(req.propertyDetail)
         return responseHelper.success(
             res,
-            {
-                propertyDetail: req.propertyDetail,
-                saleAgent,
-            },
+            req.propertyDetail,
             `Success!`
         );
     } catch (error) {
+        console.log("err")
         return responseHelper.requestfailure(res, error);
     }
 };
@@ -201,4 +209,6 @@ module.exports = {
     activateInActiveProperty,
     getAllActiveProperties,
     propertyDetail,
+
+    getAllPropertiesDropDownOptions
 };

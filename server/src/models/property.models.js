@@ -48,7 +48,7 @@ const propertySchema = new Schema(
             enum: constants.property_type,
             required: true,
         },
-        saleAgentId: { type: Schema.Types.ObjectId, ref: "User" },
+        createdBy: { type: Schema.Types.ObjectId, ref: "User" },
         landArea: {
             type: String,
             required: false,

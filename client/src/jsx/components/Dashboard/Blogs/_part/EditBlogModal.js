@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createRoom, createUser } from "../../../../../store/actions/User";
 import makeToast from "../../../../../utils/Toaster";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -13,8 +13,10 @@ import Dummy from "../../../../../images/upload-image.svg";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { updateBlog } from "../../../../../store/actions/Blog";
+import LoaderPulse from "../../../LoaderPulse";
 const EditBlogModal = ({ onClick, active, data }) => {
   const [radioValue, setRadioValue] = useState("pending");
+  const { api_loading } = useSelector((state) => state._loader);
 
   const radios = [
     { name: "Pending", value: "pending" },
@@ -118,13 +120,16 @@ const EditBlogModal = ({ onClick, active, data }) => {
                   <div className="col-md-6">
                     <div class="form-group">
                       <label for="idcard">Description</label>
-                       <textarea
+                      <textarea
                         id="tagline"
                         placeholder="Add Description"
                         value={values.description}
                         onChange={(e) =>
                           handleChange("description", e.target.value)
-                        } className="w-100 form-control" rows="5"></textarea>
+                        }
+                        className="w-100 form-control"
+                        rows="5"
+                      ></textarea>
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -224,7 +229,11 @@ const EditBlogModal = ({ onClick, active, data }) => {
               </div>
               <div className="text-center">
                 <button class="btn btn-primary" onClick={handleAdd}>
-                  Submit
+                  {api_loading ? (
+                    <LoaderPulse active={true} color={"#fff"} />
+                  ) : (
+                    "Submit"
+                  )}
                 </button>
               </div>
             </form>

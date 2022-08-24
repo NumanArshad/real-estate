@@ -17,6 +17,7 @@ const TownListing = () => {
   const [edit, setedit] = useState(false);
   const [openDetails, setopenDetails] = useState(false);
   const { towns_listing } = useSelector((state) => state._town);
+
   // const towns_listing = [
   //   {
   //     _id: "62c86bf7933609268efc17b3",

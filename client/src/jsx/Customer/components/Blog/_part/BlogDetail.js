@@ -7,7 +7,11 @@ import RelatedPost from "../../../assets/utilities/blogsData.json";
 import Tags from "./Tags";
 import RecentComments from "./RecentComments";
 import Archives from "./Archives";
-function BlogDetail() {
+import moment from "moment";
+import { getImageUrlByName } from "../../../../../utils/helper";
+
+function BlogDetail({ data }) {
+  const { name, description, content, image, updated_at, createdBy } = data ?? {}
   return (
     <>
       <Banner />
@@ -18,13 +22,14 @@ function BlogDetail() {
               <div className="detailMain">
                 <div className="p-sm-5 p-3">
                   <h1 className="px-0">
-                    Return On Plots In Bahria Town Karachi
+                    {/* Return On Plots In Bahria Town Karachi */}
+                    {name}
                   </h1>
                   <div className="d-flex gap-3 flex-wrap align-items-center mt-3">
-                    <h2>by Irfan Ahmad</h2>
+                    {createdBy && <h2 >by {`${createdBy.first_name} ${createdBy.last_name}`}</h2>}
                     <p className="p-2 d-flex gap-2 mb-0 mt-2">
                       <i class="fa-solid fa-calendar"></i>
-                      <h6> April 26, 2022</h6>
+                      <h6> {moment(updated_at).format(`LLL`)}</h6>
                     </p>
                     <p className="p-2 d-flex gap-2 mb-0 mt-2">
                       <i class="fa-solid fa-tag"></i>
@@ -36,17 +41,20 @@ function BlogDetail() {
                     </p>
                   </div>
                 </div>
-                <img className="w-100" src="/imgs/apartment.jpg" alt="" />
+                <img className="w-100" src={getImageUrlByName(image)} alt="" />
                 <div className="px-sm-5 px-3 py-3">
+
                   <h3 className="mb-5">
                     <em>
-                      Located in the largest suburb of the country, residential
+                      {/* Located in the largest suburb of the country, residential
                       and commercial{" "}
                       <strong>plots in Bahria Town Karachi</strong> yield more
-                      profits than any other housing society of the country.
+                      profits than any other housing society of the country. */}
+                      {description}
                     </em>
                   </h3>
-                  <img className="w-100" src="/imgs/apartment.jpg" alt="" />
+                  <p dangerouslySetInnerHTML={{ __html: content }}></p>
+                  {/* <img className="w-100" src="/imgs/apartment.jpg" alt="" />
                   <h4>Cultural Continuity Of Housing Societies</h4>
                   <p>
                     The culture of housing society finds its roots in the
@@ -77,7 +85,7 @@ function BlogDetail() {
                       a quicker rate. Therefore, it is easier for investors to
                       put their money into the property market.
                     </li>
-                  </ul>
+                  </ul> */}
                 </div>
                 <hr />
                 <div className="px-sm-5 px-3 pb-5">
