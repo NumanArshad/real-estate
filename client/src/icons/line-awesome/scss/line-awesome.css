@@ -18,6 +18,7 @@
   src: url("../fonts/la-brands-400.eot");
   src: url("../fonts/la-brands-400.eot?#iefix") format("embedded-opentype"), url("../fonts/la-brands-400.woff2") format("woff2"), url("../fonts/la-brands-400.woff") format("woff"), url("../fonts/la-brands-400.ttf") format("truetype"), url("../fonts/la-brands-400.svg#lineawesome") format("svg");
 }
+
 .lab {
   font-family: Line Awesome Brands;
   font-weight: 400;
@@ -31,6 +32,7 @@
   src: url("../fonts/la-regular-400.eot");
   src: url("../fonts/la-regular-400.eot?#iefix") format("embedded-opentype"), url("../fonts/la-regular-400.woff2") format("woff2"), url("../fonts/la-regular-400.woff") format("woff"), url("../fonts/la-regular-400.ttf") format("truetype"), url("../fonts/la-regular-400.svg#lineawesome") format("svg");
 }
+
 .lar {
   font-family: Line Awesome Free;
   font-weight: 400;
@@ -44,6 +46,7 @@
   src: url("../fonts/la-solid-900.eot");
   src: url("../fonts/la-solid-900.eot?#iefix") format("embedded-opentype"), url("../fonts/la-solid-900.woff2") format("woff2"), url("../fonts/la-solid-900.woff") format("woff"), url("../fonts/la-solid-900.ttf") format("truetype"), url("../fonts/la-solid-900.svg#lineawesome") format("svg");
 }
+
 .las {
   font-family: Line Awesome Free;
   font-weight: 900;
@@ -52,7 +55,7 @@
 .la-lg {
   font-size: 1.33333em;
   line-height: 0.75em;
-  vertical-align: -0.0667em;
+  vertical-align: -.0667em;
 }
 
 .la-xs {
@@ -111,9 +114,10 @@
 
 .la-ul {
   padding-left: 0;
-  margin-left: 1.4285714286em;
+  margin-left: 1.42857em;
   list-style-type: none;
 }
+
 .la-ul > li {
   position: relative;
 }
@@ -122,17 +126,18 @@
   position: absolute;
   left: -2em;
   text-align: center;
-  width: 1.4285714286em;
+  width: 1.42857em;
   line-height: inherit;
 }
+
 .la-li.la-lg {
-  left: -1.1428571429em;
+  left: -1.14286em;
 }
 
 .la-border {
   border: solid 0.08em #eee;
-  border-radius: 0.1em;
-  padding: 0.2em 0.25em 0.15em;
+  border-radius: .1em;
+  padding: .2em .25em .15em;
 }
 
 .la-pull-left {
@@ -144,17 +149,19 @@
 }
 
 .la.la-pull-left {
-  margin-right: 0.3em;
+  margin-right: .3em;
 }
+
 .la.la-pull-right {
-  margin-left: 0.3em;
+  margin-left: .3em;
 }
 
 .la.pull-left {
-  margin-right: 0.3em;
+  margin-right: .3em;
 }
+
 .la.pull-right {
-  margin-left: 0.3em;
+  margin-left: .3em;
 }
 
 .la-pull-left {
@@ -170,7 +177,7 @@
 .lar.la-pull-left,
 .lal.la-pull-left,
 .lab.la-pull-left {
-  margin-right: 0.3em;
+  margin-right: .3em;
 }
 
 .la.la-pull-right,
@@ -178,7 +185,7 @@
 .lar.la-pull-right,
 .lal.la-pull-right,
 .lab.la-pull-right {
-  margin-left: 0.3em;
+  margin-left: .3em;
 }
 
 .la-spin {
@@ -193,47 +200,59 @@
 
 @-webkit-keyframes la-spin {
   0% {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
+    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
 @keyframes la-spin {
   0% {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
+    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
 .la-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+  -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 
 .la-rotate-180 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+  -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 
 .la-rotate-270 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+  -webkit-transform: rotate(270deg);
   transform: rotate(270deg);
 }
 
 .la-flip-horizontal {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
+  -webkit-transform: scale(-1, 1);
   transform: scale(-1, 1);
 }
 
 .la-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  -webkit-transform: scale(1, -1);
   transform: scale(1, -1);
 }
 
 .la-flip-both, .la-flip-horizontal.la-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  -webkit-transform: scale(-1, -1);
   transform: scale(-1, -1);
 }
 
@@ -243,6 +262,7 @@
 :root .la-flip-horizontal,
 :root .la-flip-vertical,
 :root .la-flip-both {
+  -webkit-filter: none;
   filter: none;
 }
 
@@ -5865,4 +5885,5 @@
   overflow: visible;
   position: static;
   width: auto;
-}/*# sourceMappingURL=line-awesome.css.map */
+}
+/*# sourceMappingURL=line-awesome.css.map */

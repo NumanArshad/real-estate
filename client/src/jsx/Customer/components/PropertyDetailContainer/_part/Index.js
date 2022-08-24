@@ -30,7 +30,7 @@ function Index() {
                           <h2>{data.price} RS</h2>
                           <div className="actions d-flex gap-2">
                             <i class="fa-solid fa-heart"></i>
-                            <Link to="/bahria-town-detail">
+                            <Link to="/property-detail">
                               <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
                             </Link>
                           </div>
@@ -59,7 +59,7 @@ function Index() {
                       </div>
                       <div className="d-flex mt-2 justify-content-between align-items-center">
                         <h5 className="mb-0">{data.category}</h5>
-                        <Link to="/bahria-town-detail">
+                        <Link to="/property-detail">
                           <button className="detailsBtn">Details</button>
                         </Link>
                       </div>
