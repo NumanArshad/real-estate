@@ -19,8 +19,8 @@ function Index() {
             />
             <Carousel.Caption>
               <div data-aos="fade-down" data-aos-duration="1500">
-                <h3>SQA FAshion Gallery</h3>
-                <p>Bahria Town Karachi</p>
+                <h3>Samara's Estate & Builders</h3>
+                <p>Bahria Town Lahore</p>
                 <button href="">View Project</button>
               </div>
             </Carousel.Caption>
@@ -34,8 +34,8 @@ function Index() {
 
             <Carousel.Caption>
               <div data-aos="fade-down" data-aos-duration="1500">
-                <h3>SQA FAshion Gallery</h3>
-                <p>Bahria Town Karachi</p>
+                <h3>Samara's Estate & Builders</h3>
+                <p>Bahria Town Lahore</p>
                 <button href="">View Project</button>
               </div>
             </Carousel.Caption>
@@ -49,8 +49,8 @@ function Index() {
 
             <Carousel.Caption>
               <div data-aos="fade-down" data-aos-duration="1500">
-                <h3>SQA FAshion Gallery</h3>
-                <p>Bahria Town Karachi</p>
+                <h3>Samara's Estate & Builders</h3>
+                <p>Bahria Town Lahore</p>
                 <button href="">View Project</button>
               </div>
             </Carousel.Caption>
@@ -64,8 +64,8 @@ function Index() {
 
             <Carousel.Caption>
               <div data-aos="fade-down" data-aos-duration="1500">
-                <h3>SQA FAshion Gallery</h3>
-                <p>Bahria Town Karachi</p>
+                <h3>Samara's Estate & Builders</h3>
+                <p>Bahria Town Lahore</p>
                 <button href="">View Project</button>
               </div>
             </Carousel.Caption>
@@ -79,8 +79,8 @@ function Index() {
 
             <Carousel.Caption>
               <div data-aos="fade-down" data-aos-duration="1500">
-                <h3>SQA FAshion Gallery</h3>
-                <p>Bahria Town Karachi</p>
+                <h3>Samara's Estate & Builders</h3>
+                <p>Bahria Town Lahore</p>
                 <button href="">View Project</button>
               </div>
             </Carousel.Caption>

@@ -118,7 +118,7 @@ function DetailPage() {
                   <h1 className="px-0">Description</h1>
                   <hr />
                   <p>
-                    ALI SAQLAIN REAL ESTATE & BUILDERS offers 1 Kanal Furnished
+                    Samara's REAL ESTATE & BUILDERS offers 1 Kanal Furnished
                     Home for sale. Limited Time Golden opportunity to enjoy
                     international life style of BAHRIA ORCHARD.
                   </p>

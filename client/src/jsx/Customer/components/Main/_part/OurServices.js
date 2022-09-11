@@ -36,7 +36,7 @@ function Index() {
                   <div className="col-md-6 col-lg-4 service">
                     <h1>Reputation</h1>
                     <p>
-                      Ali Saqlain Real Estate has an excellent reputation in the
+                      Samara's Real Estate has an excellent reputation in the
                       market and in the communities we serve. We are active,
                       involved and connected. Our team lives in the communities
                       we serve, giving us an additional motivation in making
@@ -47,7 +47,7 @@ function Index() {
                     <h1>Authorization</h1>
                     <p>
                       Being the very first authorized dealer for Bahria Town,
-                      Ali Saqlain Real Estate & Builders has strong footholds of
+                      Samara's Real Estate & Builders has strong footholds of
                       credibility in the real estate market.We believe in doing
                       business in an authorized way.
                     </p>
