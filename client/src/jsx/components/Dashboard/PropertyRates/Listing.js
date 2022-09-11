@@ -6,17 +6,13 @@ import DataTable from "react-data-table-component";
 import { COLUMN_HERADER } from "../../../../utils/Header/index.js";
 import { formatedDate, formatedTime } from "../../../../utils/helper.js";
 import { getAllUsers } from "../../../../store/actions/User/index.js";
-import AddRateModal from "./_part/AddRateModal.js";
-import EditRateModal from "./_part/EditRateModal.js";
+import AddEditRateModal from "./_part/AddEditRateModal.js";
 import ModalContent from "./_part/Modal.js";
 import { getAllProperties } from "../../../../store/actions/Property/index.js";
 
 const PropertyRates = () => {
-  const [ApointmnetDetails, setApointmnetDetails] = useState("");
-  const [EditDetails, setEditDetails] = useState("");
-  const [open, setopen] = useState(false);
-  const [edit, setedit] = useState(false);
-  const [openDetails, setopenDetails] = useState(false);
+  const [modalData, setModalData] = useState({ data: null, isAddEdit: false, isView: false })
+
   const { properties_listing } = useSelector((state) => state._property);
   // const properties_listing = [
   //   {
@@ -67,6 +63,10 @@ const PropertyRates = () => {
 
   const [row, setrow] = useState([]);
 
+  const handleModalToggle = ({ isAddEdit = false, isView = false, data = null }) => {
+    setModalData({ isAddEdit, isView, data })
+  }
+
   useEffect(() => {
     if (properties_listing) {
       makeRow();
@@ -80,41 +80,36 @@ const PropertyRates = () => {
     var data =
       Array.isArray(properties_listing) && properties_listing.length > 0
         ? properties_listing.map((data, id) => ({
-            id: id + 1,
-            image: (
-              <img
-                src={data?.profile}
-                style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
-                alt="Dummy"
-              />
-            ),
-            price: data?.price,
-            marla: data?.marla,
-            address: data?.address,
-            type: data?.type,
-            action: (
-              <div className="d-flex align-items-center">
-                <button
-                  onClick={() => {
-                    setApointmnetDetails(data);
-                    setedit(true);
-                  }}
-                  className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                >
-                  <i className="fa fa-edit"></i>
-                </button>
-                <button
-                  onClick={() => {
-                    setApointmnetDetails(data);
-                    setopenDetails(true);
-                  }}
-                  className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                >
-                  <i className="fa fa-info"></i>
-                </button>
-              </div>
-            ),
-          }))
+          id: id + 1,
+          image: (
+            <img
+              src={data?.profile}
+              style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
+              alt="Dummy"
+            />
+          ),
+          price: data?.price,
+          marla: data?.marla,
+          address: data?.address,
+          type: data?.type,
+          action: (
+            <div className="d-flex align-items-center">
+              <button
+                onClick={handleModalToggle.bind({}, { isAddEdit: true, data })}
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className="fa fa-edit"></i>
+              </button>
+              <button
+                onClick={handleModalToggle.bind({}, { isView: true, data })}
+
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className="fa fa-info"></i>
+              </button>
+            </div>
+          ),
+        }))
         : [];
     // console.log('Row Data', properties_listing);
     setrow(data);
@@ -133,9 +128,7 @@ const PropertyRates = () => {
           <h4 className="card-title">Property</h4>
           <h4
             className="btn btn-primary"
-            onClick={() => {
-              setopen(true);
-            }}
+            onClick={handleModalToggle.bind({}, { isAddEdit: true })}
           >
             Add
           </h4>
@@ -177,16 +170,12 @@ const PropertyRates = () => {
           />
         </div>
       </div>
-      <AddRateModal active={open} onClick={() => setopen(false)} data={null} />
-      <EditRateModal
-        active={edit}
-        onClick={() => setedit(false)}
-        data={ApointmnetDetails}
-      />
+      <AddEditRateModal active={modalData.isAddEdit} onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data} />
+
       <ModalContent
-        active={openDetails}
-        onClick={() => setopenDetails(false)}
-        data={ApointmnetDetails}
+        active={modalData.isView}
+        onClick={handleModalToggle.bind({}, { isView: false })}
+        data={modalData.data}
       />
     </div>
   );

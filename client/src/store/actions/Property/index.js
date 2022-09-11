@@ -39,34 +39,35 @@ export const createProperty =
 
 export const updateProperty =
   (object, close, message = null) =>
-  async (dispatch) => {
-    console_log("updateProperty", object);
-    dispatch(isLoading(true));
+    async (dispatch) => {
+      //object is form data
+      console_log("updateProperty", object);
+      dispatch(isLoading(true));
 
-    try {
-      const res = await request.put(
-        "/properties/update/" + object?._id,
-        object
-      );
-      const { message, status, data } = res.data;
-      if (!status === "Success") throw res.data;
-      if (status === "Success") {
-        makeToast(
-          "success",
-          message ? message : "Property Updated Successfully"
+      try {
+        const res = await request.put(
+          "/properties/update/" + object.get("_id"),
+          object
         );
-        console_log("Data", data);
-        close();
-        dispatch(getAllProperties());
+        const { message, status, data } = res.data;
+        if (!status === "Success") throw res.data;
+        if (status === "Success") {
+          makeToast(
+            "success",
+            message ? message : "Property Updated Successfully"
+          );
+          console_log("Data", data);
+          close();
+          dispatch(getAllProperties());
+          dispatch(isLoading(false));
+        }
+      } catch (e) {
+        console_log("updateProperty error", e);
         dispatch(isLoading(false));
-      }
-    } catch (e) {
-      console_log("updateProperty error", e);
-      dispatch(isLoading(false));
 
-      // makeToast("createUser error", e.message);
-    }
-  };
+        // makeToast("createUser error", e.message);
+      }
+    };
 
 export const getAllProperties = () => async (dispatch) => {
   console_log("Call => getAllProperties");

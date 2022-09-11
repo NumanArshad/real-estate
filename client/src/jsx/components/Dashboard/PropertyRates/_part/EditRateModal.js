@@ -32,6 +32,8 @@ const EditRateModal = ({ onClick, active, data }) => {
     { name: "No", value: 0 },
   ];
 
+  console.log({ data })
+
   const dispatch = useDispatch();
   const [values, setValues] = React.useState({
     title: "Rs 10 Thousand",
@@ -342,13 +344,13 @@ const EditRateModal = ({ onClick, active, data }) => {
                         class="form-control"
                         id="tagline"
                         placeholder="Location"
-                        // value={values.}
-                        // onChange={(e) =>
-                        //   handleChange(
-                        //     "electricityAvailable",
-                        //     e.target.value
-                        //   )
-                        // }
+                      // value={values.}
+                      // onChange={(e) =>
+                      //   handleChange(
+                      //     "electricityAvailable",
+                      //     e.target.value
+                      //   )
+                      // }
                       />
                     </div>
                   </div>

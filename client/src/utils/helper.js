@@ -551,7 +551,10 @@ export const makeid = (length) => {
 
 
 export const getImageUrlByName = (imageName) => {
-  if (imageName?.includes("http")) return imageName;
+
+  if (typeof imageName === "object") return URL.createObjectURL(imageName)
+  else if (imageName?.includes("blob")) return imageName
+  else if (imageName?.includes("http")) return imageName;
   // const image = new Image()
   // image.src = `${IMAGE_BASE_URL}${imageName}`
   // image.onload = () => { console.log("load sucess", `${IMAGE_BASE_URL}${imageName}`) }

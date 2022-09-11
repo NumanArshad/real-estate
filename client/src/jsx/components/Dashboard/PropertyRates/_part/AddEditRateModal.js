@@ -1,40 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { createRoom, createUser } from "../../../../../store/actions/User";
 import makeToast from "../../../../../utils/Toaster";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
-import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
-import Form from "react-bootstrap/Form";
 import Input from "@mui/material/Input";
-import upload from "../../../../../images/user-round.jpg";
-import Dummy from "../../../../../images/upload-image.svg";
-import { createProperty } from "../../../../../store/actions/Property";
+import { createProperty, updateProperty } from "../../../../../store/actions/Property";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { convertToRaw, EditorState } from "draft-js";
+import { convertToRaw, EditorState, convertFromHTML } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import { plainObjectToFormData } from "../../../PluginsMenu/Nestable/utils";
-import { addMethodArray, isArrayCheck } from "../../../../../utils/helper";
+import { getImageUrlByName, isArrayCheck } from "../../../../../utils/helper";
 import LoaderPulse from "../../../LoaderPulse";
+import ContentState from "draft-js/lib/ContentState";
 
-const AddRateModal = ({ onClick, active, data }) => {
-  const [carGarageStatus, setcarGarageStatus] = useState(0);
-  const [gasAvailableStatus, setgasAvailableStatus] = useState(0);
-  const [electricityAvailableStatus, setelectricityAvailableStatus] =
-    useState(0);
+const AddEditRateModal = ({ onClick, active, data }) => {
+
   const { api_loading } = useSelector((state) => state._loader);
 
-  console.log("carGarageStatus", carGarageStatus);
+  const isNew = !data?._id
+
   const radios = [
     { name: "Yes", value: 1 },
     { name: "No", value: 0 },
   ];
 
   const dispatch = useDispatch();
-  const [editorState, seteditorState] = useState("");
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState([]);
 
   const [values, setValues] = React.useState({
     title: "Rs 10 Thousand",
@@ -58,11 +51,21 @@ const AddRateModal = ({ onClick, active, data }) => {
     description: "This is best place to live.",
     price: 10000,
     textPrice: "Ten Thousand Only",
-    content: EditorState.createEmpty(),
+    content: "", //EditorState.createEmpty(),
     files: [],
-  });
+  }
+  );
+
+
+  useEffect(() => {
+    if (data?._id) {
+      setValues({ ...data, content: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(data.content))) })
+      setUrl(data?.images)
+    }
+  }, [data?._id])
 
   const handleChange = (prop, event) => {
+    console.log({ prop, event })
     setValues({ ...values, [prop]: event });
   };
   const refreshState = () => {
@@ -73,8 +76,8 @@ const AddRateModal = ({ onClick, active, data }) => {
       kitchenCount: 1,
       marla: "3",
       carGarage: false,
-      gasAvailable: true,
-      electricityAvailable: true,
+      gasAvailable: false,
+      electricityAvailable: false,
       area: "Johar Town",
       country: "Pakistan",
       city: "Lahore",
@@ -92,25 +95,28 @@ const AddRateModal = ({ onClick, active, data }) => {
       files: [],
     });
   };
+
   const handleAdd = (e) => {
     e.preventDefault();
     console.log("Data", {
       ...values,
-      carGarage: carGarageStatus,
-      gasAvailable: gasAvailableStatus,
-      electricityAvailable: electricityAvailableStatus,
+
       //  files: [],
     });
 
-    if (values) {
+    const payload = { ...values }
+
+    //remove preview images from url on update state
+    // payload.content = payload.content.getCurrentContent()
+    console.log({ url })
+    payload.files = url.filter((img) => typeof (img) === "object")
+    payload.content = draftToHtml(convertToRaw(payload.content.getCurrentContent()))
+
+    if (payload) {
+      console.log({ payload })
       dispatch(
-        createProperty(
-          plainObjectToFormData({
-            ...values,
-            carGarage: carGarageStatus,
-            gasAvailable: gasAvailableStatus,
-            electricityAvailable: electricityAvailableStatus,
-          }),
+        (isNew ? createProperty : updateProperty)(
+          plainObjectToFormData(payload),
           onClick,
           refreshState
         )
@@ -119,31 +125,42 @@ const AddRateModal = ({ onClick, active, data }) => {
       makeToast("error", "Kindly fill all the fields!");
     }
   };
+  console.log("convert", plainObjectToFormData(values), plainObjectToFormData(values).get("_id"))
   const imageUpload = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
-    setUrl((prev) => [...prev, URL.createObjectURL(file)]);
-    setValues((prev) => ({ ...prev, files: [...prev.files, file] }));
+    console.log({ file }, typeof file)
+    setUrl((prev) => [...prev, file]);
   };
 
+
+  console.log({ url })
   const onEditorStateChange = (editorState) => {
     console.log("editorState", editorState.getCurrentContent());
-    seteditorState(editorState);
     handleChange(
-      "content",
-      draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    );
+      "content", editorState)
+
     console.log(
       "content",
       draftToHtml(convertToRaw(editorState.getCurrentContent()))
     );
   };
 
+  console.log({ values })
+
+  const handleRemoveImage = removeAt => {
+    const deletedImage = url[removeAt]
+    console.log(typeof deletedImage)
+    setUrl(prev => prev.filter((_, index) => index !== removeAt))
+    if (typeof deletedImage === "string" && !isNew) {
+      setValues(prev => ({ ...prev, deleteImages: [...(prev?.deleteImages ?? []), deletedImage], images: prev?.images.filter((imgName) => imgName !== deletedImage) }))
+    }
+  }
   return (
-    <Modal size="lg" className=" fade" id="aAddDietMenus" show={active}>
+    <Modal size="lg" className=" fade" id="aAddDietMenus" show={active} >
       <div className="modal-content">
         <Modal.Header className="modal-header">
-          <Modal.Title className="modal-title">Add Property</Modal.Title>
+          <Modal.Title className="modal-title">{isNew ? `Add` : `Edit`} Property</Modal.Title>
           <Button
             variant=""
             className="close"
@@ -237,9 +254,7 @@ const AddRateModal = ({ onClick, active, data }) => {
                   <div className="col-md-6">
                     {console.log(
                       "Card Parkingn",
-                      carGarageStatus,
-                      gasAvailableStatus,
-                      electricityAvailableStatus
+
                     )}
                     <div class="form-group">
                       <label for="Action">Car Parking</label>
@@ -248,14 +263,17 @@ const AddRateModal = ({ onClick, active, data }) => {
                         {radios.map((radio, idx) => (
                           <ToggleButton
                             key={idx}
-                            id={`radio-${idx}`}
+                            id={`carGarage-${idx}`}
                             type="radio"
                             variant="light"
-                            name="radio"
+                            name="carGarage"
                             value={radio.value}
-                            checked={carGarageStatus === radio.value}
+                            checked={values.carGarage === Boolean(radio.value)}
                             onChange={(e) => {
-                              setcarGarageStatus(Number(e.currentTarget.value));
+                              console.log(e.target.value, "ch", Boolean(+e.target.value), e.target.name)
+                              handleChange(e.target.name, Boolean(+e.target.value))
+                              // setcarGarageStatus(Number(e.currentTarget.value));
+
                             }}
                           >
                             {radio.name}
@@ -272,16 +290,20 @@ const AddRateModal = ({ onClick, active, data }) => {
                         {radios.map((radio, idx) => (
                           <ToggleButton
                             key={idx}
-                            id={`radio-${idx}`}
+                            id={`gasAvailable-${idx}`}
                             type="radio"
                             variant="light"
-                            name="radio"
+                            name="gasAvailable"
                             value={radio.value}
-                            checked={gasAvailableStatus === radio.value}
-                            onChange={(e) =>
-                              setgasAvailableStatus(
-                                Number(e.currentTarget.value)
-                              )
+                            checked={values.gasAvailable === Boolean(radio.value)}
+                            onChange={(e) => {
+                              // setgasAvailableStatus(
+                              //   Number(e.currentTarget.value)
+                              // )
+                              console.log(e.target.value, Boolean(+e.target.value), e.target.name);
+
+                              handleChange(e.target.name, Boolean(+e.target.value))
+                            }
                             }
                           >
                             {radio.name}
@@ -298,16 +320,20 @@ const AddRateModal = ({ onClick, active, data }) => {
                         {radios.map((radio, idx) => (
                           <ToggleButton
                             key={idx}
-                            id={`radio-${idx}`}
+                            id={`electricityAvailable-${idx}`}
                             type="radio"
                             variant="light"
-                            name="radio"
+                            name="electricityAvailable"
                             value={radio.value}
-                            checked={electricityAvailableStatus === radio.value}
-                            onChange={(e) =>
-                              setelectricityAvailableStatus(
-                                Number(e.currentTarget.value)
-                              )
+                            checked={values.electricityAvailable === Boolean(radio.value)}
+                            onChange={(e) => {
+                              // setgasAvailableStatus(
+                              //   Number(e.currentTarget.value)
+                              // )
+                              console.log(e.target.value, Boolean(+e.target.value), e.target.name);
+
+                              handleChange(e.target.name, Boolean(+e.target.value))
+                            }
                             }
                           >
                             {radio.name}
@@ -344,13 +370,13 @@ const AddRateModal = ({ onClick, active, data }) => {
                         class="form-control"
                         id="tagline"
                         placeholder="Location"
-                        // value={values.}
-                        // onChange={(e) =>
-                        //   handleChange(
-                        //     "electricityAvailable",
-                        //     e.target.value
-                        //   )
-                        // }
+                      // value={values.}
+                      // onChange={(e) =>
+                      //   handleChange(
+                      //     "electricityAvailable",
+                      //     e.target.value
+                      //   )
+                      // }
                       />
                     </div>
                   </div>
@@ -556,9 +582,10 @@ const AddRateModal = ({ onClick, active, data }) => {
                       <div className="text-field">
                         <div className="user-img">
                           {isArrayCheck(url) &&
-                            url.map((dat) => (
-                              <img src={dat} className="uploaded" alt="user" />
-                            ))}
+                            url.map((dat, index) => (
+                              <img src={getImageUrlByName(dat)} onClick={handleRemoveImage.bind({}, index)} className="uploaded" alt="user" />
+                            )
+                            )}
 
                           <label htmlFor="contained-button-file">
                             <Input
@@ -585,7 +612,7 @@ const AddRateModal = ({ onClick, active, data }) => {
                     <div class="form-group">
                       <label for="idcard">Property Description</label>
                       <Editor
-                        editorState={editorState}
+                        editorState={values.content}
                         wrapperClassName="demo-wrapper"
                         editorClassName="demo-editor"
                         onEditorStateChange={onEditorStateChange}
@@ -636,9 +663,9 @@ const AddRateModal = ({ onClick, active, data }) => {
             </form>
           </div>
         </Modal.Body>
-      </div>
-    </Modal>
+      </div >
+    </Modal >
   );
 };
 
-export default AddRateModal;
+export default AddEditRateModal;

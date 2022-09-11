@@ -31,9 +31,16 @@ const addProperty = async (req, res) => {
 
 const updateProperty = async (req, res) => {
     try {
+
+        removeMultipleImageFiles(req.body.deleteImages, res);
+        const payload = { ...req.body }
+        if (req.imagesUrl?.length) {
+            const payloadImages = typeof payload.images === "string" ? [payload.images] : payload.images
+            payload.images = [...(payloadImages ?? []), ...req.imagesUrl]
+        }
         const updatedProperty = await propertyModel.findByIdAndUpdate(
             { _id: req?.params?.id },
-            req.body,
+            payload,
             { new: true }
         );
         if (updatedProperty) {

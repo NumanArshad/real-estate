@@ -12,6 +12,10 @@ const propertySchema = new Schema(
             type: String,
             required: true,
         },
+        content: {
+            type: String,
+            default: "",
+        },
         bedRoomCount: {
             type: Number,
             required: true,

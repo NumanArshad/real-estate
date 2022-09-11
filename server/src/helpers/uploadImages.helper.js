@@ -142,8 +142,12 @@ const removeMultiImageFileIndex = (fileName, res) => {
 
 const removeMultipleImageFiles = (fileNameList, res) => {
     try {
-        for (let i = 0; i < fileNameList?.length; i++) {
-            removeMultiImageFileIndex(fileNameList[i], res);
+        if (fileNameList) {
+            const nameList = typeof fileNameList === "string" ? [fileNameList] : fileNameList
+
+            for (let i = 0; i < nameList?.length; i++) {
+                removeMultiImageFileIndex(nameList[i], res);
+            }
         }
     } catch (error) {
         console.log({ error: error.message });
