@@ -64,40 +64,41 @@ const uploadMultipleFile = (req, res, next) => {
 };
 
 //local directory
-const removeSingleImageFile = (fileName) => {
+const removeSingleImageFile = (fileName, res) => {
     try {
-        if (!IS_DEV) {
-            const fileNameSplitList = fileName.split(".");
-            const fileNameWithoutExt = fileNameSplitList.splice(
-                0,
-                fileNameSplitList?.length - 1
-            );
-            cloudinary.uploader.destroy(fileNameWithoutExt, (error, result) => {
-                if (error) {
-                    console.log("error in file remove", error);
-                    return responseHelper.badRequest(
-                        res,
-                        "Cloudinary File Remove  Error"
-                    );
-                }
-                // return responseHelper.success(res, result, "Cloudinary file Remove success")
-            });
-        } else {
-            const filePath = path.join(__dirname, "../../public/images", fileName);
-            if (fs.existsSync(filePath)) {
-                fs.unlink(filePath, (error) => {
+        if (fileName) {
+            if (!IS_DEV) {
+                const fileNameSplitList = fileName.split(".");
+                const fileNameWithoutExt = fileNameSplitList.splice(
+                    0,
+                    fileNameSplitList?.length - 1
+                );
+                cloudinary.uploader.destroy(fileNameWithoutExt, (error, result) => {
                     if (error) {
-                        console.log({ fileRemoveError: error });
-                        return responseHelper.badRequest(res, "Local File Remove  Error");
+                        console.log("error in file remove", error);
+                        throw new Error(
+                            "Cloudinary File Remove  Error"
+                        );
                     }
-                    console.log("file remove successfully", filePath);
-                    //  return responseHelper.success(res, null, "Local file Remove success")
+                    // return responseHelper.success(res, result, "Cloudinary file Remove success")
                 });
+            } else {
+                const filePath = path.join(__dirname, "../../public/images", fileName);
+                if (fs.existsSync(filePath)) {
+                    fs.unlink(filePath, (error) => {
+                        if (error) {
+                            console.log({ fileRemoveError: error });
+                            throw new Error("Local File Remove  Error");
+                        }
+                        console.log("file remove successfully", filePath);
+                        //  return responseHelper.success(res, null, "Local file Remove success")
+                    });
+                }
+                //  return responseHelper.success(res, null, "Local file Not exist success")
             }
-            //  return responseHelper.success(res, null, "Local file Not exist success")
         }
     } catch (error) {
-        return responseHelper.requestfailure(res, " File Remove exceptiion  Error");
+        throw new Error(" File Remove exceptiion  Error");
     }
 };
 

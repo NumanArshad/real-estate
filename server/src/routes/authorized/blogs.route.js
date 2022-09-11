@@ -21,7 +21,7 @@ router.post("/addBlog", uploadSingleFile, blog.addNewBlog);
 //  router.post("/uploadImage",upload.fields([{ name: 'blogImage', maxCount: 1 }]), blog.uploadBlogImage);
 router.get("/getBlogs", blog.getBlogs);
 router.get("/getAllBlogs", blog.getAllBlogs);
-router.post("/updateBlog", blog.updateBlog);
+router.post("/updateBlog", uploadSingleFile, blog.updateBlog);
 router.get("/getSingleBlog", blog.getSingleBlog);
 router.post("/deleteBlog", blog.removeBlog);
 module.exports = router;

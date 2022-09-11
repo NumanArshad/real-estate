@@ -34,24 +34,24 @@ export const createBlog =
 
 export const updateBlog =
   (userData, close, message = null) =>
-  async (dispatch) => {
-    console_log("updateBlog", userData);
-    try {
-      const res = await request.post("/blogs/updateBlog", userData);
-      const { message, status, data } = res.data;
-      if (!status === "Success") throw res.data;
-      if (status === "Success") {
-        makeToast("success", message ? message : "Blog Updated Successfully");
-        console_log("Data", data);
-        close();
-        dispatch(getAllBlogs());
-      }
-    } catch (e) {
-      console_log("updateBlog error", e);
+    async (dispatch) => {
+      console_log("updateBlog", userData.get("isApproved"));
+      try {
+        const res = await request.post("/blogs/updateBlog", userData);
+        const { message, status, data } = res.data;
+        if (!status === "Success") throw res.data;
+        if (status === "Success") {
+          makeToast("success", message ? message : "Blog Updated Successfully");
+          console_log("Data", data);
+          close();
+          dispatch(getAllBlogs());
+        }
+      } catch (e) {
+        console_log("updateBlog error", e);
 
-      // makeToast("createUser error", e.message);
-    }
-  };
+        // makeToast("createUser error", e.message);
+      }
+    };
 
 export const getAllBlogs = () => async (dispatch) => {
   console_log("Call => getAllBlogs");

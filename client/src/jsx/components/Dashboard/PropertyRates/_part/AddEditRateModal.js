@@ -101,7 +101,6 @@ const AddEditRateModal = ({ onClick, active, data }) => {
     console.log("Data", {
       ...values,
 
-      //  files: [],
     });
 
     const payload = { ...values }

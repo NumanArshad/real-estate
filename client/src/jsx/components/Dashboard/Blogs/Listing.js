@@ -6,10 +6,11 @@ import DataTable from "react-data-table-component";
 import { COLUMN_HERADER } from "../../../../utils/Header/index.js";
 import { formatedDate, formatedTime } from "../../../../utils/helper.js";
 import { getAllUsers } from "../../../../store/actions/User/index.js";
-import AddBlogModal from "./_part/AddBlogModal.js";
+import AddEditBlogModal from "./_part/AddEditBlogModal.js";
 import EditBlogModal from "./_part/EditBlogModal.js";
 import ModalContent from "./_part/Modal.js";
 import { getAllBlogs } from "../../../../store/actions/Blog/index.js";
+import CustomModal from "../../modal/CustomModal.jsx";
 
 const BlogListing = () => {
   const [ApointmnetDetails, setApointmnetDetails] = useState("");
@@ -18,6 +19,11 @@ const BlogListing = () => {
   const [edit, setedit] = useState(false);
   const [openDetails, setopenDetails] = useState(false);
   const { blogs_listing } = useSelector((state) => state._blog);
+
+  const [modalData, setModalData] = useState({ data: null, isAddEdit: false, isView: false })
+  const handleModalToggle = ({ isAddEdit = false, isView = false, data = null }) => {
+    setModalData({ isAddEdit, isView, data })
+  }
   // const blogs_listing = [
   //   {
   //     _id: "62c86bf7933609268efc17b3",
@@ -80,32 +86,28 @@ const BlogListing = () => {
     var data =
       Array.isArray(blogs_listing) && blogs_listing.length > 0
         ? blogs_listing.map((data, id) => ({
-            id: id + 1,
-            name: data?.name,
-            description: data?.description,
-            action: (
-              <div className="d-flex align-items-center">
-                <button
-                  onClick={() => {
-                    setApointmnetDetails(data);
-                    setedit(true);
-                  }}
-                  className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                >
-                  <i className="fa fa-edit"></i>
-                </button>
-                <button
-                  onClick={() => {
-                    setApointmnetDetails(data);
-                    setopenDetails(true);
-                  }}
-                  className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                >
-                  <i className="fa fa-info"></i>
-                </button>
-              </div>
-            ),
-          }))
+          id: id + 1,
+          name: data?.name,
+          description: data?.description,
+          action: (
+            <div className="d-flex align-items-center">
+              <button
+                onClick={handleModalToggle.bind({}, { isAddEdit: true, data })}
+
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className="fa fa-edit"></i>
+              </button>
+              <button
+                onClick={handleModalToggle.bind({}, { isView: true, data })}
+
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className="fa fa-info"></i>
+              </button>
+            </div>
+          ),
+        }))
         : [];
     // console.log('Row Data', blogs_listing);
     setrow(data);
@@ -116,7 +118,7 @@ const BlogListing = () => {
     dispatch(getAllBlogs());
   }, []);
 
-  console.log("Listing Page", blogs_listing);
+  console.log("Listing Page", modalData);
 
   return (
     <div className="col-12">
@@ -125,9 +127,8 @@ const BlogListing = () => {
           <h4 className="card-title">Blog Information</h4>
           <h4
             className="btn btn-primary"
-            onClick={() => {
-              setopen(true);
-            }}
+            onClick={handleModalToggle.bind({}, { isAddEdit: true })}
+
           >
             Add
           </h4>
@@ -142,16 +143,15 @@ const BlogListing = () => {
           />
         </div>
       </div>
-      <AddBlogModal active={open} onClick={() => setopen(false)} data={null} />
-      <EditBlogModal
-        active={edit}
-        onClick={() => setedit(false)}
-        data={ApointmnetDetails}
-      />
+      <CustomModal title={`${modalData.data ? `Edit` : `Create`} Blog`}
+        handleClose={handleModalToggle.bind({}, { isAddEdit: false })} isActive={modalData.isAddEdit}>
+        <AddEditBlogModal onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data} />
+      </CustomModal>
+
       <ModalContent
-        active={openDetails}
-        onClick={() => setopenDetails(false)}
-        data={ApointmnetDetails}
+        active={modalData.isView}
+        onClick={handleModalToggle.bind({}, { isView: false })}
+        data={modalData.data}
       />
     </div>
   );

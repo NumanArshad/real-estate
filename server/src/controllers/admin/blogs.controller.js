@@ -76,15 +76,24 @@ var addNewBlog = async (req, res) => {
 var updateBlog = async (req, res) => {
   try {
     // console.log("sss->", req.body);
-    const getBLog = await Blog.findById(req.body.id);
-    console.log("ssss", getBLog);
-    let updateData = req.body;
-    if (req.body?.role !== "admin") {
-      updateData["isApproved"] = "pending";
+    // const getBLog = await Blog.findById(req.body.id);
+    console.log("s", req.body, "createdby", req.body.createdBy);
+    const updateData = req.body;
+    // if (req.body?.role !== "admin") {
+    //   updateData["isApproved"] = "pending";
+    // }
+
+
+
+    if (req.imageUrl) //delete image
+    {
+      console.log("updating image", updateData.image, req.imageUrl)
+      removeSingleImageFile(updateData.image)
+      updateData.image = req.imageUrl
+
     }
-    if (getBLog) {
-      delete req.body.id;
-      const updateBlog = await Blog.findByIdAndUpdate(getBLog._id, updateData, {
+    if (updateData) {
+      const updateBlog = await Blog.findByIdAndUpdate(updateData?._id, updateData, {
         new: true,
       });
       if (updateBlog) {
