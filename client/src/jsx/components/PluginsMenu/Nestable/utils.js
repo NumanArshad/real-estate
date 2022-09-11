@@ -31,6 +31,10 @@ export const plainObjectToFormData = (object) => {
         formData.append(key, filesData[i])
       }
     }
+    else if (typeof object[key] === "object") {
+      formData.append(key, JSON.stringify(object[key]))
+
+    }
 
     else {
       formData.append(key, object[key])

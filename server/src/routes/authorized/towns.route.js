@@ -21,7 +21,8 @@ router.post("/addTown", uploadMultipleFile, town.addNewTown);
 //  router.post("/uploadImage",upload.fields([{ name: 'blogImage', maxCount: 1 }]), blog.uploadBlogImage);
 // router.get("/getTown", town.getSingleTown);
 router.get("/getAllTown", town.getAllTown);
-router.post("/updateTown", town.updateTown);
+router.get("/activeTownOptions", town.getAllActiveTownName)
+router.put("/updateTown", uploadMultipleFile, town.updateTown);
 router.get("/getSingleTown", town.getSingleTown);
 router.post("/deleteTown", town.removeTown);
 module.exports = router;

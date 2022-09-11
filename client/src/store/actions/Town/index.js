@@ -38,28 +38,28 @@ export const createTown =
 
 export const updateTown =
   (userData, close, message = null) =>
-  async (dispatch) => {
-    console_log("updateTown", userData);
-    dispatch(isLoading(true));
+    async (dispatch) => {
+      console_log("updateTown", userData, userData?._id);
+      dispatch(isLoading(true));
 
-    try {
-      const res = await request.post("/towns/updateTown", userData);
-      const { message, status, data } = res.data;
-      if (!status === "Success") throw res.data;
-      if (status === "Success") {
-        makeToast("success", message ? message : "Town Updated Successfully");
-        console_log("Data", data);
-        close();
-        dispatch(getAllTowns());
+      try {
+        const res = await request.put("/towns/updateTown", userData);
+        const { message, status, data } = res.data;
+        if (!status === "Success") throw res.data;
+        if (status === "Success") {
+          makeToast("success", message ? message : "Town Updated Successfully");
+          console_log("Data", data);
+          close();
+          dispatch(getAllTowns());
+          dispatch(isLoading(false));
+        }
+      } catch (e) {
+        console_log("updateTown error", e);
         dispatch(isLoading(false));
-      }
-    } catch (e) {
-      console_log("updateTown error", e);
-      dispatch(isLoading(false));
 
-      // makeToast("createUser error", e.message);
-    }
-  };
+        // makeToast("createUser error", e.message);
+      }
+    };
 
 export const getAllTowns = () => async (dispatch) => {
   console_log("Call => getAllTowns");

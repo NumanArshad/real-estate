@@ -9,6 +9,7 @@ import { getAllUsers } from "../../../../store/actions/User/index.js";
 import AddEditRateModal from "./_part/AddEditRateModal.js";
 import ModalContent from "./_part/Modal.js";
 import { getAllProperties } from "../../../../store/actions/Property/index.js";
+import CustomModal from "../../modal/CustomModal.jsx";
 
 const PropertyRates = () => {
   const [modalData, setModalData] = useState({ data: null, isAddEdit: false, isView: false })
@@ -170,7 +171,11 @@ const PropertyRates = () => {
           />
         </div>
       </div>
-      <AddEditRateModal active={modalData.isAddEdit} onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data} />
+      <CustomModal title={`${modalData.data ? `Edit` : `Add`} Property`}
+        handleClose={handleModalToggle.bind({}, { isAddEdit: false })} isActive={modalData.isAddEdit}>
+        <AddEditRateModal active={modalData.isAddEdit} onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data} />
+
+      </CustomModal>
 
       <ModalContent
         active={modalData.isView}

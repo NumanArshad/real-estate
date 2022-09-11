@@ -53,6 +53,7 @@ const propertySchema = new Schema(
             required: true,
         },
         createdBy: { type: Schema.Types.ObjectId, ref: "User" },
+        townId: { type: Schema.Types.ObjectId, ref: "Town" },
         landArea: {
             type: String,
             required: false,

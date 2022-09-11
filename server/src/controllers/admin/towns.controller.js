@@ -24,6 +24,7 @@ var addNewTown = async (req, res) => {
     // const name = clientHelper.getRandomName(req.files.townImage);
     // uploadFile(req.files.townImage, name.directory);
     const { id } = req.token_decoded;
+    console.log("images town", req.imagesUrl)
     var data = {
       ...req.body,
       createdBy: id,
@@ -47,14 +48,13 @@ var addNewTown = async (req, res) => {
 var updateTown = async (req, res) => {
   try {
     //console.log("sss->", req.body);
-    const getData = await Town.findById(req.body.id);
-    console.log("ssss", getData);
+    console.log("ssss", req.body, "id", req.body._id);
     let updateData = req.body;
 
-    if (getData) {
-      delete req.body.id;
+    updateData.townInformation = JSON.parse(updateData.townInformation)
+    if (req.body._id) {
       const updatedData = await Town.findByIdAndUpdate(
-        getData._id,
+        req.body._id,
         updateData,
         {
           new: true,
@@ -75,6 +75,8 @@ var updateTown = async (req, res) => {
     responseHelper.requestfailure(res, error);
   }
 };
+
+
 
 //@route    GET get Town
 //@desc    Get all current  Town
@@ -185,12 +187,29 @@ const getAllActiveTownConstructionUpdate = async (req, res) => {
   }
 }
 
+
+const getAllActiveTownName = async (req, res) => {
+  try {
+    const listData = await Town.find({ isActive: true }, { name: 1 }).sort({ created_at: -1 });
+    if (listData) {
+      var message = "Construction Updates Loaded";
+      // var responseData = { data: listData };
+      return responseHelper.success(res, listData, message);
+    }
+    let err = "No Town Exist";
+    return responseHelper.requestfailure(res, err);
+  } catch (error) {
+    responseHelper.requestfailure(res, error);
+  }
+}
+
 module.exports = {
   addNewTown,
   updateTown,
   getSingleTown,
   removeTown,
   getAllTown,
+  getAllActiveTownName,
 
   getAllActiveTownConstructionUpdate
 };

@@ -6,9 +6,10 @@ import DataTable from "react-data-table-component";
 import { COLUMN_HERADER } from "../../../../utils/Header/index.js";
 import { formatedDate, formatedTime } from "../../../../utils/helper.js";
 import { getAllUsers } from "../../../../store/actions/User/index.js";
-import AddMapsModal from "./_part/AddMapsModal.js";
+import AddEditMapsModal from "./_part/AddEditMapsModal.js";
 import EditMapsModal from "./_part/EditMapsModal.js";
 import ModalContent from "./_part/Modal.js";
+import CustomModal from "../../modal/CustomModal.jsx";
 
 const MapsListing = () => {
   const [ApointmnetDetails, setApointmnetDetails] = useState("");
@@ -16,7 +17,14 @@ const MapsListing = () => {
   const [open, setopen] = useState(false);
   const [edit, setedit] = useState(false);
   const [openDetails, setopenDetails] = useState(false);
+  const [modalData, setModalData] = useState({ data: null, isAddEdit: false, isView: false })
+
   const { users_listing } = useSelector((state) => state._saleAgent);
+
+  const handleModalToggle = ({ isAddEdit = false, isView = false, data = null }) => {
+    setModalData({ isAddEdit, isView, data })
+  }
+
   // const users_listing = [
   //   {
   //     _id: "62c86bf7933609268efc17b3",
@@ -79,46 +87,42 @@ const MapsListing = () => {
     var data =
       Array.isArray(users_listing) && users_listing.length > 0
         ? users_listing.map((data, id) => ({
-            id: id + 1,
-            image: (
-              <img
-                src={data?.profile}
-                style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
-                alt="Dummy"
-              />
-            ),
-            name: data?.first_name + " " + data?.last_name,
-            idCard: data?.idCard,
-            phone: data?.phone,
-            email: data?.email,
-            city: data?.city,
-            address: data?.address,
-            role: data?.role,
-            gender: data?.gender,
-            designation: data?.designation,
-            action: (
-              <div className="d-flex align-items-center">
-                <button
-                  onClick={() => {
-                    setApointmnetDetails(data);
-                    setedit(true);
-                  }}
-                  className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                >
-                  <i className="fa fa-edit"></i>
-                </button>
-                <button
-                  onClick={() => {
-                    setApointmnetDetails(data);
-                    setopenDetails(true);
-                  }}
-                  className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                >
-                  <i className="fa fa-info"></i>
-                </button>
-              </div>
-            ),
-          }))
+          id: id + 1,
+          image: (
+            <img
+              src={data?.profile}
+              style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
+              alt="Dummy"
+            />
+          ),
+          name: data?.first_name + " " + data?.last_name,
+          idCard: data?.idCard,
+          phone: data?.phone,
+          email: data?.email,
+          city: data?.city,
+          address: data?.address,
+          role: data?.role,
+          gender: data?.gender,
+          designation: data?.designation,
+          action: (
+            <div className="d-flex align-items-center">
+              <button
+                onClick={handleModalToggle.bind({}, { isAddEdit: true, data })}
+
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className="fa fa-edit"></i>
+              </button>
+              <button
+                onClick={handleModalToggle.bind({}, { isView: true, data })}
+
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className="fa fa-info"></i>
+              </button>
+            </div>
+          ),
+        }))
         : [];
     // console.log('Row Data', users_listing);
     setrow(data);
@@ -137,9 +141,7 @@ const MapsListing = () => {
           <h4 className="card-title">Maps Modal</h4>
           <h4
             className="btn btn-primary"
-            onClick={() => {
-              setopen(true);
-            }}
+            onClick={handleModalToggle.bind({}, { isAddEdit: true })}
           >
             Add
           </h4>
@@ -180,16 +182,19 @@ const MapsListing = () => {
           />
         </div>
       </div>
-      <AddMapsModal active={open} onClick={() => setopen(false)} data={null} />
+      <CustomModal title={`${modalData.data ? `Edit` : `Create`} Maps Modal`}
+        handleClose={handleModalToggle.bind({}, { isAddEdit: false })} isActive={modalData.isAddEdit}>
+        <AddEditMapsModal onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data} />
+      </CustomModal>
       <EditMapsModal
         active={edit}
         onClick={() => setedit(false)}
         data={ApointmnetDetails}
       />
       <ModalContent
-        active={openDetails}
-        onClick={() => setopenDetails(false)}
-        data={ApointmnetDetails}
+        active={modalData.isView}
+        onClick={handleModalToggle.bind({}, { isView: false })}
+        data={modalData.data}
       />
     </div>
   );
