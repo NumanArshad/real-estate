@@ -8,6 +8,7 @@ import upload from "../../../../../images/user-round.jpg";
 import Dummy from "../../../../../images/upload-image.svg";
 import { plainObjectToFormData } from "../../../PluginsMenu/Nestable/utils";
 import LoaderPulse from "../../../LoaderPulse";
+import { getImageUrlByName } from "../../../../../utils/helper";
 
 const AddUserModal = ({ onClick, active, data }) => {
   const [url, setUrl] = useState("");
@@ -62,10 +63,10 @@ const AddUserModal = ({ onClick, active, data }) => {
     let reader = new FileReader();
     let file = e.target.files[0];
     setValues((prev) => ({ ...prev, file }));
-    reader.onloadend = (e) => {
-      setUrl(e.target.result);
-    };
-    reader.readAsDataURL(file);
+    // reader.onloadend = (e) => {
+    //   setUrl(e.target.result);
+    // };
+    // reader.readAsDataURL(file);
   };
   return (
     <Modal size="lg" className=" fade" id="aAddDietMenus" show={active}>
@@ -91,9 +92,9 @@ const AddUserModal = ({ onClick, active, data }) => {
                       <label for="image">Image</label>
                       <div className="text-field">
                         <div className="user-img">
-                          {url ? (
+                          {values?.file ? (
                             <>
-                              <img src={url} className="uploaded" alt="user" />
+                              <img src={getImageUrlByName(values.file)} className="uploaded" alt="user" />
                               <label htmlFor="contained-button-file">
                                 <Input
                                   onChange={(e) => imageUpload(e)}
