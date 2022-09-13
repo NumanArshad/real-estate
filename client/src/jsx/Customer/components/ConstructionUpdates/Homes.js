@@ -197,11 +197,12 @@ function Homes() {
               <h4 className="text-white text-center mb-4">HEAD OFFICE</h4>
               <p className="text-white text-center mb-2">
                 <i class="fa-solid fa-location-arrow me-2"></i>
-                25-26/A Sector C Commercial Area Bahria Town Lahore.
+                80-B Commercial, Rafi Block, Bahria Town, Lahore Lahore, Punjab,
+                Pakistan-5400
               </p>
               <p className="text-white text-center mb-2">
                 <i class="fa-solid fa-phone me-2"></i>
-                042 111 254 727
+                03257111000
               </p>
               <p className="text-white text-center mb-2">
                 <a href="" className="text-white">
@@ -214,11 +215,12 @@ function Homes() {
               </h4>
               <p className="text-white text-center mb-2">
                 <i class="fa-solid fa-location-arrow me-2"></i>
-                25-26/A Sector C Commercial Area Bahria Town Lahore.
+                80-B Commercial, Rafi Block, Bahria Town, Lahore Lahore, Punjab,
+                Pakistan-5400
               </p>
               <p className="text-white text-center mb-2">
                 <i class="fa-solid fa-phone me-2"></i>
-                042 111 254 727
+                03257111000
               </p>
               <p className="text-white text-center mb-2">
                 <a href="" className="text-white">

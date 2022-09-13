@@ -30,8 +30,7 @@ function DetailPage({ data }) {
             </div>
           </div>
           <div className="d-flex  jusify-content-between align-items-start propertyDetailMain">
-            <h1>
-              {title}            </h1>
+            <h1>{title} </h1>
             <h2>{price}Rs</h2>
           </div>
           <div className="tags d-flex gap-2">
@@ -45,13 +44,15 @@ function DetailPage({ data }) {
           <div className="row">
             <div className="col-md-12">
               <Carousel fade className="detailCarousel">
-                {images?.map((imageName) => <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={getImageUrlByName(imageName)}
-                    alt="Second slide"
-                  />
-                </Carousel.Item>)}
+                {images?.map((imageName) => (
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100"
+                      src={getImageUrlByName(imageName)}
+                      alt="Second slide"
+                    />
+                  </Carousel.Item>
+                ))}
                 {/* <Carousel.Item>
                   <img
                     className="d-block w-100"
@@ -83,25 +84,31 @@ function DetailPage({ data }) {
                 <div className="seperator"></div>
                 <div className="text-center" hidden={!bedRoomCount}>
                   <div className="d-flex gap-2 justify-content-center">
-                    <i class="fa-solid fa-bed"></i>{bedRoomCount}
+                    <i class="fa-solid fa-bed"></i>
+                    {bedRoomCount}
                   </div>
                   <p className="mb-0">Bedrooms</p>
                 </div>
                 <div className="seperator"></div>
                 <div className="text-center" hidden={!bathRoomCount}>
                   <div className="d-flex gap-2 justify-content-center">
-                    <i class="fa-solid fa-shower"></i>{bathRoomCount}
+                    <i class="fa-solid fa-shower"></i>
+                    {bathRoomCount}
                   </div>
                   <p className="mb-0">Bathrooms</p>
                 </div>
-                {carGarage && <>   <div className="seperator"></div>
-                  <div className="text-center" >
-                    <div className="d-flex gap-2 justify-content-center">
-                      <i class="fa-solid fa-car"></i>1
+                {carGarage && (
+                  <>
+                    {" "}
+                    <div className="seperator"></div>
+                    <div className="text-center">
+                      <div className="d-flex gap-2 justify-content-center">
+                        <i class="fa-solid fa-car"></i>1
+                      </div>
+                      <p className="mb-0">Garage</p>
                     </div>
-                    <p className="mb-0">Garage</p>
-                  </div>
-                </>}
+                  </>
+                )}
                 <div className="seperator"></div>
                 <div className="text-center">
                   <div className="d-flex gap-2 justify-content-center">
@@ -131,7 +138,7 @@ function DetailPage({ data }) {
                   <hr />
                   <p>{description}</p>
                   {/* <p>
-                    ALI SAQLAIN REAL ESTATE & BUILDERS offers 1 Kanal Furnished
+                    Samara's REAL ESTATE & BUILDERS offers 1 Kanal Furnished
                     Home for sale. Limited Time Golden opportunity to enjoy
                     international life style of BAHRIA ORCHARD.
                   </p>

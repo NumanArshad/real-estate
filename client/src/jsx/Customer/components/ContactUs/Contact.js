@@ -84,14 +84,11 @@ function Contact() {
                     Bahria Town Lahore Office (Head Office)
                   </h2>
                   <p className="text-white mb-2 mt-3 font-14">
-                    25-26/A Sector C Commercial Area, Bahria Town, Lahore.
+                    80-B Commercial, Rafi Block, Bahria Town, Lahore Lahore,
+                    Punjab, Pakistan-5400
                   </p>
-                  <p className="text-white mb-2 font-14">
-                    Mob : 0321/0322-8477092
-                  </p>
-                  <p className="text-white mb-0 font-14">
-                    UAN: +92 42 111 254 727
-                  </p>
+                  <p className="text-white mb-2 font-14">Mob : 03257111000</p>
+                  <p className="text-white mb-0 font-14">UAN: 03257111000</p>
                 </div>
               </div>
               <div className="col-md-6 mb-3 px-2">
@@ -100,14 +97,11 @@ function Contact() {
                     Bahria Town Lahore Office (Head Office)
                   </h2>
                   <p className="text-white mb-2 mt-3 font-14">
-                    25-26/A Sector C Commercial Area, Bahria Town, Lahore.
+                    80-B Commercial, Rafi Block, Bahria Town, Lahore Lahore,
+                    Punjab, Pakistan-5400
                   </p>
-                  <p className="text-white mb-2 font-14">
-                    Mob : 0321/0322-8477092
-                  </p>
-                  <p className="text-white mb-0 font-14">
-                    UAN: +92 42 111 254 727
-                  </p>
+                  <p className="text-white mb-2 font-14">Mob : 03257111000</p>
+                  <p className="text-white mb-0 font-14">UAN: 03257111000</p>
                 </div>
               </div>
               <div className="col-md-6 mb-3 px-2">
@@ -116,14 +110,11 @@ function Contact() {
                     Bahria Town Lahore Office (Head Office)
                   </h2>
                   <p className="text-white mb-2 mt-3 font-14">
-                    25-26/A Sector C Commercial Area, Bahria Town, Lahore.
+                    80-B Commercial, Rafi Block, Bahria Town, Lahore Lahore,
+                    Punjab, Pakistan-5400
                   </p>
-                  <p className="text-white mb-2 font-14">
-                    Mob : 0321/0322-8477092
-                  </p>
-                  <p className="text-white mb-0 font-14">
-                    UAN: +92 42 111 254 727
-                  </p>
+                  <p className="text-white mb-2 font-14">Mob : 03257111000</p>
+                  <p className="text-white mb-0 font-14">UAN: 03257111000</p>
                 </div>
               </div>
               <div className="col-md-6 mb-3 px-2">
@@ -132,14 +123,11 @@ function Contact() {
                     Bahria Town Lahore Office (Head Office)
                   </h2>
                   <p className="text-white mb-2 mt-3 font-14">
-                    25-26/A Sector C Commercial Area, Bahria Town, Lahore.
+                    80-B Commercial, Rafi Block, Bahria Town, Lahore Lahore,
+                    Punjab, Pakistan-5400
                   </p>
-                  <p className="text-white mb-2 font-14">
-                    Mob : 0321/0322-8477092
-                  </p>
-                  <p className="text-white mb-0 font-14">
-                    UAN: +92 42 111 254 727
-                  </p>
+                  <p className="text-white mb-2 font-14">Mob : 03257111000</p>
+                  <p className="text-white mb-0 font-14">UAN: 03257111000</p>
                 </div>
               </div>
             </div>

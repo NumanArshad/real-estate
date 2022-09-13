@@ -10,11 +10,11 @@ function Index() {
               <div className="call-email">
                 <div className="call">
                   <i class="fa fa-phone"></i>
-                  <p>(042/021) 111 254 727</p>
+                  <p>03257111000</p>
                 </div>
                 <div className="call">
                   <i class="fa-solid fa-envelope"></i>
-                  <p>(042/021) 111 254 727</p>
+                  <p>info@samarasestate.com</p>
                 </div>
               </div>
             </div>

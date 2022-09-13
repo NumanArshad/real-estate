@@ -18,7 +18,8 @@ function Index() {
                   <div className="d-flex align-items-baseline contc">
                     <i className="fa-solid fa-location-dot"></i>
                     <span>
-                      25-26/A Sector C Commercial Area Bahria Town Lahore.
+                      80-B Commercial, Rafi Block, Bahria Town, Lahore Lahore,
+                      Punjab, Pakistan-5400
                     </span>
                   </div>
                 </li>
@@ -26,7 +27,7 @@ function Index() {
                   <div className="d-flex align-items-baseline contc">
                     <i className="fa-solid fa-phone"></i>
                     <span>
-                      <a href="">042 111 254 727</a>
+                      <a href="">03257111000</a>
                     </span>
                   </div>
                 </li>
@@ -34,8 +35,8 @@ function Index() {
                   <div className="d-flex align-items-baseline contc">
                     <i className="fa-regular fa-envelope"></i>
                     <span>
-                      <a href="mailto:info@alisaqlain.com">
-                        info@alisaqlain.com
+                      <a href="mailto:info@samarasestate.com">
+                        info@samarasestate.com
                       </a>
                     </span>
                   </div>
@@ -52,17 +53,14 @@ function Index() {
                 <li>
                   <div className="d-flex align-items-baseline contc">
                     <i className="fa-solid fa-location-dot"></i>
-                    <span>
-                      Plot # 1 & 29 Main Jinnah Avenue, Plot # 109, Liberty
-                      Commercial, Facing Theme Park, Bahria Town Karachi.
-                    </span>
+                    <span>Comming Soon</span>
                   </div>
                 </li>
                 <li>
                   <div className="d-flex align-items-baseline contc">
                     <i className="fa-solid fa-phone"></i>
                     <span>
-                      <a href="">021 111 254 727</a>
+                      <a href="">Comming Soon</a>
                     </span>
                   </div>
                 </li>
@@ -70,9 +68,7 @@ function Index() {
                   <div className="d-flex align-items-baseline contc">
                     <i className="fa-regular fa-envelope"></i>
                     <span>
-                      <a href="mailto:info@alisaqlain.com">
-                        info@alisaqlain.com
-                      </a>
+                      <a href="mailto:">Comming Soon</a>
                     </span>
                   </div>
                 </li>
@@ -148,8 +144,8 @@ function Index() {
         <div className="container">
           <div className="d-sm-flex justify-content-sm-between justify-content-center align-items-center">
             <p>
-              © Ali Saqlain Real Estate & Builders- All rights Reserved |
-              Developed by XnRel
+              © Samara's Real Estate & Builders- All rights Reserved | Developed
+              by Samara's
             </p>
             <div className="footerSocial d-flex justify-content-center mt-sm-0 mt-3">
               <a href="">
