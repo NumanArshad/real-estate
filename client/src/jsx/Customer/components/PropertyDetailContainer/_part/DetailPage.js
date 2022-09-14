@@ -8,7 +8,6 @@ import Features from "./Features";
 import MortageCalculator from "./MortageCalculator";
 import Contactinformation from "./Contactinformation";
 import { getImageUrlByName } from "../../../../../utils/helper";
-
 function DetailPage({ data }) {
   const { title, description, price, status, city, area, images, type, bedRoomCount, bathRoomCount, carGarage } = data ?? {}
 
@@ -44,15 +43,23 @@ function DetailPage({ data }) {
           <div className="row">
             <div className="col-md-12">
               <Carousel fade className="detailCarousel">
-                {images?.map((imageName) => (
+                {images?.length > 0 ? images?.map((imageName) => (
                   <Carousel.Item>
                     <img
                       className="d-block w-100"
                       src={getImageUrlByName(imageName)}
                       alt="Second slide"
-                    />
+                      onError={event => {
+                        console.log("image load error")
+                        event.target.src = "imgs/house.jpeg"
+                      }} />
                   </Carousel.Item>
-                ))}
+                )) : <img
+                  className="d-block w-100"
+                  src="/imgs/house.jpeg"
+
+                  alt="first slide"
+                />}
                 {/* <Carousel.Item>
                   <img
                     className="d-block w-100"
