@@ -7,12 +7,12 @@ import request from "../../../../../utils/request";
 import { getImageUrlByName } from "../../../../../utils/helper";
 function Index() {
   const [propertiesList, setPropertiesList] = useState([])
-  // useEffect(() => {
-  //   request.get("/properties/getAllActivePropertiesList").then((response) => {
-  //     console.log({ response })
-  //     setPropertiesList(response?.data?.data)
-  //   })
-  // }, [])
+  useEffect(() => {
+    request.get("/properties/getAllActivePropertiesList").then((response) => {
+      console.log({ response })
+      setPropertiesList(response?.data?.data)
+    })
+  }, [])
 
   const history = useHistory()
   return (
