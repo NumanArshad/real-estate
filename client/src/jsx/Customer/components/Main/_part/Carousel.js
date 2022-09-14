@@ -6,7 +6,15 @@ import HomeBanner4 from "../../../assets/images/HomeBanner4.jpg";
 import HomeBanner5 from "../../../assets/images/HomeBanner5.jpg";
 import Carousel from "react-bootstrap/Carousel";
 import Search from "../_part/Search";
+import { useHistory } from "react-router-dom";
 function Index() {
+
+  const history = useHistory()
+
+  const handleNaviateProperty = event => {
+    event.preventDefault()
+    history.push("/property")
+  }
   return (
     <React.Fragment>
       <div className="homeCarousel">
@@ -21,7 +29,7 @@ function Index() {
               <div data-aos="fade-down" data-aos-duration="1500">
                 <h3>Samara's Estate & Builders</h3>
                 <p>Bahria Town Lahore</p>
-                <button href="">View Project</button>
+                <button href="" onClick={handleNaviateProperty}>View Project</button>
               </div>
             </Carousel.Caption>
           </Carousel.Item>
@@ -36,7 +44,7 @@ function Index() {
               <div data-aos="fade-down" data-aos-duration="1500">
                 <h3>Samara's Estate & Builders</h3>
                 <p>Bahria Town Lahore</p>
-                <button href="">View Project</button>
+                <button href="" onClick={handleNaviateProperty}>View Project</button>
               </div>
             </Carousel.Caption>
           </Carousel.Item>
@@ -51,7 +59,7 @@ function Index() {
               <div data-aos="fade-down" data-aos-duration="1500">
                 <h3>Samara's Estate & Builders</h3>
                 <p>Bahria Town Lahore</p>
-                <button href="">View Project</button>
+                <button href="" onClick={handleNaviateProperty}>View Project</button>
               </div>
             </Carousel.Caption>
           </Carousel.Item>
@@ -66,7 +74,7 @@ function Index() {
               <div data-aos="fade-down" data-aos-duration="1500">
                 <h3>Samara's Estate & Builders</h3>
                 <p>Bahria Town Lahore</p>
-                <button href="">View Project</button>
+                <button href="" onClick={handleNaviateProperty}>View Project</button>
               </div>
             </Carousel.Caption>
           </Carousel.Item>
@@ -81,7 +89,7 @@ function Index() {
               <div data-aos="fade-down" data-aos-duration="1500">
                 <h3>Samara's Estate & Builders</h3>
                 <p>Bahria Town Lahore</p>
-                <button href="">View Project</button>
+                <button href="" onClick={handleNaviateProperty}>View Project</button>
               </div>
             </Carousel.Caption>
           </Carousel.Item>
