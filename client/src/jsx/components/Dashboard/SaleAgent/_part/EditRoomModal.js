@@ -147,7 +147,7 @@ const EditUserModal = ({ onClick, active, data }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <div class="form-group">
                       <label for="name">Name</label>
                       <input
@@ -198,20 +198,8 @@ const EditUserModal = ({ onClick, active, data }) => {
                         onChange={(e) => handleChange("email", e.target.value)}
                       />
                     </div>
-                    <div class="form-group">
-                      <label for="City">City</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="City"
-                        aria-describedby="emailHelp"
-                        placeholder="Enter City"
-                        value={values.city}
-                        onChange={(e) => handleChange("city", e.target.value)}
-                      />
-                    </div>
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <div class="form-group">
                       <label for="Address">Address</label>
                       <input
@@ -248,6 +236,20 @@ const EditUserModal = ({ onClick, active, data }) => {
                         placeholder="Enter Gender"
                         value={values.gender}
                         onChange={(e) => handleChange("gender", e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div class="form-group">
+                      <label for="City">City</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="City"
+                        aria-describedby="emailHelp"
+                        placeholder="Enter City"
+                        value={values.city}
+                        onChange={(e) => handleChange("city", e.target.value)}
                       />
                     </div>
                     <div class="form-group">

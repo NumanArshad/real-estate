@@ -82,45 +82,18 @@ function Index() {
               <h2 className="footer-link">Important Links</h2>
               <ul className="links">
                 <li>
-                  <span>
-                    <i className="fa-solid fa-chevron-right"></i> Bahria Karachi
-                    Agents
-                  </span>
+                  <Link to="/property">
+                    <span>
+                      <i className="fa-solid fa-chevron-right"></i> Properties
+                    </span>
+                  </Link>
                 </li>
                 <li>
-                  <span>
-                    <i className="fa-solid fa-chevron-right"></i> Bahria Lahore
-                    Agents
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <i className="fa-solid fa-chevron-right"></i> Karachi Market
-                    Rates
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <i className="fa-solid fa-chevron-right"></i> Lahore Market
-                    Rates
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <i className="fa-solid fa-chevron-right"></i> Bahria Karachi
-                    Projects
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <i className="fa-solid fa-chevron-right"></i> Bahria Lahore
-                    Projects
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <i className="fa-solid fa-chevron-right"></i> Our Agents
-                  </span>
+                  <Link to="/agent">
+                    <span>
+                      <i className="fa-solid fa-chevron-right"></i> Our Agents
+                    </span>
+                  </Link>
                 </li>
                 <li>
                   <span>
@@ -148,21 +121,27 @@ function Index() {
               by Samara's
             </p>
             <div className="footerSocial d-flex justify-content-center mt-sm-0 mt-3">
-              <a href="">
+              <a href="https://www.facebook.com/samarasestate" target="_blank">
                 <i class="fa-brands fa-facebook-f"></i>
               </a>
-              <a href="">
-                <i class="fa-brands fa-twitter"></i>
+              <a href="https://wa.me/3257111000" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i>
               </a>
-              <a href="">
+              <a
+                href="https://www.linkedin.com/company/samara-s-estate-builders/"
+                target="_blank"
+              >
                 <i class="fa-brands fa-linkedin"></i>
               </a>
-              <a href="">
+              <a
+                href="https://instagram.com/samarasestate_andbuilders?igshid=YmMyMTA2M2Y="
+                target="_blank"
+              >
                 <i class="fa-brands fa-instagram"></i>
               </a>
-              <a href="">
+              {/* <a href="" target="_blank">
                 <i class="fa-brands fa-youtube"></i>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

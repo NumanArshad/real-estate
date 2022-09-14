@@ -4,10 +4,10 @@ import { homeDataContext } from "../../../../../context/HomeDataContext";
 import { getImageUrlByName } from "../../../../../utils/helper";
 
 function Index() {
-  const { propertiesList, setPaginationValue } = useContext(homeDataContext)
-  console.log({ propertiesList })
+  const { propertiesList, setPaginationValue } = useContext(homeDataContext);
+  console.log({ propertiesList });
 
-  const history = useHistory()
+  const history = useHistory();
   return (
     <React.Fragment>
       <div className="exploreProperty">
@@ -22,7 +22,7 @@ function Index() {
                 >
                   <h1>Explore Properties</h1>
                   <p>
-                    ESTABLISHED IN 2000, SAMRAS ESTATE & BUILDERS OFFERS THE
+                    ESTABLISHED IN 2021, SAMRAS ESTATE & BUILDERS OFFERS THE
                     BEST INVESTMENT CONSULTANCY IN REAL ESTATE SECTOR.
                   </p>
                 </div>
@@ -37,19 +37,28 @@ function Index() {
             <div className="row">
               {propertiesList?.data?.map((data) => {
                 return (
-                  <div key={data.id} className="col-md-6 col-lg-4" style={{ "cursor": "pointer" }} onClick={event => {
-                    console.log("thee")
-                    history.push(`/properties/${data?._id}`)
-                  }}>
+                  <div
+                    key={data.id}
+                    className="col-md-6 col-lg-4"
+                    style={{ cursor: "pointer" }}
+                    onClick={(event) => {
+                      console.log("thee");
+                      history.push(`/properties/${data?._id}`);
+                    }}
+                  >
                     <div className="card">
-                      <img src={getImageUrlByName(data?.images[0])} alt="property" />
+                      <img
+                        src={getImageUrlByName(data?.images[0])}
+                        alt="property"
+                      />
                       <div className="card-body">
                         <h1>{data.title}...</h1>
                         <h3>{data.price}Rs</h3>
                         <p>{data.description}</p>
                         <ul>
                           <li hidden={!data?.bedRoomCount}>
-                            <i className="fa-solid fa-bed" ></i> <span>{data?.bedRoomCount}</span>
+                            <i className="fa-solid fa-bed"></i>{" "}
+                            <span>{data?.bedRoomCount}</span>
                           </li>
                           <li hidden={!data?.bathRoomCount}>
                             <i className="fa-solid fa-shower"></i>{" "}
@@ -58,7 +67,7 @@ function Index() {
                           <li hidden={!data?.carGarage}>
                             <i className="fa-solid fa-car"></i> <span>1</span>
                           </li>
-                          <li >
+                          <li>
                             <i className="fa-solid fa-chart-area"></i>{" "}
                             <span>{data?.landArea}</span>
                           </li>
@@ -70,15 +79,19 @@ function Index() {
               })}
             </div>
 
-            {propertiesList?.data?.length < propertiesList?.total ?
+            {propertiesList?.data?.length < propertiesList?.total ? (
               <div className="loadMore">
-                <button className="btn btn-outline-success" onClick={event => {
-                  event.preventDefault()
-                  setPaginationValue(prev => ({ page: prev?.page + 1 }))
-
-                }}>Load More</button>
+                <button
+                  className="btn btn-outline-success"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setPaginationValue((prev) => ({ page: prev?.page + 1 }));
+                  }}
+                >
+                  Load More
+                </button>
               </div>
-              : null}
+            ) : null}
           </div>
         </div>
       </div>

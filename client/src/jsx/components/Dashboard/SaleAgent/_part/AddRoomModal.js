@@ -94,7 +94,11 @@ const AddUserModal = ({ onClick, active, data }) => {
                         <div className="user-img">
                           {values?.file ? (
                             <>
-                              <img src={getImageUrlByName(values.file)} className="uploaded" alt="user" />
+                              <img
+                                src={getImageUrlByName(values.file)}
+                                className="uploaded"
+                                alt="user"
+                              />
                               <label htmlFor="contained-button-file">
                                 <Input
                                   onChange={(e) => imageUpload(e)}
@@ -127,7 +131,7 @@ const AddUserModal = ({ onClick, active, data }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <div class="form-group">
                       <label for="name">Name</label>
                       <input
@@ -177,20 +181,8 @@ const AddUserModal = ({ onClick, active, data }) => {
                         onChange={(e) => handleChange("email", e.target.value)}
                       />
                     </div>
-                    <div class="form-group">
-                      <label for="City">City</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="City"
-                        aria-describedby="emailHelp"
-                        placeholder="Enter City"
-                        value={values.city}
-                        onChange={(e) => handleChange("city", e.target.value)}
-                      />
-                    </div>
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-4">
                     <div class="form-group">
                       <label for="Address">Address</label>
                       <input
@@ -235,6 +227,20 @@ const AddUserModal = ({ onClick, active, data }) => {
                         <option value="Female">Female</option>
                       </select>
                     </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div class="form-group">
+                      <label for="City">City</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="City"
+                        aria-describedby="emailHelp"
+                        placeholder="Enter City"
+                        value={values.city}
+                        onChange={(e) => handleChange("city", e.target.value)}
+                      />
+                    </div>
                     <div class="form-group">
                       <label for="Designation">Designation</label>
                       <input
@@ -249,6 +255,7 @@ const AddUserModal = ({ onClick, active, data }) => {
                         }
                       />
                     </div>
+                    s
                     <div class="form-group">
                       <label for="Designation">Password</label>
                       <input

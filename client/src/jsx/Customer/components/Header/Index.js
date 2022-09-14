@@ -10,17 +10,17 @@ import SubHeader from "../SubHeader/Index";
 import { useState } from "react";
 import request from "../../../../utils/request";
 function Index() {
-  const [propertiesNameOptions, setPropertiesNameOptions] = useState([])
+  const [propertiesNameOptions, setPropertiesNameOptions] = useState([]);
 
   useEffect(() => {
     request.get("/properties/propertiesDropdownOptions").then((response) => {
       if (response.status === 200) {
-        setPropertiesNameOptions(response.data?.data)
+        setPropertiesNameOptions(response.data?.data);
       }
-    })
-  }, [])
+    });
+  }, []);
 
-  console.log({ propertiesNameOptions })
+  console.log({ propertiesNameOptions });
   return (
     <React.Fragment>
       <SubHeader />
@@ -43,23 +43,7 @@ function Index() {
                   <Link to="/about">About</Link>
                 </li>
                 <li>
-                  <NavDropdown title="PROPERTIES" id="navbarScrollingDropdown">
-                    {
-                      propertiesNameOptions.map((data, index, array) => (
-                        <>
-                          <Link to={`properties/${data?._id}`}>{data?.title}</Link>
-                          {(index + 1) === array.length && <NavDropdown.Divider />
-                          }
-                        </>
-                      )
-                      )
-                    }
-                    {/* <Link to="/bahria-town">BAHRIA TOWN LAHORE</Link>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="">
-                      BAHRIA TOWN KARACHI
-                    </NavDropdown.Item> */}
-                  </NavDropdown>
+                  <Link to="/property">Properties</Link>
                 </li>
 
                 <li>

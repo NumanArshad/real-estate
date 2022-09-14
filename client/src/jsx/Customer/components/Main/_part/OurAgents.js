@@ -4,6 +4,7 @@ import Agent1 from "../../../assets/images/agent1.jpg";
 import Agent2 from "../../../assets/images/agent2.jpg";
 import Agent3 from "../../../assets/images/agent3.jpg";
 import { Link } from "react-router-dom";
+import Data from "../../../assets/utilities/agentsData.json";
 function Index() {
   const { saleAgents } = useContext(homeDataContext);
   return (
@@ -11,11 +12,11 @@ function Index() {
       <div className="ourAgents">
         <div className="container">
           <div className="row mx-auto">
-            <div className="col-md-9 mx-auto">
+            <div className="col-md-12 mx-auto">
               <div className="title">
                 <div className="row">
                   <div
-                    className="col-md-8 col-lg-6"
+                    className="col-md-8 col-lg-8"
                     data-aos="fade-down"
                     data-aos-duration="1500"
                   >
@@ -67,8 +68,8 @@ function Index() {
                   </div>
                 </div> */}
                 <div className="row">
-                  {saleAgents?.map((data) => (
-                    <div className="col-md-6 col-lg-4 card">
+                  {Data?.map((data) => (
+                    <div className="col-md-6 col-lg-3 card">
                       <img src={`${data?.profile}`} alt="agent" />
                       <h1>{`${data?.first_name} ${data?.last_name}`}</h1>
                       <h2>{data?.designation}</h2>

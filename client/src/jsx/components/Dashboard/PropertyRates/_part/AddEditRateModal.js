@@ -5,7 +5,10 @@ import makeToast from "../../../../../utils/Toaster";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Input from "@mui/material/Input";
-import { createProperty, updateProperty } from "../../../../../store/actions/Property";
+import {
+  createProperty,
+  updateProperty,
+} from "../../../../../store/actions/Property";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { convertToRaw, EditorState, convertFromHTML } from "draft-js";
@@ -17,10 +20,9 @@ import ContentState from "draft-js/lib/ContentState";
 import request from "../../../../../utils/request";
 
 const AddEditRateModal = ({ onClick, active, data }) => {
-
   const { api_loading } = useSelector((state) => state._loader);
 
-  const isNew = !data?._id
+  const isNew = !data?._id;
 
   const radios = [
     { name: "Yes", value: 1 },
@@ -54,19 +56,22 @@ const AddEditRateModal = ({ onClick, active, data }) => {
     textPrice: "Ten Thousand Only",
     content: "", //EditorState.createEmpty(),
     files: [],
-  }
-  );
-
+  });
 
   useEffect(() => {
     if (data?._id) {
-      setValues({ ...data, content: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(data.content))) })
-      setUrl(data?.images)
+      setValues({
+        ...data,
+        content: EditorState.createWithContent(
+          ContentState.createFromBlockArray(convertFromHTML(data.content))
+        ),
+      });
+      setUrl(data?.images);
     }
-  }, [data?._id])
+  }, [data?._id]);
 
   const handleChange = (prop, event) => {
-    console.log({ prop, event })
+    console.log({ prop, event });
     setValues({ ...values, [prop]: event });
   };
   const refreshState = () => {
@@ -101,19 +106,20 @@ const AddEditRateModal = ({ onClick, active, data }) => {
     e.preventDefault();
     console.log("Data", {
       ...values,
-
     });
 
-    const payload = { ...values }
+    const payload = { ...values };
 
     //remove preview images from url on update state
     // payload.content = payload.content.getCurrentContent()
-    console.log({ url })
-    payload.files = url.filter((img) => typeof (img) === "object")
-    payload.content = draftToHtml(convertToRaw(payload.content.getCurrentContent()))
+    console.log({ url });
+    payload.files = url.filter((img) => typeof img === "object");
+    payload.content = draftToHtml(
+      convertToRaw(payload.content.getCurrentContent())
+    );
 
     if (payload) {
-      console.log({ payload })
+      console.log({ payload });
       dispatch(
         (isNew ? createProperty : updateProperty)(
           plainObjectToFormData(payload),
@@ -125,32 +131,30 @@ const AddEditRateModal = ({ onClick, active, data }) => {
       makeToast("error", "Kindly fill all the fields!");
     }
   };
-  console.log("convert", plainObjectToFormData(values), plainObjectToFormData(values).get("_id"))
+  console.log(
+    "convert",
+    plainObjectToFormData(values),
+    plainObjectToFormData(values).get("_id")
+  );
   const imageUpload = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
-    console.log({ file }, typeof file)
+    console.log({ file }, typeof file);
     setUrl((prev) => [...prev, file]);
   };
 
-
-
-  const [townOptions, setTownOptions] = useState([])
+  const [townOptions, setTownOptions] = useState([]);
   useEffect(() => {
     request.get("/towns/activeTownOptions").then((response) => {
-      console.log("town name response is", response, { townOptions })
-      setTownOptions(response?.data?.data)
-    })
+      console.log("town name response is", response, { townOptions });
+      setTownOptions(response?.data?.data);
+    });
+  }, []);
 
-
-  }, [])
-
-
-  console.log({ url })
+  console.log({ url });
   const onEditorStateChange = (editorState) => {
     console.log("editorState", editorState.getCurrentContent());
-    handleChange(
-      "content", editorState)
+    handleChange("content", editorState);
 
     console.log(
       "content",
@@ -158,18 +162,20 @@ const AddEditRateModal = ({ onClick, active, data }) => {
     );
   };
 
-  console.log({ values })
+  console.log({ values });
 
-  const handleRemoveImage = removeAt => {
-    const deletedImage = url[removeAt]
-    console.log(typeof deletedImage)
-    setUrl(prev => prev.filter((_, index) => index !== removeAt))
+  const handleRemoveImage = (removeAt) => {
+    const deletedImage = url[removeAt];
+    console.log(typeof deletedImage);
+    setUrl((prev) => prev.filter((_, index) => index !== removeAt));
     if (typeof deletedImage === "string" && !isNew) {
-      setValues(prev => ({ ...prev, deleteImages: [...(prev?.deleteImages ?? []), deletedImage], images: prev?.images.filter((imgName) => imgName !== deletedImage) }))
+      setValues((prev) => ({
+        ...prev,
+        deleteImages: [...(prev?.deleteImages ?? []), deletedImage],
+        images: prev?.images.filter((imgName) => imgName !== deletedImage),
+      }));
     }
-  }
-
-
+  };
 
   return (
     <div className="appointment-details">
@@ -181,7 +187,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="idcard">Title</label>
                 <input
@@ -194,23 +200,34 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="name">Town</label>
-                <select name="townId" class="form-control" id="" value={values.townId} onChange={event => {
-                  console.log("select town", event, event.target.name, event.target.value)
-                  const { name, value } = event.target
-                  handleChange(name, value)
-                }}>
+                <select
+                  name="townId"
+                  class="form-control"
+                  id=""
+                  value={values.townId}
+                  onChange={(event) => {
+                    console.log(
+                      "select town",
+                      event,
+                      event.target.name,
+                      event.target.value
+                    );
+                    const { name, value } = event.target;
+                    handleChange(name, value);
+                  }}
+                >
                   <option value={null}>Select Town</option>
-                  {townOptions?.map(({ _id, name }) => <option value={_id}>{name}</option>)}
-
+                  {townOptions?.map(({ _id, name }) => (
+                    <option value={_id}>{name}</option>
+                  ))}
                 </select>
               </div>
-
             </div>
 
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="idcard">Bedroom Count</label>
                 <input
@@ -219,13 +236,11 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                   id="tagline"
                   placeholder="Bedroom Count"
                   value={values.bedRoomCount}
-                  onChange={(e) =>
-                    handleChange("bedRoomCount", e.target.value)
-                  }
+                  onChange={(e) => handleChange("bedRoomCount", e.target.value)}
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="idcard">Bathroom Count</label>
                 <input
@@ -240,7 +255,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="idcard">Kitchen Count</label>
                 <input
@@ -249,13 +264,11 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                   id="tagline"
                   placeholder="Kitchen Count"
                   value={values.kitchenCount}
-                  onChange={(e) =>
-                    handleChange("kitchenCount", e.target.value)
-                  }
+                  onChange={(e) => handleChange("kitchenCount", e.target.value)}
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="idcard">Marla</label>
                 <input
@@ -268,11 +281,8 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
-            <div className="col-md-6">
-              {console.log(
-                "Card Parkingn",
-
-              )}
+            <div className="col-md-4">
+              {console.log("Card Parkingn")}
               <div class="form-group">
                 <label for="Action">Car Parking</label>
                 <br />
@@ -287,10 +297,14 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                       value={radio.value}
                       checked={values.carGarage === Boolean(radio.value)}
                       onChange={(e) => {
-                        console.log(e.target.value, "ch", Boolean(+e.target.value), e.target.name)
-                        handleChange(e.target.name, Boolean(+e.target.value))
+                        console.log(
+                          e.target.value,
+                          "ch",
+                          Boolean(+e.target.value),
+                          e.target.name
+                        );
+                        handleChange(e.target.name, Boolean(+e.target.value));
                         // setcarGarageStatus(Number(e.currentTarget.value));
-
                       }}
                     >
                       {radio.name}
@@ -299,7 +313,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                 </ButtonGroup>
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="Action">Gas Available</label>
                 <br />
@@ -317,11 +331,14 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                         // setgasAvailableStatus(
                         //   Number(e.currentTarget.value)
                         // )
-                        console.log(e.target.value, Boolean(+e.target.value), e.target.name);
+                        console.log(
+                          e.target.value,
+                          Boolean(+e.target.value),
+                          e.target.name
+                        );
 
-                        handleChange(e.target.name, Boolean(+e.target.value))
-                      }
-                      }
+                        handleChange(e.target.name, Boolean(+e.target.value));
+                      }}
                     >
                       {radio.name}
                     </ToggleButton>
@@ -329,7 +346,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                 </ButtonGroup>
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="Action">Electricity Available</label>
                 <br />
@@ -342,16 +359,21 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                       variant="light"
                       name="electricityAvailable"
                       value={radio.value}
-                      checked={values.electricityAvailable === Boolean(radio.value)}
+                      checked={
+                        values.electricityAvailable === Boolean(radio.value)
+                      }
                       onChange={(e) => {
                         // setgasAvailableStatus(
                         //   Number(e.currentTarget.value)
                         // )
-                        console.log(e.target.value, Boolean(+e.target.value), e.target.name);
+                        console.log(
+                          e.target.value,
+                          Boolean(+e.target.value),
+                          e.target.name
+                        );
 
-                        handleChange(e.target.name, Boolean(+e.target.value))
-                      }
-                      }
+                        handleChange(e.target.name, Boolean(+e.target.value));
+                      }}
                     >
                       {radio.name}
                     </ToggleButton>
@@ -366,7 +388,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="idcard">Area</label>
                 <input
@@ -379,7 +401,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="idcard">Location</label>
                 <input
@@ -387,17 +409,17 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                   class="form-control"
                   id="tagline"
                   placeholder="Location"
-                // value={values.}
-                // onChange={(e) =>
-                //   handleChange(
-                //     "electricityAvailable",
-                //     e.target.value
-                //   )
-                // }
+                  // value={values.}
+                  // onChange={(e) =>
+                  //   handleChange(
+                  //     "electricityAvailable",
+                  //     e.target.value
+                  //   )
+                  // }
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="idcard">City</label>
                 <input
@@ -410,7 +432,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="idcard">Country</label>
                 <input
@@ -419,9 +441,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                   id="country"
                   placeholder="Country"
                   value={values.country}
-                  onChange={(e) =>
-                    handleChange("country", e.target.value)
-                  }
+                  onChange={(e) => handleChange("country", e.target.value)}
                 />
               </div>
             </div>
@@ -434,9 +454,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                   id="address"
                   placeholder="Address"
                   value={values.address}
-                  onChange={(e) =>
-                    handleChange("address", e.target.value)
-                  }
+                  onChange={(e) => handleChange("address", e.target.value)}
                 />
               </div>
             </div>
@@ -447,7 +465,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="">Total Price</label>
                 <input
@@ -460,7 +478,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="">Price in English</label>
                 <input
@@ -469,14 +487,12 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                   id="textPrice"
                   placeholder="i.e Ten Thounsand Only"
                   value={values.textPrice}
-                  onChange={(e) =>
-                    handleChange("textPrice", e.target.value)
-                  }
+                  onChange={(e) => handleChange("textPrice", e.target.value)}
                 />
               </div>
             </div>
 
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="">Down Payment</label>
                 <input
@@ -485,13 +501,11 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                   id=""
                   placeholder="Down Payment"
                   value={values.downPayment}
-                  onChange={(e) =>
-                    handleChange("downPayment", e.target.value)
-                  }
+                  onChange={(e) => handleChange("downPayment", e.target.value)}
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="">Installlment Year</label>
                 <input
@@ -506,7 +520,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="">Tax</label>
                 <input
@@ -519,7 +533,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="">PMI</label>
                 <input
@@ -534,7 +548,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
             </div>
           </div>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="name">Status</label>
                 <select
@@ -550,7 +564,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                 </select>
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="name">Type</label>
                 <select
@@ -564,9 +578,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                   <option value="house">House</option>
                   <option value="shop">Shop</option>
                   <option value="villas">Villas</option>
-                  <option value="residential plot">
-                    Residental Plots
-                  </option>
+                  <option value="residential plot">Residental Plots</option>
                   <option value="pent house">Pent House</option>
                   <option value="commercial">Commercial</option>
                 </select>
@@ -600,9 +612,13 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                   <div className="user-img">
                     {isArrayCheck(url) &&
                       url.map((dat, index) => (
-                        <img src={getImageUrlByName(dat)} onClick={handleRemoveImage.bind({}, index)} className="uploaded" alt="user" />
-                      )
-                      )}
+                        <img
+                          src={getImageUrlByName(dat)}
+                          onClick={handleRemoveImage.bind({}, index)}
+                          className="uploaded"
+                          alt="user"
+                        />
+                      ))}
 
                     <label htmlFor="contained-button-file">
                       <Input

@@ -1,0 +1,30 @@
+[
+  {
+    "profile": "/imgs/agent1.jpg",
+    "first_name": "Mian Hafiz",
+    "last_name": "Ubaid",
+    "designation": "Director",
+    "description": "March, April, and May are famous as the best time of the year for buying commercial property and..."
+  },
+  {
+    "profile": "/imgs/agent2.jpg",
+    "first_name": "Ijaz Tnweer",
+    "last_name": "Baig",
+    "designation": "Marketing Head",
+    "description": "March, April, and May are famous as the best time of the year for buying commercial property and..."
+  },
+  {
+    "profile": "/imgs/agent3.jpg",
+    "first_name": "Samara",
+    "last_name": "Shaikh",
+    "designation": "CEO",
+    "description": "March, April, and May are famous as the best time of the year for buying commercial property and..."
+  },
+  {
+    "profile": "/imgs/agent4.jpg",
+    "first_name": "Tanzeel",
+    "last_name": "Ur Rehman",
+    "designation": "Head of IT Department",
+    "description": "March, April, and May are famous as the best time of the year for buying commercial property and..."
+  }
+]

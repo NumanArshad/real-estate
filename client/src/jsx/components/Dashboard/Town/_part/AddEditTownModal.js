@@ -29,10 +29,9 @@ const AddEditTownModal = ({ onClick, active, data }) => {
   const [isActive, setisActive] = useState(1);
   const [isOnConstruction, setisOnConstruction] = useState(1);
   const { api_loading } = useSelector((state) => state._loader);
-  const isNew = !data?._id
+  const isNew = !data?._id;
 
-
-  console.log({ data })
+  console.log({ data });
   const radios = [
     { name: "Yes", value: 1 },
     { name: "No", value: 0 },
@@ -83,7 +82,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
     setValues2({ ...values2, [prop]: event });
   };
 
-  console.log({ values })
+  console.log({ values });
   const refreshState = () => {
     setValues({
       first_name: "User",
@@ -98,12 +97,17 @@ const AddEditTownModal = ({ onClick, active, data }) => {
       email: "",
     });
   };
-  console.log({ isNew })
+  console.log({ isNew });
   const handleAdd = (e) => {
     e.preventDefault();
 
     const dataObj = plainObjectToFormData(makeData(values, values2));
-    console.log("Response ==>", { dataObj }, makeData(values, values2), dataObj.get("townInformation"));
+    console.log(
+      "Response ==>",
+      { dataObj },
+      makeData(values, values2),
+      dataObj.get("townInformation")
+    );
     if (
       values.name &&
       values.area &&
@@ -112,8 +116,9 @@ const AddEditTownModal = ({ onClick, active, data }) => {
       values2.address &&
       values2.phone
     ) {
-      dispatch((isNew ? createTown : updateTown)(dataObj, onClick, refreshState))
-
+      dispatch(
+        (isNew ? createTown : updateTown)(dataObj, onClick, refreshState)
+      );
     } else {
       makeToast("error", MESSAGE.emptyStringValidation);
     }
@@ -121,10 +126,9 @@ const AddEditTownModal = ({ onClick, active, data }) => {
 
   useEffect(() => {
     if (data?._id) {
-
-      setValues({ ...data, files: data?.townInformation?.gallery })
+      setValues({ ...data, files: data?.townInformation?.gallery });
     }
-  }, [data])
+  }, [data]);
 
   // useEffect(() => {
   //   if (data?._id) {
@@ -144,7 +148,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
     setValues((prev) => ({ ...prev, files: [...prev.files, file] }));
   };
 
-  console.log({ data, values })
+  console.log({ data, values });
 
   const makeData = (obj1, obj2) => {
     console.log("Make Data 1", obj1);
@@ -181,7 +185,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
       <form>
         <div className="contaib">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="name">Name</label>
                 <input
@@ -195,7 +199,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="idcard">Tag Line</label>
                 <input
@@ -203,9 +207,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                   class="form-control"
                   id="tagline"
                   placeholder="Tag Line"
-                  onChange={(e) =>
-                    handleChange("tagLine", e.target.value)
-                  }
+                  onChange={(e) => handleChange("tagLine", e.target.value)}
                   value={values.tagLine}
                 />
               </div>
@@ -217,7 +219,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
             </div>
           </div>
           <div class="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="Block">Block</label>
                 <input
@@ -230,7 +232,8 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                   value={values.block}
                 />
               </div>
-
+            </div>
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="City">City</label>
                 <input
@@ -244,7 +247,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="Block">Area</label>
                 <input
@@ -257,7 +260,8 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                   value={values.area}
                 />
               </div>
-
+            </div>
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="Country">Country</label>
                 <input
@@ -266,9 +270,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                   id="Country"
                   aria-describedby="emailHelp"
                   placeholder="Country"
-                  onChange={(e) =>
-                    handleChange("country", e.target.value)
-                  }
+                  onChange={(e) => handleChange("country", e.target.value)}
                   value={values.country}
                 />
               </div>
@@ -282,9 +284,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                   id="address"
                   aria-describedby="emailHelp"
                   placeholder="Address"
-                  onChange={(e) =>
-                    handleChange("address", e.target.value)
-                  }
+                  onChange={(e) => handleChange("address", e.target.value)}
                   value={values.address}
                 />
               </div>
@@ -296,7 +296,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
             </div>
           </div>
           <div class="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group whyChooseUS">
                 <label for="WhyChooseUS">Why Choose US</label>
                 <textarea
@@ -320,10 +320,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                     onClick={(e) => {
                       // e.preventDefault();
 
-                      const data = addMethodArray(
-                        values.WhyChooseUs,
-                        text1
-                      );
+                      const data = addMethodArray(values.WhyChooseUs, text1);
                       handleChange("WhyChooseUs", data);
                       settext1("");
                     }}
@@ -356,7 +353,8 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                   </div>
                 )}
               </div>
-
+            </div>
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="LocationGuide">Location Guide</label>
                 <textarea
@@ -380,10 +378,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                     onClick={(e) => {
                       // e.preventDefault();
 
-                      const data = addMethodArray(
-                        values.LocationGuide,
-                        text2
-                      );
+                      const data = addMethodArray(values.LocationGuide, text2);
                       handleChange("LocationGuide", data);
                       settext2("");
                     }}
@@ -417,7 +412,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                 )}
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="AffordablePaymentPlan">
                   Affordable Payment Plan
@@ -506,7 +501,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
             </div>
           </div>
           <div class="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="AffordablePaymentPlan">Email Id</label>
                 <input
@@ -521,7 +516,8 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                   value={values2.email}
                 />
               </div>
-
+            </div>
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="AffordablePaymentPlan">Whatsapp No.</label>
                 <input
@@ -537,8 +533,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
-
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="LocationGuide">Phone</label>
                 <input
@@ -553,7 +548,8 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                   value={values2.phone}
                 />
               </div>
-
+            </div>
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="LocationGuide">Phone 2</label>
                 <input
@@ -569,7 +565,6 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
-
             <div className="col-md-12">
               <div class="form-group whyChooseUS">
                 <label for="WhyChooseUS">Address</label>
@@ -589,7 +584,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
           </div>
 
           <div class="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="Action">Active</label>
                 <br />
@@ -614,7 +609,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
               </div>
             </div>
 
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="Action">is On Construction</label>
                 <br />
@@ -627,11 +622,12 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                       variant="light"
                       name="isOnConstruction"
                       value={radio.value}
-                      checked={values.isOnConstruction === Boolean(+radio.value)}
+                      checked={
+                        values.isOnConstruction === Boolean(+radio.value)
+                      }
                       onChange={(e) =>
                         // setisOnConstruction(Number(e.currentTarget.value))
                         handleChange(e.target.name, Boolean(+e.target.value))
-
                       }
                     >
                       {radio.name}
@@ -640,10 +636,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                 </ButtonGroup>
               </div>
             </div>
-          </div>
-
-          <div class="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div class="form-group">
                 <label for="Action">Has Block </label>
                 <br />
@@ -660,7 +653,6 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                       onChange={(e) =>
                         // setisOnConstruction(Number(e.currentTarget.value))
                         handleChange(e.target.name, Boolean(+e.target.value))
-
                       }
                     >
                       {radio.name}
@@ -671,8 +663,10 @@ const AddEditTownModal = ({ onClick, active, data }) => {
             </div>
           </div>
 
+          <div class="row"></div>
+
           <div class="row">
-            {/* <div className="col-md-6">
+            {/* <div className="col-md-4">
                     <div className="form-group multipleImageUpload">
                       <label for="image">Payment Plan Image</label>
                       <div className="text-field">
@@ -717,14 +711,18 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                     </div>
                   </div> */}
 
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div className="form-group multipleImageUpload">
                 <label for="image">Gallery</label>
                 <div className="text-field">
                   <div className="user-img">
                     {isArrayCheck(values.files) &&
                       values.files.map((dat) => (
-                        <img src={getImageUrlByName(dat)} className="uploaded" alt="user" />
+                        <img
+                          src={getImageUrlByName(dat)}
+                          className="uploaded"
+                          alt="user"
+                        />
                       ))}
 
                     <label htmlFor="contained-button-file">
@@ -758,7 +756,6 @@ const AddEditTownModal = ({ onClick, active, data }) => {
         </div>
       </form>
     </div>
-
   );
 };
 

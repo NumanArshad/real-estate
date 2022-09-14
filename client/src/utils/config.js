@@ -1,5 +1,5 @@
 module.exports = {
-  server_url: "https://real-state-staging.herokuapp.com",
+  server_url: "http://samarasestate.com",
   // server_url: "https://real-state-staging.herokuapp.com/api",
   // image_url: "https://real-state-staging.herokuapp.com/",
   image_url:

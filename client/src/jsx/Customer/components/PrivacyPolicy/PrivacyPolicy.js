@@ -13,7 +13,7 @@ function PrivacyPolicy() {
       <Header />
 
       <div className="container">
-        <h1>Privacy Policy for www.samaras.pk</h1>
+        <h1 className="mt-5">Privacy Policy for www.samaras.pk</h1>
 
         <p>
           At www.samaras.pk, accessible from www.samaras.pk, one of our main
