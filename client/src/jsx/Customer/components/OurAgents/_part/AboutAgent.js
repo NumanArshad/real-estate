@@ -1,12 +1,12 @@
 import React from "react";
 
-function AboutAgent() {
+function AboutAgent({ first_name, last_name }) {
   return (
     <div className="col-12">
       <div className="p-4">
-        <h3 className="mb-4 h4">About Syed Taaha Iqbal</h3>
+        <h3 className="mb-4 h4">About {`${first_name} ${last_name}`}</h3>
         <p className="mb-0">
-          Syed Taaha Iqbal is well-versed with contemporary business models. The
+          {`${first_name} ${last_name}`} is well-versed with contemporary business models. The
           experience he gained during his service with leading brands has
           widened his vision about designing and implementing marketing
           strategy. He is working with Samara's Estate for the last five years

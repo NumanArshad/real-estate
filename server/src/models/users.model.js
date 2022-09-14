@@ -65,7 +65,7 @@ userSchema = new Schema(
       default: "male",
     },
     changePassword: { type: Boolean, default: true },
-    isActive: { type: Boolean, default: false },
+    isActive: { type: Boolean, default: true },
   },
   {
     timestamps: {

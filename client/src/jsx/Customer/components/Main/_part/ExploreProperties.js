@@ -50,6 +50,10 @@ function Index() {
                     <div className="card">
                       <img
                         src={getImageUrlByName(data?.images[0])}
+                        onError={event => {
+                          console.log("image load error")
+                          event.target.src = "imgs/house.jpeg"
+                        }}
                         alt="property"
                       />
                       <div className="card-body">

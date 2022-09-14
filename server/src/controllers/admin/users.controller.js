@@ -178,7 +178,7 @@ const getAllActiveSaleAgents = async (req, res) => {
 
 const getTopThreeActiveSaleAgents = async (req) => {
   try {
-    req.query.limit = 3;
+    req.query.limit = 4;
     const responseData = await getActiveSaleAgents(req)
 
     if (responseData?.user) {
@@ -206,8 +206,12 @@ const getActiveSaleAgents = async (req) => {
       searchQuery["$or"] = [{ city: req.query?.city }]
     }
 
-    const user = await User.find(searchQuery, { forgotPinCode: 0, password: 0 }).skip(skip).limit(limit).sort({ created_at: -1 })
-      .sort({ created_at: -1 });
+    const isAll = req.query?.all
+
+    console.log({ isAll })
+    const user = isAll ? await User.find(searchQuery, { forgotPinCode: 0, password: 0 }).sort({ created_at: -1 })
+      .sort({ created_at: -1 }) : await User.find(searchQuery, { forgotPinCode: 0, password: 0 }).skip(skip).limit(limit).sort({ created_at: -1 })
+        .sort({ created_at: -1 });
 
     const total = await User.find(searchQuery).countDocuments();
 

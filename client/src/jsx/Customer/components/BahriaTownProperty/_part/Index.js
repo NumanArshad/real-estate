@@ -7,12 +7,12 @@ import request from "../../../../../utils/request";
 import { getImageUrlByName } from "../../../../../utils/helper";
 function Index() {
   const [propertiesList, setPropertiesList] = useState([])
-  useEffect(() => {
-    request.get("/properties/getAllActivePropertiesList").then((response) => {
-      console.log({ response })
-      setPropertiesList(response?.data?.data)
-    })
-  }, [])
+  // useEffect(() => {
+  //   request.get("/properties/getAllActivePropertiesList").then((response) => {
+  //     console.log({ response })
+  //     setPropertiesList(response?.data?.data)
+  //   })
+  // }, [])
 
   const history = useHistory()
   return (
@@ -21,7 +21,7 @@ function Index() {
       <div className="blogsMain">
         <div className="container">
           <div className="row">
-            {propertiesList.map((data, index) => {
+            {propertiesList?.map((data, index) => {
               return (
                 <div className="col-lg-4 col-md-6 col-sm-6 px-2"
                   style={{ "cursor": "pointer" }}

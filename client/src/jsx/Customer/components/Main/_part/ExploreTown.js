@@ -39,7 +39,7 @@ function Index() {
             >
               <div className="propertyTown">
                 <div className="row">{
-                  propertiesByCategory?.map((data) =>
+                  [...propertiesByCategory, ...propertiesByCategory]?.map((data) =>
                     <div className="col-md-6 col-lg-4">
                       <div className="card">
                         <img src={Explore1} alt="property" />

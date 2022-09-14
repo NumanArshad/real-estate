@@ -1,13 +1,13 @@
 import React from "react";
 
-function ContactAgent() {
+function ContactAgent({ phone, }) {
   return (
     <div className="col-12 p-4 findAgentForm">
       <h4 className="mb-3">Contact</h4>
       <div className="d-flex justify-content-between">
         <h5>Mobile</h5>
-        <a className="number" href="tel:+923224865124">
-          +923224865124
+        <a className="number" href={`tel:${phone}`}>
+          {phone}
         </a>
       </div>
       <hr />

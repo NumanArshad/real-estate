@@ -260,7 +260,7 @@ function App(props) {
       permission: PERMISSION.EXTERNAL_USER,
     },
     {
-      url: "agent",
+      url: "agent/:id",
       component: SingleAgent,
       permission: PERMISSION.EXTERNAL_USER,
     },
