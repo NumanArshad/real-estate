@@ -178,6 +178,16 @@ const getAllPropertiesDropDownOptions = async (req, res) => {
     }
 }
 
+const getAllActivePropertiesList = async (req, res) => {
+    try {
+        const data = await propertyModel.find({ isActive: true }).populate("createdBy").sort({ created_at: -1 });
+        return responseHelper.success(res, data, "Success")
+    }
+    catch (error) {
+        return responseHelper.requestfailure(res, error)
+    }
+}
+
 
 
 ///property detail with agent information of property
@@ -217,5 +227,6 @@ module.exports = {
     getAllActiveProperties,
     propertyDetail,
 
+    getAllActivePropertiesList,
     getAllPropertiesDropDownOptions
 };

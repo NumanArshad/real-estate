@@ -559,6 +559,6 @@ export const getImageUrlByName = (imageName) => {
   // image.src = `${IMAGE_BASE_URL}${imageName}`
   // image.onload = () => { console.log("load sucess", `${IMAGE_BASE_URL}${imageName}`) }
   // image.onerror = () => { console.log("load error", `${IMAGE_BASE_URL}${imageName}`) }
-  console.log(`${IMAGE_BASE_URL}${imageName}`)
+  //console.log(`${IMAGE_BASE_URL}${imageName}`)
   return `${IMAGE_BASE_URL}${imageName}`
 }

@@ -5,6 +5,7 @@ import Agent2 from "../../../assets/images/agent2.jpg";
 import Agent3 from "../../../assets/images/agent3.jpg";
 import { Link } from "react-router-dom";
 import Data from "../../../assets/utilities/agentsData.json";
+import { getImageUrlByName } from "../../../../../utils/helper";
 function Index() {
   const { saleAgents } = useContext(homeDataContext);
   return (
@@ -67,10 +68,13 @@ function Index() {
                     <a href="">View Profile</a>
                   </div>
                 </div> */}
-                <div className="row">
-                  {Data?.map((data) => (
+                <div className="row d-flex justify-content-center">
+                  {saleAgents?.map((data) => (
                     <div className="col-md-6 col-lg-3 card">
-                      <img src={`${data?.profile}`} alt="agent" />
+                      <img src={getImageUrlByName(`${data?.profile}`)} onError={event => {
+                        console.log("image load error")
+                        event.target.src = "https://remapconsulting.com/wp-content/uploads/2018/03/Image-placeholder-man.jpg"
+                      }} alt="agent" />
                       <h1>{`${data?.first_name} ${data?.last_name}`}</h1>
                       <h2>{data?.designation}</h2>
                       <p>{data?.description}</p>

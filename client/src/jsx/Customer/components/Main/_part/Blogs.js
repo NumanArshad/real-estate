@@ -2,9 +2,11 @@ import moment from "moment";
 import React, { useContext } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { useHistory } from "react-router-dom";
 import { homeDataContext } from "../../../../../context/HomeDataContext";
 import { getImageUrlByName } from "../../../../../utils/helper";
 import HomeBanner5 from "../../../assets/images/HomeBanner5.jpg";
+
 
 function Blogs() {
 
@@ -28,6 +30,9 @@ function Blogs() {
       items: 1,
     },
   };
+
+  console.log({ blogsList })
+  const history = useHistory()
   return (
     <div className="blogsMain">
       <div className="container">
@@ -45,9 +50,19 @@ function Blogs() {
                     className="sliderCard mx-2 mt-5"
                     data-aos="zoom-in"
                     data-aos-duration="1500"
+                    style={{ cursor: "pointer" }}
+
+                    onClick={(event) => {
+                      console.log("thee");
+                      history.push(`/blogs/${data?._id}`);
+                    }}
                   >
                     <div className="p-2">
-                      <img src={getImageUrlByName(data?.image)} className="w-100" alt="" />
+                      <img src={getImageUrlByName(data?.image)} className="w-100" alt=""
+                        onError={event => {
+                          console.log("image load error")
+                          event.target.src = "imgs/house.jpeg"
+                        }} />
                       <div className="d-flex gap-3">
                         <p className="p-2 d-flex gap-2 mb-0 mt-2">
                           <i class="fa-solid fa-calendar"></i>

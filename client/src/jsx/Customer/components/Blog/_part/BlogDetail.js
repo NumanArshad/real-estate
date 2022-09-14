@@ -41,7 +41,11 @@ function BlogDetail({ data }) {
                     </p>
                   </div>
                 </div>
-                <img className="w-100" src={getImageUrlByName(image)} alt="" />
+                <img className="w-100" src={getImageUrlByName(image)} alt=""
+                  onError={event => {
+                    console.log("image load error")
+                    event.target.src = "imgs/house.jpeg"
+                  }} />
                 <div className="px-sm-5 px-3 py-3">
 
                   <h3 className="mb-5">

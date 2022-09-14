@@ -1,6 +1,9 @@
 
 import React, { useEffect, useState } from "react"
 import request from "../utils/request"
+import blogs from "../jsx/components/noDataFallBackResponse/blogs.json"
+
+import SaleAgentsFallBack from "../jsx/components/noDataFallBackResponse/sale-agents.json"
 
 const DEFAULT_DATA = {
     propertiesList: { data: [], total: 0 },
@@ -31,8 +34,8 @@ const HomeDataContextProvider = ({
             if (paginationValue.page === 1) {
                 setData({
                     propertiesByCategory,
-                    saleAgents,
-                    blogsList: approvedBlogsList
+                    saleAgents: saleAgents?.length ? saleAgents : SaleAgentsFallBack,
+                    blogsList: approvedBlogsList?.length ? approvedBlogsList : blogs
                 })
             }
         })

@@ -9,6 +9,7 @@ function Index() {
 
   const history = useHistory();
   return (
+
     <React.Fragment>
       <div className="exploreProperty">
         <div className="container">
