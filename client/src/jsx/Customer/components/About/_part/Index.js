@@ -1,6 +1,6 @@
 import React from "react";
-import Ceo from "../../../assets/images/member-2.jpeg";
-import Director from "../../../assets/images/member-6.jpeg";
+import Ceo from "../../../assets/images/ceo.jpeg";
+import Director from "../../../assets/images/director.jpeg";
 import Director2 from "../../../assets/images/member-1.jpeg";
 import team1 from "../../../assets/images/member-3.jpeg";
 import team2 from "../../../assets/images/member-4.jpeg";
@@ -53,7 +53,7 @@ function Index() {
             <div className="section">
               <div className="row">
                 <div className="col-md-4">
-                  <img src={Ceo} alt="ceo" />
+                  <img src={Ceo} alt="ceo" style={{ objectFit: "contain" }} />
                 </div>
                 <div className="col-md-8">
                   <h1>Samara Sheikh</h1>
@@ -78,7 +78,11 @@ function Index() {
             <div className="section">
               <div className="row">
                 <div className="col-md-4">
-                  <img src={Director} alt="Director" />
+                  <img
+                    src={Director}
+                    alt="Director"
+                    style={{ objectFit: "contain" }}
+                  />
                 </div>
                 <div className="col-md-8">
                   <h1>Mian Hafiz Ubaid</h1>
@@ -100,7 +104,7 @@ function Index() {
                 </div>
               </div>
             </div>
-            <div className="section">
+            {/* <div className="section">
               <div className="row">
                 <div className="col-md-4">
                   <img src={Director2} alt="Director2" />
@@ -199,7 +203,7 @@ function Index() {
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
