@@ -8,7 +8,12 @@ const ModalContent = ({ onClick, active, data }) => {
   const dispatch = useDispatch();
   console.log("Datta", data);
   return (
-    <Modal size="lg" className=" fade" id="aAddDietMenus" show={active}>
+    <Modal
+      size="lg"
+      className="smallWidth fade"
+      id="aAddDietMenus"
+      show={active}
+    >
       <div className="modal-content">
         <Modal.Header className="modal-header">
           <Modal.Title className="modal-title">Blog Details</Modal.Title>

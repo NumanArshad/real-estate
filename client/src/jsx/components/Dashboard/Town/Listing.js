@@ -68,10 +68,18 @@ const TownListing = () => {
 
   const [row, setrow] = useState([]);
 
-  const [modalData, setModalData] = useState({ data: null, isAddEdit: false, isView: false })
-  const handleModalToggle = ({ isAddEdit = false, isView = false, data = null }) => {
-    setModalData({ isAddEdit, isView, data })
-  }
+  const [modalData, setModalData] = useState({
+    data: null,
+    isAddEdit: false,
+    isView: false,
+  });
+  const handleModalToggle = ({
+    isAddEdit = false,
+    isView = false,
+    data = null,
+  }) => {
+    setModalData({ isAddEdit, isView, data });
+  };
 
   useEffect(() => {
     if (towns_listing) {
@@ -86,42 +94,46 @@ const TownListing = () => {
     var data =
       Array.isArray(towns_listing) && towns_listing.length > 0
         ? towns_listing.map((data, id) => ({
-          id: id + 1,
-          image: (
-            <img
-              src={data?.profile}
-              style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
-              alt="Dummy"
-            />
-          ),
-          name: data?.name,
-          idCard: data?.idCard,
-          phone: data?.phone,
-          email: data?.email,
-          city: data?.city,
-          address: data?.address,
-          role: data?.role,
-          gender: data?.gender,
-          designation: data?.designation,
-          action: (
-            <div className="d-flex align-items-center">
-              <button
-                onClick={handleModalToggle.bind({}, { isAddEdit: true, data })}
-
-                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-              >
-                <i className="fa fa-edit"></i>
-              </button>
-              <button
-                onClick={handleModalToggle.bind({}, { isView: true, data })}
-
-                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-              >
-                <i className="fa fa-info"></i>
-              </button>
-            </div>
-          ),
-        }))
+            id: id + 1,
+            image: (
+              <img
+                src={data?.profile}
+                style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
+                alt="Dummy"
+              />
+            ),
+            name: data?.name,
+            idCard: data?.idCard,
+            phone: data?.phone,
+            email: data?.email,
+            city: data?.city,
+            address: data?.address,
+            role: data?.role,
+            gender: data?.gender,
+            designation: data?.designation,
+            action: (
+              <div className="d-flex align-items-center">
+                <button
+                  onClick={handleModalToggle.bind(
+                    {},
+                    { isAddEdit: true, data }
+                  )}
+                  className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+                >
+                  <i className="fa fa-edit"></i>
+                </button>
+                <button
+                  onClick={() => {
+                    setApointmnetDetails(data);
+                    setopenDetails(true);
+                  }}
+                  className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+                >
+                  <i className="fa fa-info"></i>
+                </button>
+              </div>
+            ),
+          }))
         : [];
     // console.log('Row Data', towns_listing);
     setrow(data);
@@ -141,7 +153,6 @@ const TownListing = () => {
           <h4
             className="btn btn-primary"
             onClick={handleModalToggle.bind({}, { isAddEdit: true })}
-
           >
             Add
           </h4>
@@ -183,9 +194,16 @@ const TownListing = () => {
           />
         </div>
       </div>
-      <CustomModal title={`${modalData.data ? `Edit` : `Add`} Town`}
-        handleClose={handleModalToggle.bind({}, { isAddEdit: false })} isActive={modalData.isAddEdit}>
-        <AddEditTownModal active={open} onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data} />
+      <CustomModal
+        title={`${modalData.data ? `Edit` : `Add`} Town`}
+        handleClose={handleModalToggle.bind({}, { isAddEdit: false })}
+        isActive={modalData.isAddEdit}
+      >
+        <AddEditTownModal
+          active={open}
+          onClick={handleModalToggle.bind({}, { isAddEdit: false })}
+          data={modalData.data}
+        />
       </CustomModal>
       <EditTownModal
         active={edit}

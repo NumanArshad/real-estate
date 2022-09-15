@@ -21,87 +21,104 @@ const ModalContent = ({ onClick, active, data }) => {
           </Button>
         </Modal.Header>
         <Modal.Body className="modal-body">
-          <div className="agent-details">
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Name</h5>
-              <p className="m-0">{data?.name}</p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Tag Line</h5>
-              <p className="m-0">{data?.townInformation?.tagLine}</p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Why Choose us </h5>
-              <p className="m-0">{data?.townInformation?.WhyChooseUs}</p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Official Address</h5>
-              <p className="m-0">
-                {data?.townInformation?.officeAddress[0]?.address}
-              </p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Location Guide</h5>
-              <p className="m-0">{data?.townInformation?.LocationGuide}</p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Address</h5>
-              <p className="m-0">{data?.city}</p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Affordable Payment Plan</h5>
-              <p className="m-0">
-                {data?.townInformation?.AffordablePaymentPlan}
-              </p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Block</h5>
-              <p className="m-0">{data?.block}</p>
+          <div className="threeColumns agent-details">
+            <div className="row w-100">
+              <div className="col-md-4 mb-2">
+                <div className="d-flex justify-content-between align-items-center">
+                  <h5 className="m-0">Name</h5>
+                  <p className="m-0">{data?.name}</p>
+                </div>
+              </div>
+              <div className="col-md-4 mb-2">
+                <div className="d-flex justify-content-between align-items-center">
+                  <h5 className="m-0">Tag Line</h5>
+                  <p className="m-0">{data?.townInformation?.tagLine}</p>
+                </div>
+              </div>
+              <div className="col-md-4 mb-2">
+                <div className="d-flex justify-content-between align-items-center">
+                  <h5 className="m-0">Block</h5>
+                  <p className="m-0">{data?.block}</p>
+                </div>
+              </div>
+              <div className="col-md-4 mb-2">
+                <div className="d-flex justify-content-between align-items-center">
+                  <h5 className="m-0">Area</h5>
+                  <p className="m-0">{data?.area}</p>
+                </div>
+              </div>
+              <div className="col-md-4 mb-2">
+                <div className="d-flex justify-content-between align-items-center">
+                  <h5 className="m-0">City</h5>
+                  <p className="m-0">{data?.city}</p>
+                </div>
+              </div>
+              <div className="col-md-12 mb-2">
+                <div className="justify-content-between align-items-center">
+                  <h5 className="m-0">Address</h5>
+                  <p className="m-0">{data?.city}</p>
+                </div>
+              </div>
+              <div className="col-md-12 mb-2">
+                <div className="justify-content-between align-items-center">
+                  <h5 className="m-0">Why Choose us </h5>
+                  <p className="m-0">{data?.townInformation?.WhyChooseUs}</p>
+                </div>
+              </div>
+              <div className="col-md-12 mb-2">
+                <div className="justify-content-between align-items-center">
+                  <h5 className="m-0">Official Address</h5>
+                  <p className="m-0">
+                    {data?.townInformation?.officeAddress[0]?.address}
+                  </p>
+                </div>
+              </div>
+              <div className="col-md-12 mb-2">
+                <div className=" justify-content-between align-items-center">
+                  <h5 className="m-0">Location Guide</h5>
+                  <p className="m-0">{data?.townInformation?.LocationGuide}</p>
+                </div>
+              </div>
+              <div className="col-md-12 mb-2">
+                <div className=" justify-content-between align-items-center">
+                  <h5 className="m-0">Affordable Payment Plan</h5>
+                  <p className="m-0">
+                    {data?.townInformation?.AffordablePaymentPlan}
+                  </p>
+                </div>
+              </div>
+              <div className="col-md-4 mb-2">
+                <div className="d-flex justify-content-between align-items-center">
+                  <h5 className="m-0">Has Block</h5>
+                  <p className="m-0">{data?.hasBlock}</p>
+                </div>
+              </div>
+              <div className="col-md-4 mb-2">
+                <div className="d-flex justify-content-between align-items-center">
+                  <h5 className="m-0">Active</h5>
+                  <p className="m-0">{data?.isActive}</p>
+                </div>
+              </div>
+              <div className="col-md-4 mb-2">
+                <div className="d-flex justify-content-between align-items-center">
+                  <h5 className="m-0">Is On Construction</h5>
+                  <p className="m-0">{data?.isOnConstruction}</p>
+                </div>
+              </div>
+              <div className="col-md-12 mb-2">
+                <div className="justify-content-between align-items-center">
+                  <h5 className="m-0">Gallery</h5>
+                  <p className="m-0">{data?.designation}</p>
+                </div>
+              </div>
+              <div className="col-md-12 mb-2">
+                <div className="justify-content-between align-items-center">
+                  <h5 className="m-0">Payment Plan Image</h5>
+                  <p className="m-0">{data?.designation}</p>
+                </div>
+              </div>
             </div>
 
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Area</h5>
-              <p className="m-0">{data?.area}</p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">City</h5>
-              <p className="m-0">{data?.city}</p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Has Block</h5>
-              <p className="m-0">{data?.hasBlock}</p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Gallery</h5>
-              <p className="m-0">{data?.designation}</p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Payment Plan Image</h5>
-              <p className="m-0">{data?.designation}</p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Active</h5>
-              <p className="m-0">{data?.isActive}</p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Is On Construction</h5>
-              <p className="m-0">{data?.isOnConstruction}</p>
-            </div>
-            <hr />
             <div className="d-flex flex-row justify-content-center mt-2">
               <div
                 className="btn btn-sm btn-danger"

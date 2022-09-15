@@ -82,14 +82,14 @@ function Index() {
               <h2 className="footer-link">Important Links</h2>
               <ul className="links">
                 <li>
-                  <Link to="/property">
+                  <Link className="text-white" to="/property">
                     <span>
                       <i className="fa-solid fa-chevron-right"></i> Properties
                     </span>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/agent">
+                  <Link className="text-white" to="/agent">
                     <span>
                       <i className="fa-solid fa-chevron-right"></i> Our Agents
                     </span>

@@ -11,7 +11,12 @@ import Dummy from "../../../../../images/1.jpg";
 const ModalContent = ({ onClick, active, data }) => {
   const dispatch = useDispatch();
   return (
-    <Modal size="lg" className=" fade" id="aAddDietMenus" show={active}>
+    <Modal
+      size="lg"
+      className="smallWidth fade"
+      id="aAddDietMenus"
+      show={active}
+    >
       <div className="modal-content">
         <Modal.Header className="modal-header">
           <Modal.Title className="modal-title">Plots Rates Details</Modal.Title>
@@ -33,8 +38,8 @@ const ModalContent = ({ onClick, active, data }) => {
             <hr />
 
             {isArrayCheck(data?.plot) && (
-              <div className="row mx-2 my-5">
-                <table>
+              <div className="row mx-2">
+                <table className="table bordered">
                   <tr>
                     <th>Plot Type</th>
                     <th>Price From</th>
@@ -73,7 +78,7 @@ const ModalContent = ({ onClick, active, data }) => {
             </div>
             <hr /> */}
 
-            <div className="d-flex flex-row justify-content-center mt-2">
+            <div className="text-center w-100 mt-2">
               <div
                 className="btn btn-sm btn-danger"
                 onClick={() => {
