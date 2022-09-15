@@ -5,7 +5,7 @@ import {
 } from "../../actions/Action.Constant";
 
 const initial_state = {
-  map_modal_listing: {},
+  map_modal_listing: [],
 };
 
 export default function (state = initial_state, action) {

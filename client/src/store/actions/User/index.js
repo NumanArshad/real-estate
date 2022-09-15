@@ -37,28 +37,28 @@ export const createUser =
 
 export const updateUser =
   (userData, close, message = null) =>
-  async (dispatch) => {
-    console_log("updateUser", userData);
-    dispatch(isLoading(true));
+    async (dispatch) => {
+      console_log("updateUser", userData);
+      dispatch(isLoading(true));
 
-    try {
-      const res = await request.post("/users/update", userData);
-      const { message, status, data } = res.data;
-      if (!status === "Success") throw res.data;
-      if (status === "Success") {
-        makeToast("success", message ? message : "User Updated Successfully");
-        console_log("Data", data);
-        close();
-        dispatch(getAllUsers());
+      try {
+        const res = await request.post("/users/update", userData);
+        const { message, status, data } = res.data;
+        if (!status === "Success") throw res.data;
+        if (status === "Success") {
+          makeToast("success", message ? message : "User Updated Successfully");
+          console_log("Data", data);
+          close();
+          dispatch(getAllUsers());
+          dispatch(isLoading(false));
+        }
+      } catch (e) {
+        console_log("updateUser error", e);
         dispatch(isLoading(false));
-      }
-    } catch (e) {
-      console_log("updateUser error", e);
-      dispatch(isLoading(false));
 
-      // makeToast("createUser error", e.message);
-    }
-  };
+        // makeToast("createUser error", e.message);
+      }
+    };
 
 export const getAllUsers = () => async (dispatch) => {
   console_log("Call => getAllUsers");

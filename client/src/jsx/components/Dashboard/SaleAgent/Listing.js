@@ -6,10 +6,12 @@ import DataTable from "react-data-table-component";
 import { COLUMN_HERADER } from "../../../../utils/Header/index.js";
 import { formatedDate, formatedTime, getImageUrlByName } from "../../../../utils/helper.js";
 import { getAllUsers } from "../../../../store/actions/User/index.js";
-import AddRoomModal from "./_part/AddRoomModal.js";
+import AddRoomModal from "./_part/AddEditRoomModal.js";
 import EditRoomModal from "./_part/EditRoomModal.js";
 import ModalContent from "./_part/Modal.js";
 import { image_url } from "../../../../utils/config.js";
+import AddUserModal from "./_part/AddEditRoomModal.js";
+import CustomModal from "../../modal/CustomModal.jsx";
 
 const SaleAgentListing = () => {
   const [ApointmnetDetails, setApointmnetDetails] = useState("");
@@ -18,6 +20,10 @@ const SaleAgentListing = () => {
   const [edit, setedit] = useState(false);
   const [openDetails, setopenDetails] = useState(false);
   const { users_listing } = useSelector((state) => state._saleAgent);
+  const [modalData, setModalData] = useState({ data: null, isAddEdit: false, isView: false })
+  const handleModalToggle = ({ isAddEdit = false, isView = false, data = null }) => {
+    setModalData({ isAddEdit, isView, data })
+  }
   // const users_listing = [
   //   {
   //     _id: "62c86bf7933609268efc17b3",
@@ -86,6 +92,10 @@ const SaleAgentListing = () => {
               src={
                 getImageUrlByName(data?.profile)
               }
+              onError={event => {
+                console.log("image load error")
+                event.target.src = "https://remapconsulting.com/wp-content/uploads/2018/03/Image-placeholder-man.jpg"
+              }}
               style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
               alt="Dummy"
             />
@@ -102,19 +112,15 @@ const SaleAgentListing = () => {
           action: (
             <div className="d-flex align-items-center">
               <button
-                onClick={() => {
-                  setApointmnetDetails(data);
-                  setedit(true);
-                }}
+                onClick={handleModalToggle.bind({}, { isAddEdit: true, data })}
+
                 className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
               >
                 <i className="fa fa-edit"></i>
               </button>
               <button
-                onClick={() => {
-                  setApointmnetDetails(data);
-                  setopenDetails(true);
-                }}
+                onClick={handleModalToggle.bind({}, { isView: true, data })}
+
                 className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
               >
                 <i className="fa fa-info"></i>
@@ -140,9 +146,8 @@ const SaleAgentListing = () => {
           <h4 className="card-title">Sale Agent</h4>
           <h4
             className="btn btn-primary"
-            onClick={() => {
-              setopen(true);
-            }}
+            onClick={handleModalToggle.bind({}, { isAddEdit: true })}
+
           >
             Add
           </h4>
@@ -184,16 +189,20 @@ const SaleAgentListing = () => {
           />
         </div>
       </div>
-      <AddRoomModal active={open} onClick={() => setopen(false)} data={null} />
-      <EditRoomModal
+      <CustomModal title={`${modalData.data ? `Edit` : `Create`} Blog`}
+        handleClose={handleModalToggle.bind({}, { isAddEdit: false })} isActive={modalData.isAddEdit}>
+        <AddUserModal onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data} />
+
+      </CustomModal>
+      {/* <EditRoomModal
         active={edit}
         onClick={() => setedit(false)}
         data={ApointmnetDetails}
-      />
+      /> */}
       <ModalContent
-        active={openDetails}
-        onClick={() => setopenDetails(false)}
-        data={ApointmnetDetails}
+        active={modalData.isView}
+        onClick={handleModalToggle.bind({}, { isView: false })}
+        data={modalData.data}
       />
     </div>
   );

@@ -15,7 +15,7 @@ const { uploadSingleFile } = require("../../helpers/uploadImages.helper");
 router.post("/add", uploadSingleFile, controller.createUser);
 router.get("/get/:id", controller.getSingleUser);
 router.get("/all", controller.getAllUser);
-router.post("/update", controller.updateUser);
+router.post("/update", uploadSingleFile, controller.updateUser);
 router.put("/activateInActiveUser/:id", controller.activateInActiveUser);
 
 module.exports = router;

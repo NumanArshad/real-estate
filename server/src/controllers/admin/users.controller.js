@@ -57,11 +57,21 @@ var getSingleUser = async (req, res) => {
 
 var updateUser = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { _id: userId } = req.body;
+
     const user = await User.findById(userId);
     if (user) {
       let bodyData = req.body;
       delete bodyData.userId;
+      if (req.imageUrl) //delete image
+      {
+        console.log("updating image", bodyData.profile, req.imageUrl)
+        removeSingleImageFile(bodyData.profile)
+        bodyData.profile = req.imageUrl
+
+      }
+
+
       const updatedUser = await User.findByIdAndUpdate(
         { _id: userId },
         bodyData,

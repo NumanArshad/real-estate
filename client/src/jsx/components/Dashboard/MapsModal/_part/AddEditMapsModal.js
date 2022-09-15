@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { createRoom, createUser } from "../../../../../store/actions/User";
@@ -11,19 +11,22 @@ import Input from "@mui/material/Input";
 import upload from "../../../../../images/user-round.jpg";
 import Dummy from "../../../../../images/upload-image.svg";
 import { getImageUrlByName } from "../../../../../utils/helper";
+import { createMapModal, updateMapModal } from "../../../../../store/actions/MapModal";
+import request from "../../../../../utils/request";
+import { plainObjectToFormData } from "../../../PluginsMenu/Nestable/utils";
 
-const AddEditTownMapsModal = ({ onClick, active, data }) => {
+const AddEditTownMapsModal = ({ onClick, townOptions, data }) => {
   const [radioValue, setRadioValue] = useState("1");
+  const isNew = !data?._id
 
   const radios = [
-    { name: "True", value: "1" },
-    { name: "False", value: "2" },
+    { name: "Yes", value: 1 },
+    { name: "No", value: 0 },
   ];
   const [url, setUrl] = useState("");
   const [name, setname] = useState("");
   const [passcode, setpasscode] = useState("");
   const dispatch = useDispatch();
-  const isNew = !data?._id
 
   const optionsArray = [
     { key: "au", label: "Australia" },
@@ -34,17 +37,15 @@ const AddEditTownMapsModal = ({ onClick, active, data }) => {
     { key: "fr", label: "France" },
   ];
   const [values, setValues] = React.useState({
-    first_name: "User",
-    idCard: "1234567890",
-    phone: "0989763567",
-    city: "Lahore",
-    address: "Multan Road Lahore",
-    role: "saleagent",
-    gender: "male",
-    designation: "Sale Ex",
-    password: "12345678",
-    email: "",
+    town: "",
+    image: "",
+    isActive: true
+
   });
+
+
+
+  console.log({ townOptions })
 
   const handleChange = (prop, event) => {
     setValues({ ...values, [prop]: event });
@@ -64,13 +65,25 @@ const AddEditTownMapsModal = ({ onClick, active, data }) => {
     });
   };
   const handleAdd = (e) => {
+
     e.preventDefault();
-    if (values.email && values.password && values.first_name) {
-      dispatch(createUser(values, onClick, refreshState));
+    if (values.town && (values.file || values.image)) {
+      console.log({ values })
+      const { createdBy, ...payload } = values;
+      if (typeof (values.file) !== "object") {
+        // values.file = values.file;
+        // payload.profile = image;
+        // payload.file = ""
+
+      }
+      dispatch((isNew ? createMapModal : updateMapModal)(plainObjectToFormData(payload), onClick, refreshState));
+
     } else {
       makeToast("error", "Kindly fill all the fields!");
     }
   };
+  console.log({ values })
+
   const imageUpload = (e) => {
     e.preventDefault();
     let reader = new FileReader();
@@ -79,13 +92,28 @@ const AddEditTownMapsModal = ({ onClick, active, data }) => {
       setUrl(e.target.result);
     };
     reader.readAsDataURL(file);
+    setValues(prev => ({ ...prev, file }))
 
-    if (isNew) {
-      setValues(prev => ({ ...prev, file }))
-      return
-    }
-    setValues(prev => ({ ...prev, file, image: prev.image || prev.file }))
+    // if (isNew) {
+    //   setValues(prev => ({ ...prev, file }))
+    //   return
+    // }
+    // setValues(prev => ({ ...prev, file, image: prev.image || prev.file }))
   };
+
+
+
+  useEffect(() => {
+    if (data?._id) {
+
+      setValues({
+        ...data,
+        town: data?.town?._id,
+        file: data.image,
+      })
+    }
+
+  }, [data?._id])
   return (
     <div className="appointment-details">
       <form>
@@ -94,10 +122,37 @@ const AddEditTownMapsModal = ({ onClick, active, data }) => {
             <div className="col-md-12">
               <div class="form-group">
                 <label for="name">Town</label>
-                <select name="" class="form-control" id="">
+                {/* <select name="" class="form-control" id="">
                   <option value="">Town 1</option>
                   <option value="">Town 2</option>
+                </select> */}
+
+                {isNew ? <select
+                  name="town"
+                  class="form-control"
+                  id=""
+                  value={values.town}
+                  onChange={(event) => {
+                    console.log(
+                      "select town",
+                      event,
+                      event.target.name,
+                      event.target.value
+                    );
+                    const { name, value } = event.target;
+                    handleChange(name, value);
+                  }}
+                >
+                  <option value={null}>Select Town</option>
+                  {townOptions?.map(({ _id, name }) => (
+                    <option value={_id}>{name}</option>
+                  ))}
                 </select>
+                  :
+                  <p>{data?.town?.name}</p>
+                }
+
+
               </div>
               <div className="form-group multipleImageUpload">
                 <label for="image">Image</label>
@@ -152,10 +207,13 @@ const AddEditTownMapsModal = ({ onClick, active, data }) => {
                       id={`radio-${idx}`}
                       type="radio"
                       variant="light"
-                      name="radio"
+                      name="isActive"
                       value={radio.value}
-                      checked={radioValue === radio.value}
-                      onChange={(e) => setRadioValue(e.currentTarget.value)}
+                      checked={values?.isActive === Boolean(radio.value)}
+                      onChange={(e) => {
+                        handleChange(e.target.name, Boolean(+e.target.value));
+
+                      }}
                     >
                       {radio.name}
                     </ToggleButton>

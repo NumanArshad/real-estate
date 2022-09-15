@@ -1,15 +1,17 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import DataTable from "react-data-table-component";
 
 import { COLUMN_HERADER } from "../../../../utils/Header/index.js";
-import { formatedDate, formatedTime } from "../../../../utils/helper.js";
+import { formatedDate, formatedTime, getImageUrlByName } from "../../../../utils/helper.js";
 import { getAllUsers } from "../../../../store/actions/User/index.js";
 import AddEditMapsModal from "./_part/AddEditMapsModal.js";
 import EditMapsModal from "./_part/EditMapsModal.js";
 import ModalContent from "./_part/Modal.js";
 import CustomModal from "../../modal/CustomModal.jsx";
+import { getAllMapModal } from "../../../../store/actions/MapModal/index.js";
+import request from "../../../../utils/request.js";
 
 const MapsListing = () => {
   const [ApointmnetDetails, setApointmnetDetails] = useState("");
@@ -19,11 +21,14 @@ const MapsListing = () => {
   const [openDetails, setopenDetails] = useState(false);
   const [modalData, setModalData] = useState({ data: null, isAddEdit: false, isView: false })
 
-  const { users_listing } = useSelector((state) => state._saleAgent);
+  const { map_modal_listing } = useSelector((state) =>
+    state?._mapModal
+  );
 
   const handleModalToggle = ({ isAddEdit = false, isView = false, data = null }) => {
     setModalData({ isAddEdit, isView, data })
   }
+
 
   // const users_listing = [
   //   {
@@ -74,36 +79,54 @@ const MapsListing = () => {
 
   const [row, setrow] = useState([]);
 
+
+  const [townOptions, setTownOptions] = useState([]);
+
   useEffect(() => {
-    if (users_listing) {
+
+    request.get("/towns/activeTownOptions").then((response) => {
+      console.log("town name response is", response, { townOptions });
+      setTownOptions(response?.data?.data);
+    });
+
+  }, []);
+
+
+
+
+
+  useEffect(() => {
+    if (map_modal_listing?.length) {
       makeRow();
     } else {
-      dispatch(getAllUsers());
+      console.log("maps all getting ...")
+      dispatch(getAllMapModal());
     }
-  }, [users_listing]);
+  }, [map_modal_listing]);
   //  id: 0, designer: 'Salman', price: 100, buyer: 'Jhon', buyerAddress: 'Lahore', status: 'pending'
+  console.log({ map_modal_listing, townOptions })
 
   const makeRow = () => {
     var data =
-      Array.isArray(users_listing) && users_listing.length > 0
-        ? users_listing.map((data, id) => ({
+      Array.isArray(map_modal_listing) && map_modal_listing.length > 0
+        ? map_modal_listing.map((data, id) => ({
           id: id + 1,
           image: (
             <img
-              src={data?.profile}
+              src={getImageUrlByName(data?.image)}
               style={{ width: 50, height: 50, borderRadius: 100, margin: 5 }}
               alt="Dummy"
             />
           ),
-          name: data?.first_name + " " + data?.last_name,
-          idCard: data?.idCard,
-          phone: data?.phone,
-          email: data?.email,
-          city: data?.city,
-          address: data?.address,
-          role: data?.role,
-          gender: data?.gender,
-          designation: data?.designation,
+          name: data?.town?.name,
+          // idCard: data?.idCard,
+          // phone: data?.phone,
+          // email: data?.email,
+          // city: data?.city,
+          // address: data?.address,
+          // role: data?.role,
+          // gender: data?.gender,
+          // designation: data?.designation,
           action: (
             <div className="d-flex align-items-center">
               <button
@@ -129,10 +152,20 @@ const MapsListing = () => {
   };
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllUsers());
-    console.log("Listing Page");
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAllUsers());
+  //   console.log("Listing Page");
+  // }, []);
+
+
+  const filteredTownOptions = useMemo(() => {
+    console.log(map_modal_listing)
+    const mapListingTownId = map_modal_listing?.map(({ town }) => town?._id)
+    return townOptions?.filter(({ _id }) => !mapListingTownId?.includes(_id))
+
+  }, [map_modal_listing, townOptions])
+
+  console.log({ filteredTownOptions })
 
   return (
     <div className="col-12">
@@ -142,6 +175,7 @@ const MapsListing = () => {
           <h4
             className="btn btn-primary"
             onClick={handleModalToggle.bind({}, { isAddEdit: true })}
+            hidden={!filteredTownOptions?.length}
           >
             Add
           </h4>
@@ -149,33 +183,7 @@ const MapsListing = () => {
         <div className="card-body">
           <DataTable
             columns={COLUMN_HERADER.maps_listing_header}
-            data={[
-              {
-                id: 1,
-                action: (
-                  <div className="d-flex align-items-center">
-                    <button
-                      onClick={() => {
-                        // setApointmnetDetails(data);
-                        setedit(true);
-                      }}
-                      className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                    >
-                      <i className="fa fa-edit"></i>
-                    </button>
-                    <button
-                      onClick={() => {
-                        // setApointmnetDetails(data);
-                        setopenDetails(true);
-                      }}
-                      className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                    >
-                      <i className="fa fa-info"></i>
-                    </button>
-                  </div>
-                ),
-              },
-            ]}
+            data={row}
             defaultSortFieldId={1}
             pagination
             responsive
@@ -184,7 +192,9 @@ const MapsListing = () => {
       </div>
       <CustomModal title={`${modalData.data ? `Edit` : `Create`} Maps Modal`}
         handleClose={handleModalToggle.bind({}, { isAddEdit: false })} isActive={modalData.isAddEdit}>
-        <AddEditMapsModal onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data} />
+        <AddEditMapsModal onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data}
+
+          townOptions={filteredTownOptions} />
       </CustomModal>
       <EditMapsModal
         active={edit}

@@ -51,7 +51,7 @@ function DetailPage({ data }) {
                       alt="Second slide"
                       onError={event => {
                         console.log("image load error")
-                        event.target.src = "imgs/house.jpeg"
+                        event.target.src = "/imgs/house.jpeg"
                       }} />
                   </Carousel.Item>
                 )) : <img

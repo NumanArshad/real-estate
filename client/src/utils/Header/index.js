@@ -490,7 +490,7 @@ export const COLUMN_HERADER = {
       id: 6,
       name: "Image",
       width: "280px",
-      selector: (row) => row.city,
+      selector: (row) => row.image,
       sortable: true,
       reorder: true,
       center: true,

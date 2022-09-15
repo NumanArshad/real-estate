@@ -5,6 +5,7 @@
 package-lock.json
 yarn.lock
 
+/client/.eslintcache
 /server/public/images/*
 
 

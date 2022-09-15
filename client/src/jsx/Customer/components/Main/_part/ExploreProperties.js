@@ -52,7 +52,7 @@ function Index() {
                         src={getImageUrlByName(data?.images[0])}
                         onError={event => {
                           console.log("image load error")
-                          event.target.src = "imgs/house.jpeg"
+                          event.target.src = "/imgs/house.jpeg"
                         }}
                         alt="property"
                       />

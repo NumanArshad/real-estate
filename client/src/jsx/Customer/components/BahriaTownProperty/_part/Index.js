@@ -45,7 +45,7 @@ function Index() {
                         <img src={getImageUrlByName(data?.images[0])}
                           className="w-100" alt="" onError={event => {
                             console.log("image load error")
-                            event.target.src = "imgs/house.jpeg"
+                            event.target.src = "/imgs/house.jpeg"
                           }} />
                         <div className="priceMain d-flex justify-content-between align-items-center">
                           <h2>{data.price} RS</h2>

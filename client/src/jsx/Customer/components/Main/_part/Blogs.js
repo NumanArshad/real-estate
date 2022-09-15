@@ -61,7 +61,7 @@ function Blogs() {
                       <img src={getImageUrlByName(data?.image)} className="w-100" alt=""
                         onError={event => {
                           console.log("image load error")
-                          event.target.src = "imgs/house.jpeg"
+                          event.target.src = "/imgs/house.jpeg"
                         }} />
                       <div className="d-flex gap-3">
                         <p className="p-2 d-flex gap-2 mb-0 mt-2">

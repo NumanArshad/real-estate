@@ -10,6 +10,8 @@ const propertyRoutes = require("./properties.route")
 const saleAgentRoutes = require("./sale-agents.route")
 const blogsRoutes = require("./blogs.route")
 const townsRoutes = require("./towns.route")
+const mapsRoutes = require("./maps.route")
+
 //@route     auth
 //@desc     inital route
 //@access   Public
@@ -18,5 +20,7 @@ router.use("/properties", propertyRoutes)
 router.use("/saleAgents", saleAgentRoutes)
 router.use("/blogs", blogsRoutes)
 router.use("/towns", townsRoutes)
+router.use("/maps", mapsRoutes)
+
 
 module.exports = router;

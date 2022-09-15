@@ -7,5 +7,6 @@ module.exports = {
   user: require("./admin/users.controller"),
   properties: require("./admin/properties.controller"),
   blogs: require("./admin/blogs.controller"),
-  towns: require("./admin/towns.controller")
+  towns: require("./admin/towns.controller"),
+  maps: require("./admin/map.controller")
 };

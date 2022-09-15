@@ -13,6 +13,7 @@ var crypto = require("crypto");
 const clientHelper = require("../../helpers/users.helper");
 //helper functions
 const responseHelper = require("../../helpers/response.helper");
+const { removeSingleImageFile } = require("../../helpers/uploadImages.helper");
 // const { uploadFile } = require("../../helpers/aws");
 
 var DBModalName = "Map ";
@@ -29,6 +30,10 @@ var addMethod = async (req, res) => {
       ...req.body,
       createdBy: id,
     };
+    if (req.imageUrl) {
+      data["image"] = req.imageUrl
+    }
+
     const newData = await DBModal.create(data);
 
     var message = DBModalName + " Created successfully";
@@ -45,11 +50,19 @@ var addMethod = async (req, res) => {
 
 var updateMethod = async (req, res) => {
   try {
-    const getData = await DBModal.findById(req.body.id);
+    const getData = await DBModal.findById(req.body._id);
     let updateData = req.body;
 
     if (getData) {
-      delete req.body.id;
+      delete req.body._id;
+
+      if (req.imageUrl) //delete image
+      {
+        console.log("updating image maps update", updateData.image, req.imageUrl)
+        removeSingleImageFile(updateData.image)
+        updateData.image = req.imageUrl
+      }
+
       const updatedData = await DBModal.findByIdAndUpdate(
         getData._id,
         updateData,
@@ -104,8 +117,13 @@ var updateMethod = async (req, res) => {
 // };
 var getAllMethod = async (req, res) => {
   try {
-    const listData = await DBModal.find({ isActive: true })
-      .populate("createdBy")
+
+    const searchQuery = {}
+    if (req.query.isActive) {
+      searchQuery.isActive = true
+    }
+    const listData = await DBModal.find(searchQuery)
+      .populate("createdBy town")
       .sort({ created_at: -1 });
     if (listData) {
       var message = DBModalName + " Data Loaded";
