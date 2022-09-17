@@ -220,7 +220,7 @@ function App(props) {
       permission: PERMISSION.EXTERNAL_USER,
     },
     {
-      url: "property",
+      url: "properties",
       component: Property,
       permission: PERMISSION.EXTERNAL_USER,
     },

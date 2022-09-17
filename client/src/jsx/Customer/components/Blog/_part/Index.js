@@ -26,8 +26,10 @@ function Index({ data }) {
                       <div className="p-2 pb-3">
                         <img src={getImageUrlByName(blog?.image)} className="w-100" alt=""
                           onError={event => {
+                            console.log("image load error")
                             event.target.src = "/imgs/house.jpeg"
-                          }} />
+                          }}
+                        />
                         <div className="d-flex gap-3">
                           <p className="p-2 d-flex gap-2 mb-0 mt-2">
                             <i class="fa-solid fa-calendar"></i>

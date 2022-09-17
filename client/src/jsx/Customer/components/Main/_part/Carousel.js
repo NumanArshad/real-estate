@@ -13,7 +13,7 @@ function Index() {
 
   const handleNaviateProperty = event => {
     event.preventDefault()
-    history.push("/property")
+    history.push("/properties")
   }
   return (
     <React.Fragment>

@@ -24,10 +24,11 @@ function Index() {
             {propertiesList?.map((data, index) => {
               return (
                 <div className="col-lg-4 col-md-6 col-sm-6 px-2"
-                  style={{ "cursor": "pointer" }}
-                  onClick={(event) => {
-                    history.push(`/properties/${data?._id}`);
-                  }}>
+                // style={{ "cursor": "pointer" }}
+                // onClick={(event) => {
+                //   history.push(`/properties/${data?._id}`);
+                // }}
+                >
                   <div
                     key={index}
                     className="sliderCard mt-3"
@@ -51,7 +52,7 @@ function Index() {
                           <h2>{data.price} RS</h2>
                           <div className="actions d-flex gap-2">
                             <i class="fa-solid fa-heart"></i>
-                            <Link to="/property-detail">
+                            <Link to={`/properties/${data?._id}`}>
                               <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
                             </Link>
                           </div>
@@ -80,7 +81,7 @@ function Index() {
                       </div>
                       <div className="d-flex mt-2 justify-content-between align-items-center">
                         <h5 className="mb-0">{data?.category}</h5>
-                        <Link to="/property-detail">
+                        <Link to={`/properties/${data?._id}`}>
                           <button className="detailsBtn">Details</button>
                         </Link>
                       </div>

@@ -43,7 +43,7 @@ function Index() {
                   <Link to="/about">About</Link>
                 </li>
                 <li>
-                  <Link to="/property">Properties</Link>
+                  <Link to="/properties">Properties</Link>
                 </li>
 
                 <li>
