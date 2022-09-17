@@ -6,20 +6,18 @@ import Header from "../Header/Index";
 import Footer from "../Footer/Index";
 import { Link } from "react-router-dom";
 import request from "../../../../utils/request";
-import { getImageUrlByName } from "../../../../utils/helper";
+import { getImageUrlByName, isArrayCheck } from "../../../../utils/helper";
 function Maps() {
-
-  const [activeTownMaps, setActiveTownMaps] = useState([])
+  const [activeTownMaps, setActiveTownMaps] = useState([]);
 
   useEffect(() => {
-
     request.get("/maps/activeTownMaps").then((response) => {
-      console.log(response?.data)
-      setActiveTownMaps(response?.data?.data?.data)
-    })
-  }, [])
+      console.log(response?.data);
+      setActiveTownMaps(response?.data?.data?.data);
+    });
+  }, []);
 
-  console.log(activeTownMaps)
+  console.log(activeTownMaps);
   return (
     <>
       <Header />
@@ -42,16 +40,25 @@ function Maps() {
                       </Accordion.Header>
                       <Accordion.Body>
                         <div className="row">
-                          {activeTownMaps.map((mapdata, index2) => {
-                            return (
-                              <div className="col-md-4 col-sm-6 mapsBlock text-center mb-3">
-                                <Link to={mapdata.mapImg}>
-                                  <img src={getImageUrlByName(mapdata?.image)} alt="" />
-                                  <h4 className="mt-2">{mapdata.town?.name}</h4>
-                                </Link>
-                              </div>
-                            );
-                          })}
+                          {isArrayCheck(activeTownMaps) ? (
+                            activeTownMaps.map((mapdata, index2) => {
+                              return (
+                                <div className="col-md-4 col-sm-6 mapsBlock text-center mb-3">
+                                  <Link to={mapdata.mapImg}>
+                                    <img
+                                      src={getImageUrlByName(mapdata?.image)}
+                                      alt=""
+                                    />
+                                    <h4 className="mt-2">
+                                      {mapdata.town?.name}
+                                    </h4>
+                                  </Link>
+                                </div>
+                              );
+                            })
+                          ) : (
+                            <p>There is no Map.</p>
+                          )}
                         </div>
                       </Accordion.Body>
                     </Accordion.Item>
