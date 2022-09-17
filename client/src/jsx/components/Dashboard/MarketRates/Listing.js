@@ -10,7 +10,7 @@ import {
   isArrayCheck,
 } from "../../../../utils/helper.js";
 import { getAllUsers } from "../../../../store/actions/User/index.js";
-import AddRateModal from "./_part/AddRateModal.js";
+import AddEditRateModal from "./_part/AddEditRateModal.js";
 import EditRateModal from "./_part/EditRateModal.js";
 import ModalContent from "./_part/Modal.js";
 import { getAllTowns } from "../../../../store/actions/Town/index.js";
@@ -190,7 +190,7 @@ const BlogListing = () => {
       </div>
       <CustomModal title={`${modalData.data ? `Edit` : `Create`} Plot Rate`}
         handleClose={handleModalToggle.bind({}, { isAddEdit: false })} isActive={modalData.isAddEdit}>
-        <AddRateModal onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data} />
+        <AddEditRateModal onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data} />
 
       </CustomModal>
 
