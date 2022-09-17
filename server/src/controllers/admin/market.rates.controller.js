@@ -45,11 +45,11 @@ var addMethod = async (req, res) => {
 
 var updateMethod = async (req, res) => {
   try {
-    const getData = await DBModal.findById(req.body.id);
+    const getData = await DBModal.findById(req.body._id);
     let updateData = req.body;
 
     if (getData) {
-      delete req.body.id;
+      delete req.body._id;
       const updatedData = await DBModal.findByIdAndUpdate(
         getData._id,
         updateData,
@@ -104,7 +104,11 @@ var updateMethod = async (req, res) => {
 // };
 var getAllMethod = async (req, res) => {
   try {
-    const listData = await DBModal.find({ isActive: true })
+    const searchQuery = {}
+    if (req.query?.isActive === true) {
+      searchQuery.isActive = true
+    }
+    const listData = await DBModal.find(searchQuery)
       .populate("createdBy town")
       .sort({ created_at: -1 });
     if (listData) {

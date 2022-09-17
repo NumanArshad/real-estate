@@ -24,7 +24,7 @@ marketRatesSchema = new Schema(
       },
     ],
     isActive: {
-      type: String,
+      type: Boolean,
       default: true,
     },
     createdBy: { type: Schema.Types.ObjectId, ref: "User" },

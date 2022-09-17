@@ -83,10 +83,10 @@ const data = [
 function MarketRate() {
   const [dataMarketRates, setData] = useState([]);
   useEffect(() => {
-    request.get("market-rates/getAll").then((response) => {
+    request.get("market-rates/getAll?isActive=true").then((response) => {
       if (response.status === 200) {
         console.log({ response });
-        setData(response?.data?.data);
+        setData(response?.data?.data?.data);
       }
     });
   }, []);
@@ -108,70 +108,70 @@ function MarketRate() {
               <Accordion flush>
                 {isArrayCheck(dataMarketRates)
                   ? dataMarketRates.map((val, index) => {
-                      return (
-                        <Accordion.Item eventKey={index}>
-                          <Accordion.Header>
-                            <i class="fa-solid fa-angle-right me-2"></i>
-                            {val?.town?.name}
-                          </Accordion.Header>
-                          <Accordion.Body>
-                            <Table responsive>
-                              <thead>
-                                <tr>
-                                  <th>Plot Type</th>
-                                  <th>From</th>
-                                  <th>Upto</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {val.plot.map((tableData, index) => {
-                                  return (
-                                    <tr>
-                                      <td>{tableData.type}</td>
-                                      <td>{tableData.priceFrom} Rs</td>
-                                      <td>{tableData.priceTo} Rs</td>
-                                    </tr>
-                                  );
-                                })}
-                              </tbody>
-                            </Table>
-                          </Accordion.Body>
-                        </Accordion.Item>
-                      );
-                    })
+                    return (
+                      <Accordion.Item eventKey={index}>
+                        <Accordion.Header>
+                          <i class="fa-solid fa-angle-right me-2"></i>
+                          {val?.town?.name}
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          <Table responsive>
+                            <thead>
+                              <tr>
+                                <th>Plot Type</th>
+                                <th>From</th>
+                                <th>Upto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {val.plot.map((tableData, index) => {
+                                return (
+                                  <tr>
+                                    <td>{tableData.type}</td>
+                                    <td>{tableData.priceFrom} Rs</td>
+                                    <td>{tableData.priceTo} Rs</td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </Table>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    );
+                  })
                   : isArrayCheck(data) &&
-                    data.map((val, index) => {
-                      return (
-                        <Accordion.Item eventKey={index}>
-                          <Accordion.Header>
-                            <i class="fa-solid fa-angle-right me-2"></i>
-                            {val?.town?.name}
-                          </Accordion.Header>
-                          <Accordion.Body>
-                            <Table responsive>
-                              <thead>
-                                <tr>
-                                  <th>Plot Type</th>
-                                  <th>From</th>
-                                  <th>Upto</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {val.plot.map((tableData, index) => {
-                                  return (
-                                    <tr>
-                                      <td>{tableData.type}</td>
-                                      <td>{tableData.priceFrom} Rs</td>
-                                      <td>{tableData.priceTo} Rs</td>
-                                    </tr>
-                                  );
-                                })}
-                              </tbody>
-                            </Table>
-                          </Accordion.Body>
-                        </Accordion.Item>
-                      );
-                    })}
+                  data.map((val, index) => {
+                    return (
+                      <Accordion.Item eventKey={index}>
+                        <Accordion.Header>
+                          <i class="fa-solid fa-angle-right me-2"></i>
+                          {val?.town?.name}
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          <Table responsive>
+                            <thead>
+                              <tr>
+                                <th>Plot Type</th>
+                                <th>From</th>
+                                <th>Upto</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {val.plot.map((tableData, index) => {
+                                return (
+                                  <tr>
+                                    <td>{tableData.type}</td>
+                                    <td>{tableData.priceFrom} Rs</td>
+                                    <td>{tableData.priceTo} Rs</td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </Table>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    );
+                  })}
               </Accordion>
             </div>
           </div>

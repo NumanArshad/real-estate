@@ -15,6 +15,7 @@ import EditRateModal from "./_part/EditRateModal.js";
 import ModalContent from "./_part/Modal.js";
 import { getAllTowns } from "../../../../store/actions/Town/index.js";
 import { getAllMarketRates } from "../../../../store/actions/MarketRates/index.js";
+import CustomModal from "../../modal/CustomModal.jsx";
 
 const BlogListing = () => {
   const [ApointmnetDetails, setApointmnetDetails] = useState("");
@@ -23,6 +24,11 @@ const BlogListing = () => {
   const [edit, setedit] = useState(false);
   const [openDetails, setopenDetails] = useState(false);
   const { market_rates_listings } = useSelector((state) => state._marketRates);
+
+  const [modalData, setModalData] = useState({ data: null, isAddEdit: false, isView: false })
+  const handleModalToggle = ({ isAddEdit = false, isView = false, data = null }) => {
+    setModalData({ isAddEdit, isView, data })
+  }
   // const market_rates_listings = [
   //   {
   //     _id: "62c86bf7933609268efc17b3",
@@ -86,44 +92,40 @@ const BlogListing = () => {
     var data =
       Array.isArray(market_rates_listings) && market_rates_listings.length > 0
         ? market_rates_listings.map((data, id) => ({
-            id: id + 1,
-            name: data?.town?.name,
-            plot: (
-              <div>
-                {isArrayCheck(data?.plot) &&
-                  data?.plot?.map((dat) => (
-                    <div className="">
-                      <p className="p-0 m-0">Type :{dat?.type}</p>
-                      <p className="p-0 m-0">
-                        Price :{dat?.priceFrom} - {dat?.priceTo}
-                      </p>
-                    </div>
-                  ))}
-              </div>
-            ),
-            action: (
-              <div className="d-flex align-items-center">
-                <button
-                  onClick={() => {
-                    setApointmnetDetails(data);
-                    setedit(true);
-                  }}
-                  className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                >
-                  <i className="fa fa-edit"></i>
-                </button>
-                <button
-                  onClick={() => {
-                    setApointmnetDetails(data);
-                    setopenDetails(true);
-                  }}
-                  className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
-                >
-                  <i className="fa fa-info"></i>
-                </button>
-              </div>
-            ),
-          }))
+          id: id + 1,
+          name: data?.town?.name,
+          plot: (
+            <div>
+              {isArrayCheck(data?.plot) &&
+                data?.plot?.map((dat) => (
+                  <div className="">
+                    <p className="p-0 m-0">Type :{dat?.type}</p>
+                    <p className="p-0 m-0">
+                      Price :{dat?.priceFrom} - {dat?.priceTo}
+                    </p>
+                  </div>
+                ))}
+            </div>
+          ),
+          action: (
+            <div className="d-flex align-items-center">
+              <button
+                onClick={handleModalToggle.bind({}, { isAddEdit: true, data })}
+
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className="fa fa-edit"></i>
+              </button>
+              <button
+                onClick={handleModalToggle.bind({}, { isView: true, data })}
+
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className="fa fa-info"></i>
+              </button>
+            </div>
+          ),
+        }))
         : [];
     // console.log('Row Data', market_rates_listings);
     setrow(data);
@@ -186,16 +188,21 @@ const BlogListing = () => {
           />
         </div>
       </div>
-      <AddRateModal active={open} onClick={() => setopen(false)} data={null} />
+      <CustomModal title={`${modalData.data ? `Edit` : `Create`} Plot Rate`}
+        handleClose={handleModalToggle.bind({}, { isAddEdit: false })} isActive={modalData.isAddEdit}>
+        <AddRateModal onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data} />
+
+      </CustomModal>
+
       <EditRateModal
         active={edit}
         onClick={() => setedit(false)}
         data={ApointmnetDetails}
       />
       <ModalContent
-        active={openDetails}
-        onClick={() => setopenDetails(false)}
-        data={ApointmnetDetails}
+        active={modalData.isView}
+        onClick={handleModalToggle.bind({}, { isView: false })}
+        data={modalData.data}
       />
     </div>
   );
