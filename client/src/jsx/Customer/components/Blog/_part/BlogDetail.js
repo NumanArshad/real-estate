@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Data from "../../../assets/utilities/blogsData.json";
 import Banner from "../../Layouts/Banner/Banner";
 import { Link } from "react-router-dom";
@@ -12,6 +12,10 @@ import { getImageUrlByName } from "../../../../../utils/helper";
 
 function BlogDetail({ data, blogList }) {
   const { name, description, content, image, updated_at, createdBy, _id: blogId } = data ?? {}
+
+  const relatedPosts = useMemo(() =>
+    blogList?.filter(({ _id }) => _id !== blogId)
+    , [blogId, blogList])
   return (
     <>
       <Banner />
@@ -96,9 +100,10 @@ function BlogDetail({ data, blogList }) {
                   <Tags />
                 </div>
               </div>
+
               <h4 className="mt-4">Related Posts</h4>
               <div className="row px-sm-2 px-0">
-                {blogList?.filter(({ _id }) => _id !== blogId)?.map((data, index) => {
+                {relatedPosts?.length > 0 ? relatedPosts?.map((data, index) => {
                   return (
                     <div className="col-lg-4 col-md-6 px-2">
                       <div
@@ -133,7 +138,7 @@ function BlogDetail({ data, blogList }) {
                       </div>
                     </div>
                   );
-                })}
+                }) : <div>No Relevant Post</div>}
               </div>
             </div>
             <div className="col-md-4">
