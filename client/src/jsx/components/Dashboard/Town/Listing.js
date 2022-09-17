@@ -208,9 +208,9 @@ const TownListing = () => {
         data={ApointmnetDetails}
       />
       <ModalContent
-        active={openDetails}
-        onClick={() => setopenDetails(false)}
-        data={ApointmnetDetails}
+        active={modalData.isView}
+        onClick={handleModalToggle.bind({}, { isView: false })}
+        data={modalData.data}
       />
     </div>
   );

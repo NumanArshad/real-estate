@@ -55,11 +55,11 @@ townSchema = new Schema(
       ],
     },
     isOnConstruction: {
-      type: String,
+      type: Boolean,
       default: false,
     },
     isActive: {
-      type: String,
+      type: Boolean,
       default: true,
     },
     createdBy: { type: Schema.Types.ObjectId, ref: "User" },

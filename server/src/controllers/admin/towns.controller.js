@@ -51,7 +51,13 @@ var updateTown = async (req, res) => {
     console.log("ssss", req.body, "id", req.body._id);
     let updateData = req.body;
 
-    updateData.townInformation = JSON.parse(updateData.townInformation)
+
+    const parseTownInfo = { ...JSON.parse(updateData.townInformation) }
+    updateData.townInformation = { ...parseTownInfo }
+    if (req.imagesUrl?.length) {
+      updateData.townInformation.gallery = [...parseTownInfo.gallery, ...req.imagesUrl]
+    }
+
     if (req.body._id) {
       const updatedData = await Town.findByIdAndUpdate(
         req.body._id,
@@ -109,7 +115,12 @@ var updateTown = async (req, res) => {
 // };
 var getAllTown = async (req, res) => {
   try {
-    const listData = await Town.find({ isActive: true })
+
+    const searchQuery = {}
+    if (req.query.isActive) {
+      searchQuery.isActive = true
+    }
+    const listData = await Town.find(searchQuery)
       .populate("createdBy")
       .sort({ created_at: -1 });
     if (listData) {

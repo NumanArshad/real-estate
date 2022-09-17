@@ -101,7 +101,10 @@ const AddEditTownModal = ({ onClick, active, data }) => {
   const handleAdd = (e) => {
     e.preventDefault();
 
-    const dataObj = plainObjectToFormData(makeData(values, values2));
+    const payload = { ...values }
+    payload.files = payload.files.filter((file) => typeof (file) === "object")
+
+    const dataObj = plainObjectToFormData(makeData(payload, values2));
     console.log(
       "Response ==>",
       { dataObj },
@@ -126,7 +129,13 @@ const AddEditTownModal = ({ onClick, active, data }) => {
 
   useEffect(() => {
     if (data?._id) {
-      setValues({ ...data, files: data?.townInformation?.gallery });
+      setValues({
+        ...data, files: data?.townInformation?.gallery,
+        WhyChooseUs: data?.townInformation?.WhyChooseUs,
+        LocationGuide: data?.townInformation?.LocationGuide,
+        AffordablePaymentPlan: data?.townInformation?.AffordablePaymentPlan,
+
+      });
     }
   }, [data]);
 
@@ -154,7 +163,8 @@ const AddEditTownModal = ({ onClick, active, data }) => {
     console.log("Make Data 1", obj1);
     console.log("Make Data 2", obj2);
     return {
-      _id: obj1._id,
+      ...(!isNew && { _id: obj1._id, }),
+
       hasBlock: obj1.hasBlock,
       block: obj1.block,
       name: obj1.name,
@@ -163,8 +173,8 @@ const AddEditTownModal = ({ onClick, active, data }) => {
       city: obj1.city,
       country: obj1.country,
       address: obj1.address,
-      isOnConstruction: true,
-      isActive: true,
+      isOnConstruction: obj1.isOnConstruction,
+      isActive: obj1.isActive,
       WhyChooseUs: obj1?.WhyChooseUs,
       LocationGuide: obj1?.LocationGuide,
       AffordablePaymentPlan: obj1?.AffordablePaymentPlan,
@@ -174,6 +184,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
         WhyChooseUs: obj1?.WhyChooseUs,
         LocationGuide: obj1?.LocationGuide,
         AffordablePaymentPlan: obj1?.AffordablePaymentPlan,
+        ...(!isNew && { gallery: obj1.townInformation.gallery, }),
         paymentPlanImage: [],
         officeAddress: [obj2],
       },
