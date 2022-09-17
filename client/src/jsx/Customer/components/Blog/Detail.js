@@ -25,13 +25,27 @@ function Detail() {
       })
     }
   }, [id]);
+
+
+  const [blogList, setBlogList] = useState([])
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+
+    request.get("/blogs/approvedBlogs").then((response) => {
+      console.log("response is", response)
+      if (response.status === 200) {
+        setBlogList(response.data?.data)
+      }
+    })
+  }, []);
   console.log(data)
 
 
   return (
     <React.Fragment>
       <Header />
-      <BlogDetail data={data} />
+      <BlogDetail data={data} blogList={blogList} />
       <Footer />
     </React.Fragment>
   );

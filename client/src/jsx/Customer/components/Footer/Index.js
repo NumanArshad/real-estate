@@ -82,7 +82,7 @@ function Index() {
               <h2 className="footer-link">Important Links</h2>
               <ul className="links">
                 <li>
-                  <Link to="/property">
+                  <Link to="/properties">
                     <span>
                       <i className="fa-solid fa-chevron-right"></i> Properties
                     </span>

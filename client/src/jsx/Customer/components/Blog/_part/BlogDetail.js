@@ -10,8 +10,8 @@ import Archives from "./Archives";
 import moment from "moment";
 import { getImageUrlByName } from "../../../../../utils/helper";
 
-function BlogDetail({ data }) {
-  const { name, description, content, image, updated_at, createdBy } = data ?? {}
+function BlogDetail({ data, blogList }) {
+  const { name, description, content, image, updated_at, createdBy, _id: blogId } = data ?? {}
   return (
     <>
       <Banner />
@@ -98,7 +98,7 @@ function BlogDetail({ data }) {
               </div>
               <h4 className="mt-4">Related Posts</h4>
               <div className="row px-sm-2 px-0">
-                {RelatedPost.map((data, index) => {
+                {blogList?.filter(({ _id }) => _id !== blogId)?.map((data, index) => {
                   return (
                     <div className="col-lg-4 col-md-6 px-2">
                       <div
@@ -108,20 +108,25 @@ function BlogDetail({ data }) {
                         data-aos-duration="1500"
                       >
                         <div className="p-2 pb-3">
-                          <img src={data.img} className="w-100" alt="" />
+                          <img src={getImageUrlByName(data?.image)}
+                            onError={event => {
+                              console.log("image load error")
+                              event.target.src = "/imgs/house.jpeg"
+                            }}
+                            className="w-100" alt="" />
                           <div className="d-flex gap-3">
                             <p className="p-2 d-flex gap-2 mb-0 mt-2">
                               <i class="fa-solid fa-calendar"></i>
-                              <h6> {data.date}</h6>
+                              <h6> {moment(updated_at).format(`LLL`)}</h6>
                             </p>
                             <p className="p-2 d-flex gap-2 mb-0 mt-2">
                               <i class="fa-solid fa-tag"></i>
-                              <h6 className="tag"> {data.tag}</h6>
+                              <h6 className="tag"> Blog</h6>
                             </p>
                           </div>
                           <h3>{data.title}</h3>
                           <p>{data.description}</p>
-                          <Link to="/blog-detail">
+                          <Link to={`/blogs/${data?._id}`}>
                             <span>Continue reading</span>
                           </Link>
                         </div>
