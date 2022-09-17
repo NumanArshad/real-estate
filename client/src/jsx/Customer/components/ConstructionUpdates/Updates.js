@@ -83,7 +83,7 @@ function Updates({ data }) {
                     </div>
                   </div>
                   <div className="text-center">
-                    <Link to="/homes">
+                    <Link to={`/construction-project/${townContruction?._id}`}>
                       <button className="mt-5 mb-4 visitProject">
                         Visit Project
                       </button>

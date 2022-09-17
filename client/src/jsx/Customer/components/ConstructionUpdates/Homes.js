@@ -1,133 +1,91 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../assets/images/logo.png";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { useParams } from "react-router-dom";
+import request from "../../../../utils/request";
+import { getImageUrlByName } from "../../../../utils/helper";
 function Homes() {
+
+  const { townId } = useParams()
+
+  const [townDetail, setDetail] = useState(undefined)
+
+  useEffect(() => {
+    if (townId) {
+      request.get(`/towns/townDetail/${townId}`).then((response) => {
+        setDetail(response?.data?.data)
+      })
+    }
+  }, [townId])
+
   return (
     <div className="homesMain">
-      <div className="homesBanner">
+      <div className="homesBanner" style={{ "backgroundImage": `url(${townDetail?.townInformation?.gallery[0] ? getImageUrlByName(townDetail?.townInformation?.gallery[0]) : "/imgs/house.jpeg"})` }}>
         <div className="text-center py-5">
-          <img src={Logo} width="200px" alt="" />
+          {/* <img src={getImageUrlByName(townDetail?.townInformation?.gallery[0])} width="200px" alt="" /> */}
         </div>
-        <h1>SQ ORCHARD HOMES</h1>
+        <h1>{townDetail?.name}</h1>
         <br />
         <p>A Place You Desire!</p>
       </div>
       <div className="container">
         <div className="row my-4">
           <div className="col-md-4 details">
-            <h1 className="mb-4">Why SQ Orchard Homes</h1>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-arrow-right"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-arrow-right"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-arrow-right"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-arrow-right"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-arrow-right"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
+            <h1 className="mb-4">Why {townDetail?.name}</h1>
+            {townDetail?.townInformation?.WhyChooseUs?.length ? townDetail?.townInformation?.WhyChooseUs?.map((tag) =>
+              <div className="d-flex gap-2">
+                <i class="fa-solid fa-arrow-right"></i>
+                <p>
+                  {tag}
+                </p>
+              </div>) : Array.from({ length: 5 }, () => <div className="d-flex gap-2">
+                <i class="fa-solid fa-arrow-right"></i>
+                <p>
+                  Value of the properties at first-rate location increases at a
+                  rapid pace
+                </p>
+              </div>
+              )
+            }
+
           </div>
           <div className="col-md-4 details">
-            <h1 className="mb-4">Location of SQ Orchard Homes</h1>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-location-dot"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-location-dot"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-location-dot"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-location-dot"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-location-dot"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
+            <h1 className="mb-4">Location of {townDetail?.name}</h1>
+            {townDetail?.townInformation?.LocationGuide?.length ? townDetail?.townInformation?.LocationGuide?.map((tag) =>
+              <div className="d-flex gap-2">
+                <i class="fa-solid fa-location-dot"></i>
+                <p>
+                  {tag}
+                </p>
+              </div>) : Array.from({ length: 5 }, () => <div className="d-flex gap-2">
+                <i class="fa-solid  fa-location-dot"></i>
+                <p>
+                  Value of the properties at first-rate location increases at a
+                  rapid pace
+                </p>
+              </div>)}
+
           </div>
           <div className="col-md-4 details">
             <h1 className="mb-4">Affordable payment Plan</h1>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-money-bill"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-money-bill"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-money-bill"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-money-bill"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
-            <div className="d-flex gap-2">
-              <i class="fa-solid fa-money-bill"></i>
-              <p>
-                Value of the properties at first-rate location increases at a
-                rapid pace
-              </p>
-            </div>
+
+            {townDetail?.townInformation?.AffordablePaymentPlan?.length ? townDetail?.townInformation?.AffordablePaymentPlan?.map((tag) =>
+              <div className="d-flex gap-2">
+                <i class="fa-solid  fa-money-bill"></i>
+                <p>
+                  {tag}
+                </p>
+              </div>) : Array.from({ length: 5 }, () => <div className="d-flex gap-2">
+                <i class="fa-solid  fa-money-bill"></i>
+                <p>
+                  Value of the properties at first-rate location increases at a
+                  rapid pace
+                </p>
+              </div>
+              )
+            }
+
           </div>
         </div>
       </div>
@@ -156,36 +114,26 @@ function Homes() {
             />
           </div>
           <div className="col-md-6">
-            <h3 className="text-center mb-3">Orchards Gallery</h3>
+            <h3 className="text-center mb-3">{townDetail?.name} Gallery</h3>
             <div className="row">
-              <div className="col-md-6 px-2 pb-2">
-                <img
-                  src="/imgs/multi1.jpeg"
-                  className="w-100 rounded-3"
-                  alt=""
-                />
-              </div>
-              <div className="col-md-6 px-2 pb-2">
-                <img
-                  src="/imgs/multi2.jpeg"
-                  className="w-100 rounded-3"
-                  alt=""
-                />
-              </div>
-              <div className="col-md-6 px-2 pb-2">
-                <img
-                  src="/imgs/multi3.jpeg"
-                  className="w-100 rounded-3"
-                  alt=""
-                />
-              </div>
-              <div className="col-md-6 px-2 pb-2">
-                <img
-                  src="/imgs/multi4.jpeg"
-                  className="w-100 rounded-3"
-                  alt=""
-                />
-              </div>
+              {townDetail?.townInformation?.gallery?.length ?
+                townDetail?.townInformation?.gallery?.slice(0, 4).map((galleryImage) =>
+                  <div className="col-md-6 px-2 pb-2">
+                    <img
+                      src={getImageUrlByName(galleryImage)}
+                      className="w-100 rounded-3"
+                      alt=""
+                    />
+                  </div>
+                ) :
+                Array.from({ length: 4 }, (_, index) => <div className="col-md-6 px-2 pb-2">
+                  <img
+                    src={`/imgs/multi${index + 1}.jpeg`}
+                    className="w-100 rounded-3"
+                    alt=""
+                  />
+                </div>)
+              }
             </div>
           </div>
         </div>

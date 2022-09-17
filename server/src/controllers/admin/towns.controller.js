@@ -141,11 +141,13 @@ var getAllTown = async (req, res) => {
 
 var getSingleTown = async (req, res) => {
   try {
-    const getData = await Town.findById(req.body.id).populate("createdBy");
+    const getData = await Town.findById(req.params.id).populate("createdBy");
     if (getData) {
-      var message = "Town Fetch successfully";
-      var responseData = { Town: getData };
-      return responseHelper.success(res, responseData, message);
+      //  var message = "Town Fetch successfully";
+      // var responseData = { Town: getData };
+
+      console.log({ getData, gallery: getData?.townInformation?.gallery })
+      return responseHelper.success(res, getData, "");
     } else {
       let err = "No Town Exist";
       return responseHelper.requestfailure(res, err);

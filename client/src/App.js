@@ -240,7 +240,7 @@ function App(props) {
       permission: PERMISSION.EXTERNAL_USER,
     },
     {
-      url: "homes",
+      url: "construction-project/:townId",
       component: Homes,
       permission: PERMISSION.EXTERNAL_USER,
     },
