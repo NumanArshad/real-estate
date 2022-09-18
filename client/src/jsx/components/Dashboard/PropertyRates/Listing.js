@@ -8,7 +8,7 @@ import { formatedDate, formatedTime } from "../../../../utils/helper.js";
 import { getAllUsers } from "../../../../store/actions/User/index.js";
 import AddEditRateModal from "./_part/AddEditRateModal.js";
 import ModalContent from "./_part/Modal.js";
-import { getAllProperties } from "../../../../store/actions/Property/index.js";
+import { getAllProperties, updatePropertyActiveStatus } from "../../../../store/actions/Property/index.js";
 import CustomModal from "../../modal/CustomModal.jsx";
 
 const PropertyRates = () => {
@@ -107,6 +107,15 @@ const PropertyRates = () => {
                 className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
               >
                 <i className="fa fa-info"></i>
+              </button>
+              <button
+                onClick={event => {
+                  dispatch(updatePropertyActiveStatus(data?._id, !data?.isActive))
+                }}
+
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className={`fa  fa-toggle-${data?.isActive ? `on` : `off`}`}></i>
               </button>
             </div>
           ),

@@ -69,6 +69,46 @@ export const updateProperty =
       }
     };
 
+export const deleteProperty =
+  (propertyId, close) => async (dispatch) => {
+    console_log("delete ==>", propertyId);
+    try {
+      const res = await request.delete(`/properties/delete/${propertyId}`);
+      const { message, status, data } = res.data;
+      if (!status === "Success") throw res.data;
+      if (status === "Success") {
+        makeToast("success", message);
+        console_log("Data", data);
+        dispatch(getAllProperties());
+        close();
+      }
+    } catch (e) {
+      console_log("deletePropertytModal error", e);
+
+      // makeToast("createpropertyModal error", e.message);
+    }
+  };
+
+export const updatePropertyActiveStatus =
+  (propertyId, isActive, close) => async (dispatch) => {
+    console_log("path ==>", propertyId);
+    try {
+      const res = await request.patch(`/properties/updateActiveStatus/${propertyId}`, { isActive });
+      const { message, status, data } = res.data;
+      if (!status === "Success") throw res.data;
+      if (status === "Success") {
+        makeToast("success", message);
+        console_log("Data", data);
+        dispatch(getAllProperties());
+        close();
+      }
+    } catch (e) {
+      console_log("updateproperty status Modal error", e);
+
+      // makeToast("createpropertyModal error", e.message);
+    }
+  };
+
 export const getAllProperties = () => async (dispatch) => {
   console_log("Call => getAllProperties");
   try {

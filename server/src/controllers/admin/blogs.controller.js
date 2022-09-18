@@ -187,7 +187,7 @@ var getSingleBlog = async (req, res) => {
 
 var removeBlog = async (req, res) => {
   try {
-    const BlogF = await Blog.findById(req.body.id);
+    const BlogF = await Blog.findById(req.params.id);
     if (BlogF) {
       const removeBlog = BlogF.remove();
       if (removeBlog) {
@@ -199,6 +199,30 @@ var removeBlog = async (req, res) => {
     }
   } catch (error) {
     responseHelper.requestfailure(res, error);
+  }
+};
+
+const activateInActiveBlog = async (req, res) => {
+  try {
+    const isApproved = req.body.isApproved;
+    const blogDetail = await Blog.findByIdAndUpdate(
+      { _id: req.params.id },
+      { isApproved },
+      { new: true }
+    );
+    if (blogDetail) {
+      return responseHelper.success(
+        res,
+        blogDetail,
+        `Blog ${isApproved === "approved" ? `activated` : `in-activated`} successfully!`
+      );
+    }
+    return responseHelper.requestfailure(
+      res,
+      `Blog ${isActive ? `activate` : `in-activate`} failure!`
+    );
+  } catch (error) {
+    return responseHelper.requestfailure(res, error);
   }
 };
 
@@ -280,6 +304,7 @@ module.exports = {
   removeBlog,
   getAllBlogs,
   filterBlog,
+  activateInActiveBlog,
 
   ///public
   getApprovedBlogsByFilter,

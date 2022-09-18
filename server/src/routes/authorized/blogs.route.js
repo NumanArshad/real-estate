@@ -23,5 +23,7 @@ router.get("/getBlogs", blog.getBlogs);
 router.get("/getAllBlogs", blog.getAllBlogs);
 router.post("/updateBlog", uploadSingleFile, blog.updateBlog);
 router.get("/getSingleBlog", blog.getSingleBlog);
-router.post("/deleteBlog", blog.removeBlog);
+router.post("/delete/:id", blog.removeBlog);
+router.patch("/updateActiveStatus/:id", blog.activateInActiveBlog)
+
 module.exports = router;

@@ -9,7 +9,7 @@ import { getAllUsers } from "../../../../store/actions/User/index.js";
 import AddEditBlogModal from "./_part/AddEditBlogModal.js";
 import EditBlogModal from "./_part/EditBlogModal.js";
 import ModalContent from "./_part/Modal.js";
-import { getAllBlogs } from "../../../../store/actions/Blog/index.js";
+import { getAllBlogs, updateBlogActiveStatus } from "../../../../store/actions/Blog/index.js";
 import CustomModal from "../../modal/CustomModal.jsx";
 
 const BlogListing = () => {
@@ -104,6 +104,15 @@ const BlogListing = () => {
                 className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
               >
                 <i className="fa fa-info"></i>
+              </button>
+              <button
+                onClick={event => {
+                  dispatch(updateBlogActiveStatus(data?._id, data?.isApproved === "approved" ? "pending" : "approved"))
+                }}
+
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className={`fa  fa-toggle-${data?.isApproved === "approved" ? `on` : `off`}`}></i>
               </button>
             </div>
           ),
