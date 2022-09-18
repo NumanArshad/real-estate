@@ -5,7 +5,7 @@ import DataTable from "react-data-table-component";
 
 import { COLUMN_HERADER } from "../../../../utils/Header/index.js";
 import { formatedDate, formatedTime, getImageUrlByName } from "../../../../utils/helper.js";
-import { getAllUsers } from "../../../../store/actions/User/index.js";
+import { getAllUsers, updateUserActiveStatus } from "../../../../store/actions/User/index.js";
 import AddRoomModal from "./_part/AddEditRoomModal.js";
 import EditRoomModal from "./_part/EditRoomModal.js";
 import ModalContent from "./_part/Modal.js";
@@ -124,6 +124,15 @@ const SaleAgentListing = () => {
                 className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
               >
                 <i className="fa fa-info"></i>
+              </button>
+
+              <button
+                onClick={event => {
+                  dispatch(updateUserActiveStatus(data?._id, !data?.isActive))
+                }}
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className={`fa  fa-toggle-${data?.isActive ? `on` : `off`}`}></i>
               </button>
             </div>
           ),

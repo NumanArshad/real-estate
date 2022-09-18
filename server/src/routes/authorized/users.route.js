@@ -16,6 +16,8 @@ router.post("/add", uploadSingleFile, controller.createUser);
 router.get("/get/:id", controller.getSingleUser);
 router.get("/all", controller.getAllUser);
 router.post("/update", uploadSingleFile, controller.updateUser);
-router.put("/activateInActiveUser/:id", controller.activateInActiveUser);
+router.delete("/delete/:id", controller.removeUser);
+
+router.patch("/updateActiveStatus/:id", controller.activateInActiveUser);
 
 module.exports = router;

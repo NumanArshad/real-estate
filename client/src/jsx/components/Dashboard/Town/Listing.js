@@ -6,7 +6,7 @@ import DataTable from "react-data-table-component";
 import { COLUMN_HERADER } from "../../../../utils/Header/index.js";
 import { formatedDate, formatedTime } from "../../../../utils/helper.js";
 import ModalContent from "./_part/Modal.js";
-import { getAllTowns } from "../../../../store/actions/Town/index.js";
+import { getAllTowns, updateTownActiveStatus } from "../../../../store/actions/Town/index.js";
 import AddEditTownModal from "./_part/AddEditTownModal.js";
 import EditTownModal from "./_part/EditTownModal.js";
 import CustomModal from "../../modal/CustomModal.jsx";
@@ -127,6 +127,15 @@ const TownListing = () => {
                 className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
               >
                 <i className="fa fa-info"></i>
+              </button>
+              <button
+                onClick={event => {
+                  dispatch(updateTownActiveStatus(data?._id, !data?.isActive))
+                }}
+
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className={`fa  fa-toggle-${data?.isActive ? `on` : `off`}`}></i>
               </button>
             </div>
           ),

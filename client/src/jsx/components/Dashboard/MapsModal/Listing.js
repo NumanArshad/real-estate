@@ -10,7 +10,7 @@ import AddEditMapsModal from "./_part/AddEditMapsModal.js";
 import EditMapsModal from "./_part/EditMapsModal.js";
 import ModalContent from "./_part/Modal.js";
 import CustomModal from "../../modal/CustomModal.jsx";
-import { getAllMapModal } from "../../../../store/actions/MapModal/index.js";
+import { getAllMapModal, updateMapActiveStatus } from "../../../../store/actions/MapModal/index.js";
 import request from "../../../../utils/request.js";
 
 const MapsListing = () => {
@@ -142,6 +142,14 @@ const MapsListing = () => {
                 className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
               >
                 <i className="fa fa-info"></i>
+              </button>
+              <button
+                onClick={event => {
+                  dispatch(updateMapActiveStatus(data?._id, !data?.isActive))
+                }}
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className={`fa  fa-toggle-${data?.isActive ? `on` : `off`}`}></i>
               </button>
             </div>
           ),

@@ -60,6 +60,45 @@ export const updateUser =
       }
     };
 
+export const deleteUser =
+  (userId, close) => async (dispatch) => {
+    console_log("delete ==>", userId);
+    try {
+      const res = await request.delete(`/users/delete/${userId}`);
+      const { message, status, data } = res.data;
+      if (!status === "Success") throw res.data;
+      if (status === "Success") {
+        makeToast("success", message);
+        console_log("Data", data);
+        dispatch(getAllUsers());
+        close();
+      }
+    } catch (e) {
+      console_log("delete user error", e);
+      // makeToast("createUserModal error", e.message);
+    }
+  };
+
+export const updateUserActiveStatus =
+  (userId, isActive, close) => async (dispatch) => {
+    console_log("path ==>", userId);
+    try {
+      const res = await request.patch(`/users/updateActiveStatus/${userId}`, { isActive });
+      const { message, status, data } = res.data;
+      if (!status === "Success") throw res.data;
+      if (status === "Success") {
+        makeToast("success", message);
+        console_log("Data", data);
+        dispatch(getAllUsers());
+        close();
+      }
+    } catch (e) {
+      console_log("updateUser status Modal error", e);
+
+      // makeToast("createUserModal error", e.message);
+    }
+  };
+
 export const getAllUsers = () => async (dispatch) => {
   console_log("Call => getAllUsers");
   try {

@@ -61,6 +61,46 @@ export const updateTown =
       }
     };
 
+export const deleteTownModal =
+  (mapId, close) => async (dispatch) => {
+    console_log("delete ==>", mapId);
+    try {
+      const res = await request.delete(`/towns/delete/${mapId}`);
+      const { message, status, data } = res.data;
+      if (!status === "Success") throw res.data;
+      if (status === "Success") {
+        makeToast("success", message);
+        console_log("Data", data);
+        dispatch(getAllTowns());
+        close();
+      }
+    } catch (e) {
+      console_log("deleteTownModal error", e);
+
+      // makeToast("createMapModal error", e.message);
+    }
+  };
+
+export const updateTownActiveStatus =
+  (mapId, isActive, close) => async (dispatch) => {
+    console_log("path ==>", mapId);
+    try {
+      const res = await request.patch(`/towns/updateActiveStatus/${mapId}`, { isActive });
+      const { message, status, data } = res.data;
+      if (!status === "Success") throw res.data;
+      if (status === "Success") {
+        makeToast("success", message);
+        console_log("Data", data);
+        dispatch(getAllTowns());
+        close();
+      }
+    } catch (e) {
+      console_log("updateMap status Modal error", e);
+
+      // makeToast("createMapModal error", e.message);
+    }
+  };
+
 export const getAllTowns = () => async (dispatch) => {
   console_log("Call => getAllTowns");
   try {

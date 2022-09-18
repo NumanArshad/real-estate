@@ -13,6 +13,7 @@ var crypto = require("crypto");
 const clientHelper = require("../../helpers/users.helper");
 //helper functions
 const responseHelper = require("../../helpers/response.helper");
+const townModel = require("../../models/town.model");
 // const { uploadFile } = require("../../helpers/aws");
 
 //@route    POST addTown
@@ -163,7 +164,7 @@ var getSingleTown = async (req, res) => {
 
 var removeTown = async (req, res) => {
   try {
-    const getData = await Town.findById(req.body.id);
+    const getData = await Town.findById(req.params.id);
     if (getData) {
       const removeData = getData.remove();
       if (removeData) {
@@ -173,6 +174,30 @@ var removeTown = async (req, res) => {
       let err = "Something went wrong while deleting Town";
       return responseHelper.requestfailure(res, err);
     }
+  } catch (error) {
+    responseHelper.requestfailure(res, error);
+  }
+};
+
+var activateInActivateMethod = async (req, res) => {
+  try {
+
+    const isActive = req.body.isActive
+    const updatedData = await townModel.findByIdAndUpdate(
+      req.params.id,
+      { isActive },
+      {
+        new: true,
+      }
+    );
+    if (updatedData) {
+      var message = `Town ${isActive ? `Activated` : `De-Activated`} Successfully`;
+      var responseData = { data: updatedData };
+      return responseHelper.success(res, responseData, message);
+    }
+    let err = "Something went wrong while updating " + DBModalName;
+    return responseHelper.requestfailure(res, err);
+
   } catch (error) {
     responseHelper.requestfailure(res, error);
   }
@@ -203,7 +228,7 @@ const getAllActiveTownConstructionUpdate = async (req, res) => {
 
 const getAllActiveTownName = async (req, res) => {
   try {
-    const listData = await Town.find({ isActive: true }, { name: 1 }).sort({ created_at: -1 });
+    const listData = await Town.find({ isActive: true }).sort({ created_at: -1 });
     if (listData) {
       var message = "Construction Updates Loaded";
       // var responseData = { data: listData };
@@ -221,8 +246,10 @@ module.exports = {
   updateTown,
   getSingleTown,
   removeTown,
+  activateInActivateMethod,
   getAllTown,
   getAllActiveTownName,
+
 
   getAllActiveTownConstructionUpdate
 };

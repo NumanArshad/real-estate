@@ -24,5 +24,7 @@ router.get("/getAllTown", town.getAllTown);
 router.get("/activeTownOptions", town.getAllActiveTownName)
 router.put("/updateTown", uploadMultipleFile, town.updateTown);
 router.get("/getSingleTown", town.getSingleTown);
-router.post("/deleteTown", town.removeTown);
+router.delete("/delete/:id", town.removeTown);
+router.patch("/updateActiveStatus/:id", town.activateInActivateMethod)
+
 module.exports = router;

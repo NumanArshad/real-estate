@@ -23,5 +23,6 @@ router.post("/add", uploadSingleFile, controller.addMethod);
 router.get("/getAll", controller.getAllMethod);
 router.post("/update", uploadSingleFile, controller.updateMethod);
 router.get("/getSingle", controller.getSingleDetailMethod);
-router.post("/delete", controller.removeMethod);
+router.delete("/delete/:id", controller.removeMethod);
+router.patch("/updateActiveStatus/:id", controller.activateInActivateMethod)
 module.exports = router;

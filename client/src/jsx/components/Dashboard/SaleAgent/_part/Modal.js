@@ -6,7 +6,7 @@ import {
   formatedTime,
   getImageUrlByName,
 } from "../../../../../utils/helper";
-import { updateUser } from "../../../../../store/actions/User/index";
+import { deleteUser, updateUser } from "../../../../../store/actions/User/index";
 import Dummy from "../../../../../images/1.jpg";
 
 const ModalContent = ({ onClick, active, data }) => {
@@ -35,12 +35,11 @@ const ModalContent = ({ onClick, active, data }) => {
             <div className="w-100">
               <h5 className="mb-2 w-100">Image</h5>
               <p className="m-0">
-                <img src={Dummy} className="imgPreview" alt="Dummy" />
-                {/* <img
+                <img
                   src={getImageUrlByName(data?.profile)}
                   className="imgPreview"
                   alt="Dummy"
-                /> */}
+                />
               </p>
             </div>
             <div className="d-flex justify-content-between align-items-center">
@@ -84,11 +83,9 @@ const ModalContent = ({ onClick, active, data }) => {
                 className="btn btn-sm btn-danger"
                 onClick={() => {
                   dispatch(
-                    updateUser(
-                      { userId: data?._id, isActive: false },
-                      onClick,
-                      "Users Deleted Successfully!"
-                    )
+                    deleteUser(
+                      data?._id,
+                      onClick)
                   );
                 }}
               >

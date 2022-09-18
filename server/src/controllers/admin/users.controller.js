@@ -15,8 +15,8 @@ var getAllUser = async (req, res) => {
         { isDeleted: false, role: "saleagent" },
       ],
     })
-      .skip(skip)
-      .limit(limit)
+      // .skip(skip)
+      // .limit(limit)
       .sort({ created_at: -1 });
     const total = await User.find({
       $or: [
@@ -52,6 +52,24 @@ var getSingleUser = async (req, res) => {
     return responseHelper.requestfailure(res, err);
   } catch (err) {
     return responseHelper.requestfailure(res, err);
+  }
+};
+
+var removeUser = async (req, res) => {
+  try {
+    console.log("id", req.params.id)
+    const getData = await User.findById(req.params.id);
+    if (getData) {
+      const removeData = getData.remove();
+      if (removeData) {
+        var message = "User Deleted Successfully";
+        return responseHelper.success(res, null, message);
+      }
+      let err = "Something went wrong while deleting " + DBModalName;
+      return responseHelper.requestfailure(res, err);
+    }
+  } catch (error) {
+    responseHelper.requestfailure(res, error);
   }
 };
 
@@ -155,7 +173,7 @@ const activateInActiveUser = async (req, res) => {
     return responseHelper.success(
       res,
       modifiedUser,
-      `User ${req.body.isActivated} successfully!`
+      `User ${req.body.isActive ? `Activated` : `De-Activated`} successfully!`
     );
   } catch (err) {
     console.log(
@@ -277,7 +295,7 @@ module.exports = {
   updateUser,
   createUser,
   activateInActiveUser,
-
+  removeUser,
   //
   getAllActiveSaleAgents,
   saleAgentByIdWithPropertyReviewList,
