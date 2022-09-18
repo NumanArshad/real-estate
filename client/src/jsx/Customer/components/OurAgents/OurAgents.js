@@ -11,8 +11,8 @@ function OurAgents() {
   const [agenstData, setAgentsData] = useState([])
   useEffect(() => {
     request.get("/saleAgents/activeSaleAgents?all=true").then((response) => {
-      console.log("our agents data", response)
-      setAgentsData(response?.data?.data?.user)
+      const mapResponse = response?.data?.data?.user?.map(({ first_name, last_name, ...rest }) => ({ ...rest, full_name: `${first_name} ${last_name}` }))
+      setAgentsData(mapResponse)
     })
   }, [])
 
@@ -28,7 +28,7 @@ function OurAgents() {
           </div>
         </div>
         <div className="bg-white row">
-          <SerachAgent />
+          <SerachAgent setAgentsData={setAgentsData} agenstData={agenstData} />
         </div>
         <div className="row agentCards">
           {agenstData?.map((data) => (
@@ -38,7 +38,7 @@ function OurAgents() {
                   console.log("image load error")
                   event.target.src = "https://remapconsulting.com/wp-content/uploads/2018/03/Image-placeholder-man.jpg"
                 }} />
-              <h1>{`${data?.first_name} ${data?.last_name}`}</h1>
+              <h1>{data?.full_name}</h1>
               <h2>{data?.designation}</h2>
               <p>{data?.description}</p>
               <Link to={`/agent/${data?._id}`}>View Profile</Link>

@@ -7,6 +7,7 @@ import Dummy from "../../../../../images/1.jpg";
 import { deleteTownModal } from "../../../../../store/actions/Town";
 const ModalContent = ({ onClick, active, data }) => {
   const dispatch = useDispatch();
+  console.log({ data })
   return (
     <Modal size="lg" className=" fade" id="aAddDietMenus" show={active}>
       <div className="modal-content">
@@ -63,7 +64,7 @@ const ModalContent = ({ onClick, active, data }) => {
               <div className="col-md-12 mb-2">
                 <div className="justify-content-between align-items-center">
                   <h5 className="m-0">Why Choose us </h5>
-                  <p className="m-0">{data?.townInformation?.WhyChooseUs}</p>
+                  <p className="m-0">{data?.townInformation?.WhyChooseUs?.length ? data?.townInformation?.WhyChooseUs : `No Info Added`}</p>
                 </div>
               </div>
               <div className="col-md-12 mb-2">
@@ -77,33 +78,33 @@ const ModalContent = ({ onClick, active, data }) => {
               <div className="col-md-12 mb-2">
                 <div className=" justify-content-between align-items-center">
                   <h5 className="m-0">Location Guide</h5>
-                  <p className="m-0">{data?.townInformation?.LocationGuide}</p>
+                  <p className="m-0">{data?.townInformation?.LocationGuide?.length ? data?.townInformation?.LocationGuide : `No Location Guide`}</p>
                 </div>
               </div>
               <div className="col-md-12 mb-2">
                 <div className=" justify-content-between align-items-center">
                   <h5 className="m-0">Affordable Payment Plan</h5>
                   <p className="m-0">
-                    {data?.townInformation?.AffordablePaymentPlan}
+                    {data?.townInformation?.AffordablePaymentPlan?.length ? data?.townInformation?.AffordablePaymentPlan : `No Affordable Plan`}
                   </p>
                 </div>
               </div>
               <div className="col-md-4 mb-2">
                 <div className="d-flex justify-content-between align-items-center">
                   <h5 className="m-0">Has Block</h5>
-                  <p className="m-0">{data?.hasBlock}</p>
+                  <p className="m-0">{data?.hasBlock ? 'Yes' : `No`}</p>
                 </div>
               </div>
               <div className="col-md-4 mb-2">
                 <div className="d-flex justify-content-between align-items-center">
                   <h5 className="m-0">Active</h5>
-                  <p className="m-0">{data?.isActive}</p>
+                  <p className="m-0">{data?.isActive ? 'Yes' : `No`}</p>
                 </div>
               </div>
               <div className="col-md-4 mb-2">
                 <div className="d-flex justify-content-between align-items-center">
                   <h5 className="m-0">Is On Construction</h5>
-                  <p className="m-0">{data?.isOnConstruction}</p>
+                  <p className="m-0">{data?.isOnConstruction ? 'Yes' : `No`}</p>
                 </div>
               </div>
               <div className="col-md-12 mb-2">
