@@ -32,6 +32,44 @@ export const createBlog =
     }
   };
 
+export const deleteblog =
+  (blogId, close) => async (dispatch) => {
+    console_log("delete ==>", blogId);
+    try {
+      const res = await request.delete(`/blogs/delete/${blogId}`);
+      const { message, status, data } = res.data;
+      if (!status === "Success") throw res.data;
+      if (status === "Success") {
+        makeToast("success", message);
+        console_log("Data", data);
+        dispatch(getAllBlogs());
+        close();
+      }
+    } catch (e) {
+      console_log("deleteblogModal error", e);
+    }
+  };
+
+export const updateBlogActiveStatus =
+  (blogId, isApproved, close) => async (dispatch) => {
+    console_log("path ==>", blogId);
+    try {
+      const res = await request.patch(`/blogs/updateActiveStatus/${blogId}`, { isApproved });
+      const { message, status, data } = res.data;
+      if (!status === "Success") throw res.data;
+      if (status === "Success") {
+        makeToast("success", message);
+        console_log("Data", data);
+        dispatch(getAllBlogs());
+        close();
+      }
+    } catch (e) {
+      console_log("update blog status Modal error", e);
+
+      // makeToast("createblogModal error", e.message);
+    }
+  };
+
 export const updateBlog =
   (userData, close, message = null) =>
     async (dispatch) => {

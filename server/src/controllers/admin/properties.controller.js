@@ -86,6 +86,21 @@ const getSingleProperty = async (req, res) => {
 //       }
 // };
 
+const removeProperty = async (req, res) => {
+    try {
+        const removeData = await propertyModel.findByIdAndDelete(req.params.id);
+        if (removeData) {
+            var message = "Property Deleted Successfully";
+            return responseHelper.success(res, null, message);
+        }
+        let err = "Something went wrong while deleting Town";
+        return responseHelper.requestfailure(res, err);
+
+    } catch (error) {
+        responseHelper.requestfailure(res, error);
+    }
+};
+
 const activateInActiveProperty = async (req, res) => {
     try {
         const isActive = req.body.isActive;
@@ -226,6 +241,7 @@ module.exports = {
     activateInActiveProperty,
     getAllActiveProperties,
     propertyDetail,
+    removeProperty,
 
     getAllActivePropertiesList,
     getAllPropertiesDropDownOptions

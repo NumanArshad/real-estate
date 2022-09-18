@@ -27,8 +27,8 @@ const AddEditBlogModal = ({ onClick, active, data }) => {
   const isNew = !data?._id
 
   const radios = [
-    { name: "Pending", value: "pending" },
-    { name: "Approved", value: "approved" },
+    { name: "No", value: "pending" },
+    { name: "Yes", value: "approved" },
   ];
   const [url, setUrl] = useState("");
   const [editorState, seteditorState] = useState("");
@@ -258,7 +258,7 @@ const AddEditBlogModal = ({ onClick, active, data }) => {
             </div>
             <div className="col-md-6">
               <div class="form-group">
-                <label for="Action">Is Approved</label>
+                <label for="Action">Is Active</label>
                 <br />
                 <ButtonGroup className="mb-2 toggleBtns">
                   {radios.map((radio, idx) => (

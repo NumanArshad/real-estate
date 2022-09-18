@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { formatedDate, formatedTime, getImageUrlByName } from "../../../../../utils/helper";
 import { updateUser } from "../../../../../store/actions/User/index";
 import Dummy from "../../../../../images/1.jpg";
+import { deleteProperty } from "../../../../../store/actions/Property";
 const ModalContent = ({ onClick, active, data }) => {
   const dispatch = useDispatch();
   return (
@@ -133,10 +134,8 @@ const ModalContent = ({ onClick, active, data }) => {
                 className="btn btn-sm btn-danger"
                 onClick={() => {
                   dispatch(
-                    updateUser(
-                      { userId: data?._id, isActive: false },
+                    deleteProperty(data?._id,
                       onClick,
-                      "Users Deleted Successfully!"
                     )
                   );
                 }}
