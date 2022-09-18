@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { formatedDate, formatedTime } from "../../../../../utils/helper";
+import { formatedDate, formatedTime, getImageUrlByName } from "../../../../../utils/helper";
 import { updateUser } from "../../../../../store/actions/User/index";
 import Dummy from "../../../../../images/1.jpg";
 const ModalContent = ({ onClick, active, data }) => {
@@ -115,6 +115,18 @@ const ModalContent = ({ onClick, active, data }) => {
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Price</h5>
               <p className="m-0">{data?.price}</p>
+            </div>
+            <div className="w-100">
+              <h5 className="mb-2 w-100">Images</h5>
+              <p className="m-0">   {
+                data?.images?.map((dat, index) => (
+                  <img
+
+                    src={getImageUrlByName(dat)}
+                    className={`uploaded ${index ? `ml-2` : ``}`}
+                    alt="user"
+                  />
+                ))}</p>
             </div>
             <div className="w-100 mt-2 text-center">
               <div

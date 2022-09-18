@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { formatedDate, formatedTime } from "../../../../../utils/helper";
+import { formatedDate, formatedTime, getImageUrlByName } from "../../../../../utils/helper";
 import { updateUser } from "../../../../../store/actions/User/index";
 import Dummy from "../../../../../images/1.jpg";
 import { deleteTownModal } from "../../../../../store/actions/Town";
@@ -107,17 +107,38 @@ const ModalContent = ({ onClick, active, data }) => {
                 </div>
               </div>
               <div className="col-md-12 mb-2">
-                <div className="justify-content-between align-items-center">
-                  <h5 className="m-0">Gallery</h5>
-                  <p className="m-0">{data?.designation}</p>
-                </div>
+                <h5 className="mb-2 w-100">Gallery</h5>
+                <p className="m-0 ">   {
+                  data?.townInformation?.gallery.map((dat, index) => (
+                    <img
+                      src={getImageUrlByName(dat)}
+                      className={`uploaded ${index ? `ml-2` : ``}`}
+                      alt="user"
+                    />
+                  ))}</p>
               </div>
-              <div className="col-md-12 mb-2">
+              {data?.townInformation?.paymentPlanImage && <div className="w-100 mb-2">
                 <div className="justify-content-between align-items-center">
-                  <h5 className="m-0">Payment Plan Image</h5>
-                  <p className="m-0">{data?.designation}</p>
+                  <h5 className="mb-2 w-100">Payment Plan Image</h5>
+
+                  <p className="m-0"> <img
+                    src={getImageUrlByName(data.townInformation?.paymentPlanImage)}
+                    className="uploaded"
+                    alt="user"
+                  /></p>
                 </div>
-              </div>
+              </div>}
+              {data?.townInformation?.floorPlanImage && <div className="col-md-12 mb-2">
+                <div className="justify-content-between align-items-center">
+                  <h5 className="mb-2 w-100">Floor Plan Image</h5>
+
+                  <p className="m-0"> <img
+                    src={getImageUrlByName(data.townInformation?.floorPlanImage)}
+                    className="uploaded"
+                    alt="user"
+                  /></p>
+                </div>
+              </div>}
             </div>
 
             <div className="d-flex flex-row justify-content-center mt-2">

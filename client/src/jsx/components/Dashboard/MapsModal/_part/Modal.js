@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { formatedDate, formatedTime } from "../../../../../utils/helper";
+import { formatedDate, formatedTime, getImageUrlByName } from "../../../../../utils/helper";
 import { updateUser } from "../../../../../store/actions/User/index";
 import Dummy from "../../../../../images/1.jpg";
 import { deleteMapModal } from "../../../../../store/actions/MapModal";
@@ -28,6 +28,16 @@ const ModalContent = ({ onClick, active, data }) => {
         </Modal.Header>
         <Modal.Body className="modal-body">
           <div className="agent-details">
+            <div className="w-100">
+              <h5 className="mb-2 w-100">Image</h5>
+              <p className="m-0">
+                <img
+                  src={getImageUrlByName(data?.image)}
+                  className="imgPreview"
+                  alt="Dummy"
+                />
+              </p>
+            </div>
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Town</h5>
               <p className="m-0">{data?.first_name + " " + data?.last_name}</p>
@@ -48,10 +58,7 @@ const ModalContent = ({ onClick, active, data }) => {
               <p className="m-0">{data?.idCard}</p>
             </div>
             <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Image</h5>
-              <p className="m-0">{data?.phone}</p>
-            </div>
+
             <hr />
 
             <div className="d-flex flex-row justify-content-center mt-2">
