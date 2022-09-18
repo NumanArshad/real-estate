@@ -96,7 +96,13 @@ function Homes() {
             <div className="container">
               <div className="row">
                 <div className="col-12 mt-3">
-                  <img src="/imgs/payment-plan.png" className="w-100" alt="" />
+                  <img src={getImageUrlByName(townDetail?.townInformation?.paymentPlanImage)}
+                    className="w-100" alt=""
+                    onError={event => {
+                      console.log("image load error")
+                      event.target.src = "/imgs/payment-plan.png"
+                    }}
+                  />
                 </div>
               </div>
             </div>
@@ -108,8 +114,12 @@ function Homes() {
           <div className="col-md-6">
             <h3 className="text-center mb-3">Floor Plan</h3>
             <img
-              src="/imgs/floor-plan.jpg"
+              src={getImageUrlByName(townDetail?.townInformation?.floorPlanImage)}
               className="w-100 rounded-3"
+              onError={event => {
+                console.log("image load error")
+                event.target.src = "/imgs/floor-plan.jpg"
+              }}
               alt=""
             />
           </div>

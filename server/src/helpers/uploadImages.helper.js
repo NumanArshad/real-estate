@@ -63,6 +63,26 @@ const uploadMultipleFile = (req, res, next) => {
     });
 };
 
+
+const uploadMultiTypeMultipleFiles = (req, res, next) => {
+    multerStorage.fields([{ name: "gallery", maxCount: 5 }, { name: "paymentPlan", maxCount: 1 }, { name: "floorPlan", maxCount: 1 }])(req, res, (error) => {
+        console.log("multi file request", req.files)
+        if (error) {
+            console.log("error in file upload", error)
+            return responseHelper.badRequest(res, "Files Upload Error")
+        }
+        console.log("Multi file upload success send message", req.files, req.body)
+        const imagesUrl = IS_DEV ? req.files?.gallery?.map(({ filename }) => filename) : req.files?.gallery?.map(({ public_id, format }) => `${public_id}.${format}`);
+        req.imagesUrl = imagesUrl;
+        const paymentPlanUrl = IS_DEV ? req.files?.paymentPlan?.map(({ filename }) => filename) : req.files?.paymentPlan?.map(({ public_id, format }) => `${public_id}.${format}`);
+        req.paymentPlanUrl = paymentPlanUrl;
+        const floorPlanUrl = IS_DEV ? req.files?.floorPlan?.map(({ filename }) => filename) : req.files?.floorPlan?.map(({ public_id, format }) => `${public_id}.${format}`);
+        req.floorPlanUrl = floorPlanUrl;
+        return next();
+        // return responseHelper.success(res, null, "Multi file upload success")
+    });
+};
+
 //local directory
 const removeSingleImageFile = (fileName, res) => {
     try {
@@ -164,4 +184,6 @@ module.exports = {
     uploadMultipleFile,
     removeSingleImageFile,
     removeMultipleImageFiles,
+
+    uploadMultiTypeMultipleFiles //exeptional case for multiple field town images, gallery, payment and floor images
 };

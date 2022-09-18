@@ -39,13 +39,20 @@ townSchema = new Schema(
       ],
       LocationGuide: [{ type: String, default: "" }],
       AffordablePaymentPlan: [{ type: String, default: "" }],
-      paymentPlanImage: [
-        {
-          type: String,
-          default:
-            "https://remapconsulting.com/wp-content/uploads/2018/03/Image-placeholder-man.jpg",
-        },
-      ],
+      paymentPlanImage:
+      {
+        type: String,
+        default:
+          "",
+      },
+
+      floorPlanImage: {
+        type: String,
+        default:
+          "",
+      },
+
+
       gallery: [
         {
           type: String,

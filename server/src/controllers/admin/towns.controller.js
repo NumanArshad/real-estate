@@ -14,6 +14,7 @@ const clientHelper = require("../../helpers/users.helper");
 //helper functions
 const responseHelper = require("../../helpers/response.helper");
 const townModel = require("../../models/town.model");
+const { removeSingleImageFile } = require("../../helpers/uploadImages.helper");
 // const { uploadFile } = require("../../helpers/aws");
 
 //@route    POST addTown
@@ -25,13 +26,20 @@ var addNewTown = async (req, res) => {
     // const name = clientHelper.getRandomName(req.files.townImage);
     // uploadFile(req.files.townImage, name.directory);
     const { id } = req.token_decoded;
-    console.log("images town", req.imagesUrl)
+    console.log("images town", req.imagesUrl, req.paymentPlanUrl, req.floorPlanUrl)
     var data = {
       ...req.body,
       createdBy: id,
       townInformation: { gallery: req.imagesUrl }
 
     };
+    if (req.paymentPlanUrl?.length) {
+      data.townInformation.paymentPlanImage = req.paymentPlanUrl[0]
+    }
+    if (req.floorPlanUrl?.length) {
+      data.townInformation.floorPlanImage = req.floorPlanUrl[0]
+    }
+    console.log({ town: data }, "new added")
     const newTown = await Town.create(data);
 
     var message = "Town Created successfully";
@@ -49,7 +57,7 @@ var addNewTown = async (req, res) => {
 var updateTown = async (req, res) => {
   try {
     //console.log("sss->", req.body);
-    console.log("ssss", req.body, "id", req.body._id);
+    console.log("ssss", "id", req.body._id);
     let updateData = req.body;
 
 
@@ -58,6 +66,22 @@ var updateTown = async (req, res) => {
     if (req.imagesUrl?.length) {
       updateData.townInformation.gallery = [...parseTownInfo.gallery, ...req.imagesUrl]
     }
+
+    if (req.paymentPlanUrl?.length) {
+      console.log("payment plan image update")
+      removeSingleImageFile(updateData.townInformation.paymentPlanImage)
+      updateData.townInformation.paymentPlanImage = req.paymentPlanUrl[0]
+    }
+    if (req.floorPlanUrl?.length) {
+      console.log("floor plan image update")
+      removeSingleImageFile(updateData.townInformation.floorPlanImage)
+
+      updateData.townInformation.floorPlanImage = req.floorPlanUrl[0]
+
+    }
+
+    console.log({ updateData })
+
 
     if (req.body._id) {
       const updatedData = await Town.findByIdAndUpdate(

@@ -8,7 +8,7 @@ const router = express.Router();
 
 //controller
 const town = require("../../controllers/admin/towns.controller");
-const { uploadMultipleFile } = require("../../helpers/uploadImages.helper");
+const { uploadMultiTypeMultipleFiles } = require("../../helpers/uploadImages.helper");
 
 //uploader
 // var multer = require("multer");
@@ -17,12 +17,12 @@ const { uploadMultipleFile } = require("../../helpers/uploadImages.helper");
 
 //blog
 //  router.post("/addBlog",permit('admin designer'),upload.fields([{ name: 'blogImage', maxCount: 1 }]), blog.addNewBlog);
-router.post("/addTown", uploadMultipleFile, town.addNewTown);
+router.post("/addTown", uploadMultiTypeMultipleFiles, town.addNewTown);
 //  router.post("/uploadImage",upload.fields([{ name: 'blogImage', maxCount: 1 }]), blog.uploadBlogImage);
 // router.get("/getTown", town.getSingleTown);
 router.get("/getAllTown", town.getAllTown);
 router.get("/activeTownOptions", town.getAllActiveTownName)
-router.put("/updateTown", uploadMultipleFile, town.updateTown);
+router.put("/updateTown", uploadMultiTypeMultipleFiles, town.updateTown);
 router.get("/getSingleTown", town.getSingleTown);
 router.delete("/delete/:id", town.removeTown);
 router.patch("/updateActiveStatus/:id", town.activateInActivateMethod)

@@ -63,7 +63,9 @@ const AddEditTownModal = ({ onClick, active, data }) => {
     WhyChooseUs: null,
     LocationGuide: null,
     AffordablePaymentPlan: null,
-    files: [],
+    gallery: [],
+    paymentPlan: "",
+    floorPlan: ""
   });
 
   const [values2, setValues2] = React.useState({
@@ -102,12 +104,15 @@ const AddEditTownModal = ({ onClick, active, data }) => {
     e.preventDefault();
 
     const payload = { ...values }
-    payload.files = payload.files.filter((file) => typeof (file) === "object")
+    payload.gallery = payload.gallery.filter((file) => typeof (file) === "object")
+    payload.paymentPlan = payload.paymentPlan.filter((file) => typeof (file) === "object")
+    payload.floorPlan = payload.floorPlan.filter((file) => typeof (file) === "object")
 
     const dataObj = plainObjectToFormData(makeData(payload, values2));
     console.log(
       "Response ==>",
       { dataObj },
+      payload,
       makeData(values, values2),
       dataObj.get("townInformation")
     );
@@ -117,7 +122,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
       values.block &&
       values.city &&
       values2.address &&
-      values2.phone
+      values2.phone && values?.gallery?.length
     ) {
       dispatch(
         (isNew ? createTown : updateTown)(dataObj, onClick, refreshState)
@@ -130,11 +135,15 @@ const AddEditTownModal = ({ onClick, active, data }) => {
   useEffect(() => {
     if (data?._id) {
       setValues({
-        ...data, files: data?.townInformation?.gallery,
+        ...data,
         WhyChooseUs: data?.townInformation?.WhyChooseUs,
         LocationGuide: data?.townInformation?.LocationGuide,
         AffordablePaymentPlan: data?.townInformation?.AffordablePaymentPlan,
 
+        /////images preview
+        gallery: data?.townInformation?.gallery,
+        paymentPlan: data?.townInformation?.paymentPlanImage ? [data?.townInformation?.paymentPlanImage] : [],
+        floorPlan: data?.townInformation?.floorPlanImage ? [data?.townInformation?.floorPlanImage] : [],
       });
     }
   }, [data]);
@@ -144,7 +153,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
 
   //     setValues({
   //       ...data,
-  //       files: data.townInformation?.gallery,
+  //       gallery: data.townInformation?.gallery,
   //       images: ""
   //     })
   //   }
@@ -152,9 +161,16 @@ const AddEditTownModal = ({ onClick, active, data }) => {
   // }, [data?._id])
   const imageUpload = (e) => {
     e.preventDefault();
-    const file = e.target.files[0];
+
+    const { name, files } = e.target
+    const file = files[0];
     // setUrl((prev) => [...prev, URL.createObjectURL(file)]);
-    setValues((prev) => ({ ...prev, files: [...prev.files, file] }));
+    if (name === "gallery") {
+      setValues((prev) => ({ ...prev, [name]: [...prev[name], file] }));
+      return
+    }
+    setValues((prev) => ({ ...prev, [name]: [file] }));
+
   };
 
   console.log({ data, values });
@@ -184,11 +200,17 @@ const AddEditTownModal = ({ onClick, active, data }) => {
         WhyChooseUs: obj1?.WhyChooseUs,
         LocationGuide: obj1?.LocationGuide,
         AffordablePaymentPlan: obj1?.AffordablePaymentPlan,
-        ...(!isNew && { gallery: obj1.townInformation.gallery, }),
-        paymentPlanImage: [],
+        ...(!isNew && {
+          gallery: obj1.townInformation.gallery,
+          paymentPlanImage: obj1.townInformation.paymentPlanImage,
+          floorPlanImage: obj1.townInformation.floorPlanImage,
+        }),
+        // paymentPlanImage: [],
         officeAddress: [obj2],
       },
-      files: obj1?.files,
+      gallery: obj1?.gallery,
+      paymentPlan: obj1?.paymentPlan,
+      floorPlan: obj1?.floorPlan
     };
   };
   return (
@@ -727,8 +749,8 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                 <label for="image">Gallery</label>
                 <div className="text-field">
                   <div className="user-img">
-                    {isArrayCheck(values.files) &&
-                      values.files.map((dat) => (
+                    {isArrayCheck(values.gallery) &&
+                      values.gallery.map((dat) => (
                         <img
                           src={getImageUrlByName(dat)}
                           className="uploaded"
@@ -743,9 +765,69 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                         id="contained-button-file"
                         className="d-none"
                         type="file"
-                        name="image"
+                        name="gallery"
                       />
                       {/* <img src={Dummy} className="uploadImg" alt="" /> */}
+                      <div className="uploadImage">
+                        <i className="fa fa-plus"></i>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-group multipleImageUpload">
+                <label for="image">Payment Plan</label>
+                <div className="text-field">
+                  <div className="user-img">
+                    {isArrayCheck(values.paymentPlan) && values.paymentPlan?.length ?
+                      values?.paymentPlan?.map((paymentImg) =>
+                        <img
+                          src={getImageUrlByName(paymentImg)}
+                          className="uploaded"
+                          alt="user"
+                        />) : null
+
+                    }
+                    <label htmlFor="contained-button-file-payment">
+                      <Input
+                        onChange={(e) => imageUpload(e)}
+                        inputProps={{ accept: "image/" }}
+                        id="contained-button-file-payment"
+                        className="d-none"
+                        type="file"
+                        name="paymentPlan"
+                      />
+                      <div className="uploadImage">
+                        <i className="fa fa-plus"></i>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-group multipleImageUpload">
+                <label for="image">Floor Plan</label>
+                <div className="text-field">
+                  <div className="user-img">
+                    {isArrayCheck(values.floorPlan) && values?.floorPlan?.length ?
+                      values?.floorPlan?.map((floorPlan) =>
+                        <img
+                          src={getImageUrlByName(floorPlan)}
+                          className="uploaded"
+                          alt="user"
+                        />) : null
+
+                    }
+                    <label htmlFor="contained-button-file-floor">
+                      <Input
+                        onChange={(e) => imageUpload(e)}
+                        inputProps={{ accept: "image/" }}
+                        id="contained-button-file-floor"
+                        className="d-none"
+                        type="file"
+                        name="floorPlan"
+                      />
                       <div className="uploadImage">
                         <i className="fa fa-plus"></i>
                       </div>
