@@ -64,8 +64,8 @@ const AddEditTownModal = ({ onClick, active, data }) => {
     LocationGuide: null,
     AffordablePaymentPlan: null,
     gallery: [],
-    paymentPlan: "",
-    floorPlan: ""
+    paymentPlan: [],
+    floorPlan: []
   });
 
   const [values2, setValues2] = React.useState({

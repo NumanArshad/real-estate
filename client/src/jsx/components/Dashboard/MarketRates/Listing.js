@@ -144,9 +144,7 @@ const BlogListing = () => {
           <h4 className="card-title">Market Rates</h4>
           <h4
             className="btn btn-primary"
-            onClick={() => {
-              setopen(true);
-            }}
+            onClick={handleModalToggle.bind({}, { isAddEdit: true })}
           >
             Add
           </h4>
