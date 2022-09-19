@@ -32,7 +32,7 @@ export const createBlog =
     }
   };
 
-export const deleteblog =
+export const deleteBlog =
   (blogId, close) => async (dispatch) => {
     console_log("delete ==>", blogId);
     try {

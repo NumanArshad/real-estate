@@ -149,7 +149,7 @@ var getSingleDetailMethod = async (req, res) => {
 
 var removeMethod = async (req, res) => {
   try {
-    const getData = await DBModal.findById(req.body.id);
+    const getData = await DBModal.findById(req.params.id);
     if (getData) {
       const removeData = getData.remove();
       if (removeData) {
@@ -164,10 +164,34 @@ var removeMethod = async (req, res) => {
   }
 };
 
+var activateInActivateMethod = async (req, res) => {
+  try {
+    const isActive = req.body.isActive
+    const updatedData = await DBModal.findByIdAndUpdate(
+      req.params.id,
+      { isActive },
+      {
+        new: true,
+      }
+    );
+    if (updatedData) {
+      var message = `${DBModalName} ${isActive ? `Activated` : `De-Activated`} Successfully`;
+      var responseData = { data: updatedData };
+      return responseHelper.success(res, responseData, message);
+    }
+    let err = "Something went wrong while updating " + DBModalName;
+    return responseHelper.requestfailure(res, err);
+
+  } catch (error) {
+    responseHelper.requestfailure(res, error);
+  }
+};
+
 module.exports = {
   addMethod,
   updateMethod,
   getAllMethod,
   getSingleDetailMethod,
   removeMethod,
+  activateInActivateMethod
 };

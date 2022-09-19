@@ -31,26 +31,66 @@ export const createMarketRates =
 
 export const updateMarketRates =
   (userData, close, message = null) =>
-  async (dispatch) => {
-    console_log("updateMarketRates", userData);
-    dispatch(isLoading(true));
+    async (dispatch) => {
+      console_log("updateMarketRates", userData);
+      dispatch(isLoading(true));
 
+      try {
+        const res = await request.post("/market-rates/update", userData);
+        const { message, status, data } = res.data;
+        if (!status === "Success") throw res.data;
+        if (status === "Success") {
+          makeToast("success", message ? message : "Blog Updated Successfully");
+          console_log("Data", data);
+          close();
+          dispatch(getAllMarketRates());
+          dispatch(isLoading(false));
+        }
+      } catch (e) {
+        console_log("updateMarketRates error", e);
+        dispatch(isLoading(false));
+
+        // makeToast("createUser error", e.message);
+      }
+    };
+
+export const deleteMarketRatesModal =
+  (mapId, close) => async (dispatch) => {
+    console_log("delete ==>", mapId);
     try {
-      const res = await request.post("/market-rates/update", userData);
+      const res = await request.delete(`/market-rates/delete/${mapId}`);
       const { message, status, data } = res.data;
       if (!status === "Success") throw res.data;
       if (status === "Success") {
-        makeToast("success", message ? message : "Blog Updated Successfully");
+        makeToast("success", message);
         console_log("Data", data);
-        close();
         dispatch(getAllMarketRates());
-        dispatch(isLoading(false));
+        close();
       }
     } catch (e) {
-      console_log("updateMarketRates error", e);
-      dispatch(isLoading(false));
+      console_log("delete Market rates Modal error", e);
 
-      // makeToast("createUser error", e.message);
+      // makeToast("createMapModal error", e.message);
+    }
+  };
+
+export const updateMarketRatesActiveStatus =
+  (mapId, isActive, close) => async (dispatch) => {
+    console_log("path ==>", mapId);
+    try {
+      const res = await request.patch(`/market-rates/updateActiveStatus/${mapId}`, { isActive });
+      const { message, status, data } = res.data;
+      if (!status === "Success") throw res.data;
+      if (status === "Success") {
+        makeToast("success", message);
+        console_log("Data", data);
+        dispatch(getAllMarketRates());
+        close();
+      }
+    } catch (e) {
+      console_log("update Market rate status Modal error", e);
+
+      // makeToast("createMapModal error", e.message);
     }
   };
 

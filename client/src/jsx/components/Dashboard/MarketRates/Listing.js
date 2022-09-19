@@ -14,7 +14,7 @@ import AddEditRateModal from "./_part/AddEditRateModal.js";
 import EditRateModal from "./_part/EditRateModal.js";
 import ModalContent from "./_part/Modal.js";
 import { getAllTowns } from "../../../../store/actions/Town/index.js";
-import { getAllMarketRates } from "../../../../store/actions/MarketRates/index.js";
+import { getAllMarketRates, updateMarketRatesActiveStatus } from "../../../../store/actions/MarketRates/index.js";
 import CustomModal from "../../modal/CustomModal.jsx";
 
 const BlogListing = () => {
@@ -122,6 +122,14 @@ const BlogListing = () => {
                 className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
               >
                 <i className="fa fa-info"></i>
+              </button>
+              <button
+                onClick={event => {
+                  dispatch(updateMarketRatesActiveStatus(data?._id, !data?.isActive))
+                }}
+                className="btn btn-sm btn-primary rounded-circle detail-btn mx-2"
+              >
+                <i className={`fa  fa-toggle-${data?.isActive ? `on` : `off`}`}></i>
               </button>
             </div>
           ),

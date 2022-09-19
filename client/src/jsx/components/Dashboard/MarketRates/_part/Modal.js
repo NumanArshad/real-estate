@@ -8,6 +8,7 @@ import {
 } from "../../../../../utils/helper";
 import { updateUser } from "../../../../../store/actions/User/index";
 import Dummy from "../../../../../images/1.jpg";
+import { deleteMarketRatesModal } from "../../../../../store/actions/MarketRates";
 const ModalContent = ({ onClick, active, data }) => {
   const dispatch = useDispatch();
   return (
@@ -83,10 +84,8 @@ const ModalContent = ({ onClick, active, data }) => {
                 className="btn btn-sm btn-danger"
                 onClick={() => {
                   dispatch(
-                    updateUser(
-                      { userId: data?._id, isActive: false },
+                    deleteMarketRatesModal(data?._id,
                       onClick,
-                      "Users Deleted Successfully!"
                     )
                   );
                 }}

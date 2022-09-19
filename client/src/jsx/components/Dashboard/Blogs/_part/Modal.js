@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { formatedDate, formatedTime } from "../../../../../utils/helper";
 import { updateUser } from "../../../../../store/actions/User/index";
 import Dummy from "../../../../../images/1.jpg";
+import { deleteBlog, deleteblog } from "../../../../../store/actions/Blog";
 const ModalContent = ({ onClick, active, data }) => {
   const dispatch = useDispatch();
   console.log("Datta", data);
@@ -37,6 +38,20 @@ const ModalContent = ({ onClick, active, data }) => {
               </p>
               <hr />
               <p dangerouslySetInnerHTML={{ __html: data?.content }}></p>
+            </div>
+            <div className="d-flex flex-row justify-content-center mt-2">
+              <div
+                className="btn btn-sm btn-danger"
+                onClick={() => {
+                  dispatch(
+                    deleteBlog(data?._id,
+                      onClick,
+                    )
+                  );
+                }}
+              >
+                Remove
+              </div>
             </div>
           </div>
         </Modal.Body>
