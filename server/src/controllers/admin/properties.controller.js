@@ -59,8 +59,8 @@ const getAllProperties = async (req, res) => {
         const { skip, limit } = paginationProps(req);
         const responseData = await propertyModel
             .find()
-            .skip(skip)
-            .limit(limit)
+            // .skip(skip)
+            // .limit(limit)
             .sort({ created_at: -1 });
         const total = await propertyModel.find().countDocuments();
         return responseHelper.success(res, { responseData, total }, "Success");

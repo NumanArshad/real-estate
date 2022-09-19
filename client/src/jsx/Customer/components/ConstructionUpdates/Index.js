@@ -7,7 +7,7 @@ import "aos/dist/aos.css";
 import request from "../../../../utils/request";
 function Index() {
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState(null)
   useEffect(() => {
     AOS.init();
     AOS.refresh();

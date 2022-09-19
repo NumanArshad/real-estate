@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import UpdatesData from "../../assets/utilities/updates.json";
 import { getImageUrlByName, isArrayCheck } from "../../../../utils/helper";
 import { Link } from "react-router-dom";
+import NoDataLoaderWrapper from "../../../components/noDataLoaderWrapper";
 function Updates({ data }) {
   const settings = {
     dots: true,
@@ -42,93 +43,95 @@ function Updates({ data }) {
   return (
     <div>
       <div className="container sliderMain">
-        <div className="row">
-          {isArrayCheck(data) && data[0]?.townInformation?.name
-            ? data.map((townContruction, index) => {
-              return (
-                <div key={index} className="col-12">
-                  <div className="bg-primaryColor rounded-2 p-3 mt-5 mb-2">
-                    <h1 className="text-white text-center mb-0">{`${townContruction.name}(${townContruction.city})`}</h1>
-                  </div>
-                  <p className="text-center">{data.date}</p>
-                  <div className="row mx-0">
-                    <div className="col-12">
+        <NoDataLoaderWrapper data={data}>
+          <div className="row">
+            {isArrayCheck(data) && data[0]?.townInformation?.name
+              ? data?.map((townContruction, index) => {
+                return (
+                  <div key={index} className="col-12">
+                    <div className="bg-primaryColor rounded-2 p-3 mt-5 mb-2">
+                      <h1 className="text-white text-center mb-0">{`${townContruction.name}(${townContruction.city})`}</h1>
+                    </div>
+                    <p className="text-center">{data.date}</p>
+                    <div className="row mx-0">
+                      <div className="col-12">
 
-                      <Slider {...settings}>
-                        {townContruction?.townInformation?.gallery?.length ? townContruction.townInformation.gallery.map(
-                          (img, index2) => {
+                        <Slider {...settings}>
+                          {townContruction?.townInformation?.gallery?.length ? townContruction.townInformation.gallery.map(
+                            (img, index2) => {
+                              return (
+                                <div>
+                                  <img
+                                    src={getImageUrlByName(img)}
+                                    className="w-100 rounded-2"
+                                    alt=""
+                                  />
+                                </div>
+                              );
+                            }
+                          ) :
+
+                            Array.from({ length: 3 }, () =>
+                              <div>
+                                <img
+                                  src={"/imgs/house.jpeg"}
+                                  className="w-100 rounded-2"
+                                  alt=""
+                                />
+                              </div>
+                            )
+                          }
+                        </Slider>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <Link to={`/construction-project/${townContruction?._id}`}>
+                        <button className="mt-5 mb-4 visitProject">
+                          Visit Project
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })
+              : UpdatesData.map((dat, index) => {
+                return (
+                  <div key={index} className="col-12">
+                    <div className="bg-primaryColor rounded-2 p-3 mt-5 mb-2">
+                      <h1 className="text-white text-center mb-0">
+                        {dat.name}
+                      </h1>
+                    </div>
+                    <p className="text-center">{dat.date}</p>
+                    <div className="row mx-0">
+                      <div className="col-12">
+                        <Slider {...settings}>
+                          {dat.images.map((img, index2) => {
                             return (
                               <div>
                                 <img
-                                  src={getImageUrlByName(img)}
+                                  src={img}
                                   className="w-100 rounded-2"
                                   alt=""
                                 />
                               </div>
                             );
-                          }
-                        ) :
-
-                          Array.from({ length: 3 }, () =>
-                            <div>
-                              <img
-                                src={"/imgs/house.jpeg"}
-                                className="w-100 rounded-2"
-                                alt=""
-                              />
-                            </div>
-                          )
-                        }
-                      </Slider>
+                          })}
+                        </Slider>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <Link to="/homes">
+                        <button className="mt-5 mb-4 visitProject">
+                          Visit Project
+                        </button>
+                      </Link>
                     </div>
                   </div>
-                  <div className="text-center">
-                    <Link to={`/construction-project/${townContruction?._id}`}>
-                      <button className="mt-5 mb-4 visitProject">
-                        Visit Project
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              );
-            })
-            : UpdatesData.map((dat, index) => {
-              return (
-                <div key={index} className="col-12">
-                  <div className="bg-primaryColor rounded-2 p-3 mt-5 mb-2">
-                    <h1 className="text-white text-center mb-0">
-                      {dat.name}
-                    </h1>
-                  </div>
-                  <p className="text-center">{dat.date}</p>
-                  <div className="row mx-0">
-                    <div className="col-12">
-                      <Slider {...settings}>
-                        {dat.images.map((img, index2) => {
-                          return (
-                            <div>
-                              <img
-                                src={img}
-                                className="w-100 rounded-2"
-                                alt=""
-                              />
-                            </div>
-                          );
-                        })}
-                      </Slider>
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <Link to="/homes">
-                      <button className="mt-5 mb-4 visitProject">
-                        Visit Project
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
+                );
+              })}
+          </div>
+        </NoDataLoaderWrapper>
       </div>
     </div>
   );

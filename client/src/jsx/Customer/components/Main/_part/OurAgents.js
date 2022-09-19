@@ -6,6 +6,7 @@ import Agent3 from "../../../assets/images/agent3.jpg";
 import { Link, useHistory } from "react-router-dom";
 import Data from "../../../assets/utilities/agentsData.json";
 import { getImageUrlByName } from "../../../../../utils/helper";
+import NoDataLoaderWrapper from "../../../../components/noDataLoaderWrapper";
 function Index() {
   const { saleAgents } = useContext(homeDataContext);
 
@@ -33,12 +34,13 @@ function Index() {
                   </div>
                 </div>
               </div>
-              <div
-                className="agentCards"
-                data-aos="fade-up"
-                data-aos-duration="1500"
-              >
-                {/* <div className="row">
+              <NoDataLoaderWrapper data={saleAgents}>
+                <div
+                  className="agentCards"
+                  data-aos="fade-up"
+                  data-aos-duration="1500"
+                >
+                  {/* <div className="row">
                   <div className="col-md-6 col-lg-4 card">
                     <img src={Agent1} alt="agent" />
                     <h1>Zaheer Ahmed</h1>
@@ -70,34 +72,35 @@ function Index() {
                     <a href="">View Profile</a>
                   </div>
                 </div> */}
-                <div className="row d-flex justify-content-center">
-                  {saleAgents?.map((data) => (
-                    <div className="col-md-6 col-lg-3 card"
-                      style={{ "cursor": "pointer" }}
-                      onClick={
-                        event => {
-                          history.push(`/agent/${data?._id}`)
-                        }
-                      }>
-                      <img src={getImageUrlByName(`${data?.profile}`)} onError={event => {
-                        console.log("image load error")
-                        event.target.src = "https://remapconsulting.com/wp-content/uploads/2018/03/Image-placeholder-man.jpg"
-                      }} alt="agent" />
-                      <h1>{`${data?.first_name} ${data?.last_name}`}</h1>
-                      <h2>{data?.designation}</h2>
-                      <p>{data?.description}</p>
-                      <Link to="/agent">View Profile</Link>
-                    </div>
-                  ))}
+                  <div className="row d-flex justify-content-center">
+                    {saleAgents?.map((data) => (
+                      <div className="col-md-6 col-lg-3 card"
+                        style={{ "cursor": "pointer" }}
+                        onClick={
+                          event => {
+                            history.push(`/agent/${data?._id}`)
+                          }
+                        }>
+                        <img src={getImageUrlByName(`${data?.profile}`)} onError={event => {
+                          console.log("image load error")
+                          event.target.src = "https://remapconsulting.com/wp-content/uploads/2018/03/Image-placeholder-man.jpg"
+                        }} alt="agent" />
+                        <h1>{`${data?.first_name} ${data?.last_name}`}</h1>
+                        <h2>{data?.designation}</h2>
+                        <p>{data?.description}</p>
+                        <Link to="/agent">View Profile</Link>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="loadMore">
+                    <Link to="/our-agents">
+                      <button className="btn btn-outline-success">
+                        View All
+                      </button>
+                    </Link>
+                  </div>
                 </div>
-                <div className="loadMore">
-                  <Link to="/our-agents">
-                    <button className="btn btn-outline-success">
-                      View All
-                    </button>
-                  </Link>
-                </div>
-              </div>
+              </NoDataLoaderWrapper>
             </div>
           </div>
         </div>

@@ -7,8 +7,9 @@ import Footer from "../Footer/Index";
 import { Link } from "react-router-dom";
 import request from "../../../../utils/request";
 import { getImageUrlByName, isArrayCheck } from "../../../../utils/helper";
+import NoDataLoaderWrapper from "../../../components/noDataLoaderWrapper";
 function Maps() {
-  const [activeTownMaps, setActiveTownMaps] = useState([]);
+  const [activeTownMaps, setActiveTownMaps] = useState(null);
 
   useEffect(() => {
     request.get("/maps/activeTownMaps").then((response) => {
@@ -29,43 +30,45 @@ function Maps() {
         </div>
         <div className="innerPage">
           <div className="container">
-            <div className="accordionSection">
-              <Accordion flush>
-                {MapsData.map((data, index) => {
-                  return (
-                    <Accordion.Item eventKey={index}>
-                      <Accordion.Header>
-                        <i class="fa-solid fa-angle-right me-2"></i>
-                        {data.name}
-                      </Accordion.Header>
-                      <Accordion.Body>
-                        <div className="row">
-                          {isArrayCheck(activeTownMaps) ? (
-                            activeTownMaps.map((mapdata, index2) => {
-                              return (
-                                <div className="col-md-4 col-sm-6 mapsBlock text-center mb-3">
-                                  <Link to={mapdata.mapImg}>
-                                    <img
-                                      src={getImageUrlByName(mapdata?.image)}
-                                      alt=""
-                                    />
-                                    <h4 className="mt-2">
-                                      {mapdata.town?.name}
-                                    </h4>
-                                  </Link>
-                                </div>
-                              );
-                            })
-                          ) : (
-                            <p>There is no Map.</p>
-                          )}
-                        </div>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  );
-                })}
-              </Accordion>
-            </div>
+            <NoDataLoaderWrapper data={activeTownMaps}>
+              <div className="accordionSection">
+                <Accordion flush>
+                  {MapsData?.map((data, index) => {
+                    return (
+                      <Accordion.Item eventKey={index}>
+                        <Accordion.Header>
+                          <i class="fa-solid fa-angle-right me-2"></i>
+                          {data.name}
+                        </Accordion.Header>
+                        <Accordion.Body>
+                          <div className="row">
+                            {isArrayCheck(activeTownMaps) ? (
+                              activeTownMaps.map((mapdata, index2) => {
+                                return (
+                                  <div className="col-md-4 col-sm-6 mapsBlock text-center mb-3">
+                                    <Link to={mapdata.mapImg}>
+                                      <img
+                                        src={getImageUrlByName(mapdata?.image)}
+                                        alt=""
+                                      />
+                                      <h4 className="mt-2">
+                                        {mapdata.town?.name}
+                                      </h4>
+                                    </Link>
+                                  </div>
+                                );
+                              })
+                            ) : (
+                              <p>There is no Map.</p>
+                            )}
+                          </div>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                    );
+                  })}
+                </Accordion>
+              </div>
+            </NoDataLoaderWrapper>
           </div>
         </div>
       </div>

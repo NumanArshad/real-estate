@@ -6,10 +6,10 @@ import blogs from "../jsx/components/noDataFallBackResponse/blogs.json"
 import SaleAgentsFallBack from "../jsx/components/noDataFallBackResponse/sale-agents.json"
 
 const DEFAULT_DATA = {
-    propertiesList: { data: [], total: 0 },
-    propertiesByCategory: [],
-    saleAgents: [],
-    blogsList: [],
+    propertiesList: { data: null, total: 0 },
+    propertiesByCategory: null,
+    saleAgents: null,
+    blogsList: null,
     setPaginationValue: null
 }
 const homeDataContext = React.createContext(DEFAULT_DATA)
@@ -30,7 +30,7 @@ const HomeDataContextProvider = ({
         request.get(`/properties/activeProperties?page=${paginationValue.page}`).then((res) => {
             console.log("res data is", res)
             const { activeProperties, propertiesByCategory, saleAgents, approvedBlogsList } = res.data?.data
-            setPropertiesList(prev => ({ ...activeProperties, data: [...prev.data, ...activeProperties?.data] }))
+            setPropertiesList(prev => ({ ...activeProperties, data: [...(paginationValue.page > 1 ? prev?.data : []), ...activeProperties?.data] }))
             if (paginationValue.page === 1) {
                 setData({
                     propertiesByCategory,
@@ -40,6 +40,8 @@ const HomeDataContextProvider = ({
             }
         })
     }, [paginationValue])
+
+    console.log({ data })
 
     return <homeDataContext.Provider value={{ setPaginationValue, propertiesList, ...data }}>
         {children}

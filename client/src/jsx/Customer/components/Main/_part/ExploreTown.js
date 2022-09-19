@@ -6,6 +6,8 @@ import Explore4 from "../../../assets/images/bahriakarachi.jpg";
 import Explore5 from "../../../assets/images/sq99mall-shops.jpg";
 import Explore6 from "../../../assets/images/golf-city-1.jpg";
 import { homeDataContext } from "../../../../../context/HomeDataContext";
+import { CircularProgress } from "@mui/material";
+import NoDataLoaderWrapper from "../../../../components/noDataLoaderWrapper";
 
 function Index() {
 
@@ -37,22 +39,25 @@ function Index() {
               data-aos="zoom-in"
               data-aos-duration="1500"
             >
-              <div className="propertyTown">
-                <div className="row">{
-                  [...propertiesByCategory, ...propertiesByCategory]?.map((data) =>
-                    <div className="col-md-6 col-lg-4">
-                      <div className="card">
-                        <img src={Explore1} alt="property" />
-                        <div className="card-body">
-                          <p>{data?.count} Properties</p>
-                          <h5>{data?._id}</h5>
-                        </div>
-                      </div>
-                    </div>)
-                }
+              <NoDataLoaderWrapper data={propertiesByCategory}>
+                <div className="propertyTown">
+                  <div className="row">
+                    {
+                      Array.isArray(propertiesByCategory) && [...propertiesByCategory, ...propertiesByCategory]?.map((data) =>
+                        <div className="col-md-6 col-lg-4">
+                          <div className="card">
+                            <img src={Explore1} alt="property" />
+                            <div className="card-body">
+                              <p>{data?.count} Properties</p>
+                              <h5>{data?._id}</h5>
+                            </div>
+                          </div>
+                        </div>)
+                    }
 
+                  </div>
                 </div>
-              </div>
+              </NoDataLoaderWrapper>
             </div>
           </div>
         </div>

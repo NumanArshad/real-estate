@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { isArrayCheck } from "../../../../utils/helper";
 import { useEffect } from "react";
 import request from "../../../../utils/request";
+import NoDataLoaderWrapper from "../../../components/noDataLoaderWrapper";
 
 const data = [
   {
@@ -81,7 +82,7 @@ const data = [
   },
 ];
 function MarketRate() {
-  const [dataMarketRates, setData] = useState([]);
+  const [dataMarketRates, setData] = useState(null);
   useEffect(() => {
     request.get("market-rates/getAll?isActive=true").then((response) => {
       if (response.status === 200) {
@@ -104,10 +105,10 @@ function MarketRate() {
             <div className="title">
               <h3>Disclaimer: These Are Town’s Official Prices.</h3>
             </div>
-            <div className="accordionSection">
+            <NoDataLoaderWrapper data={dataMarketRates}> <div className="accordionSection">
               <Accordion flush>
                 {isArrayCheck(dataMarketRates)
-                  ? dataMarketRates.map((val, index) => {
+                  ? dataMarketRates?.map((val, index) => {
                     return (
                       <Accordion.Item eventKey={index}>
                         <Accordion.Header>
@@ -173,7 +174,8 @@ function MarketRate() {
                     );
                   })}
               </Accordion>
-            </div>
+            </div></NoDataLoaderWrapper>
+
           </div>
         </div>
       </div>
