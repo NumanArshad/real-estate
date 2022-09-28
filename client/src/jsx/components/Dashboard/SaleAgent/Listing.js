@@ -198,7 +198,7 @@ const SaleAgentListing = () => {
           />
         </div>
       </div>
-      <CustomModal title={`${modalData.data ? `Edit` : `Create`} Blog`}
+      <CustomModal title={`${modalData.data ? `Edit` : `Add`} Sale Agent`}
         handleClose={handleModalToggle.bind({}, { isAddEdit: false })} isActive={modalData.isAddEdit}>
         <AddUserModal onClick={handleModalToggle.bind({}, { isAddEdit: false })} data={modalData.data} />
 

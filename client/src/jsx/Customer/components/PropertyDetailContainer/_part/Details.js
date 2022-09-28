@@ -91,7 +91,7 @@ function Details(propertyDetail) {
           <div className="border-bottom">
             <div className="d-flex w-100 justify-content-between">
               <h2>Property Status:</h2>
-              <p>For {status}</p>
+              <p>For {status === "both" ? `Rent & Sale` : `${status?.[0].toUpperCase()}${status?.slice(1)}`}</p>
             </div>
           </div>
         </div>

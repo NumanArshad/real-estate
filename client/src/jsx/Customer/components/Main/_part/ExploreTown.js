@@ -8,10 +8,13 @@ import Explore6 from "../../../assets/images/golf-city-1.jpg";
 import { homeDataContext } from "../../../../../context/HomeDataContext";
 import { CircularProgress } from "@mui/material";
 import NoDataLoaderWrapper from "../../../../components/noDataLoaderWrapper";
+import { useHistory } from "react-router-dom";
 
 function Index() {
 
   const { propertiesByCategory } = useContext(homeDataContext)
+
+  const { push } = useHistory()
   return (
     <React.Fragment>
       <div className="exploreTown">
@@ -44,7 +47,12 @@ function Index() {
                   <div className="row">
                     {
                       Array.isArray(propertiesByCategory) && [...propertiesByCategory, ...propertiesByCategory]?.map((data) =>
-                        <div className="col-md-6 col-lg-4">
+                        <div className="col-md-6 col-lg-4"
+                          style={{ "cursor": "pointer" }}
+                          onClick={event => {
+                            event.preventDefault()
+                            push("/properties")
+                          }}>
                           <div className="card">
                             <img src={Explore1} alt="property" />
                             <div className="card-body">

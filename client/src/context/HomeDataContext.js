@@ -34,8 +34,8 @@ const HomeDataContextProvider = ({
             if (paginationValue.page === 1) {
                 setData({
                     propertiesByCategory,
-                    saleAgents: saleAgents?.length ? saleAgents : SaleAgentsFallBack,
-                    blogsList: approvedBlogsList?.length ? approvedBlogsList : blogs
+                    saleAgents: saleAgents, //saleAgents?.length ? saleAgents : SaleAgentsFallBack,
+                    blogsList: approvedBlogsList //approvedBlogsList?.length ? approvedBlogsList : blogs
                 })
             }
         })

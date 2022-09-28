@@ -8,8 +8,10 @@ import Features from "./Features";
 import MortageCalculator from "./MortageCalculator";
 import Contactinformation from "./Contactinformation";
 import { getImageUrlByName } from "../../../../../utils/helper";
+import ContactAgent from "../../OurAgents/_part/ContactAgent";
 function DetailPage({ data }) {
   const { title, description, price, status, city, area, images, type, bedRoomCount, bathRoomCount, carGarage } = data ?? {}
+
 
   return (
     <>
@@ -30,11 +32,13 @@ function DetailPage({ data }) {
           </div>
           <div className="d-flex  jusify-content-between align-items-start propertyDetailMain">
             <h1>{title} </h1>
-            <h2>{price}Rs</h2>
+            <h2>Rs{price}</h2>
           </div>
           <div className="tags d-flex gap-2">
-            <div className="tag">For {status}</div>
-            <div className="tag">For {status}</div>
+            {status === "both" ? <> <div className="tag">For Rent</div>
+              <div className="tag">For Sale</div></> :
+              <div className="tag">For {status?.[0].toUpperCase()}{status?.slice(1)}</div>
+            }
           </div>
           <div className="d-flex gap-2">
             <i class="fa-solid fa-location-dot"></i>
@@ -205,14 +209,25 @@ function DetailPage({ data }) {
               <div className="sidebarCard mt-4 rounded-2">
                 <Features />
               </div>
-              <div className="sidebarCard mt-4 rounded-2">
+              {/* <div className="sidebarCard mt-4 rounded-2">
                 <MortageCalculator />
-              </div>
+              </div> */}
               <div className="sidebarCard mt-4 rounded-2">
                 <Contactinformation {...data?.createdBy} />
               </div>
             </div>
-            <div className="col-md-4"></div>
+            <div className="col-md-4">
+
+              {/* <div className="col-md-4 pr-md-0"> */}
+              <div className="row bg-white my-3 mx-0">
+                <ContactAgent   {...data?.createdBy} />
+              </div>
+              {/* <div className="row bg-white my-3 mx-0">
+              <SerachAgent />
+            </div> */}
+              {/* </div> */}
+
+            </div>
           </div>
         </div>
       </div>

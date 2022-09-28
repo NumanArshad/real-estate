@@ -179,6 +179,7 @@ const AddUserModal = ({ onClick, active, data }) => {
                   value={values.phone}
                   onChange={(e) => handleChange("phone", e.target.value)}
                 />
+                <span>Hint: Enter Phone Number +923*********</span>
               </div>
               <div class="form-group">
                 <label for="Email">Email</label>

@@ -279,7 +279,9 @@ function App(props) {
 
   const routeList = useMemo(() => {
     if (isAuthenticated) {
-      return getRouteByPermission(PERMISSION.AUTHORIZED);
+      return [
+        ...getRouteByPermission(PERMISSION.EXTERNAL_USER),
+        ...getRouteByPermission(PERMISSION.AUTHORIZED)]
     }
     return [
       ...getRouteByPermission(PERMISSION.UN_AUTHORIZED),

@@ -47,9 +47,9 @@ function SingleAgent() {
             <div className="row bg-white my-3 mx-0">
               <ContactAgent   {...data} />
             </div>
-            <div className="row bg-white my-3 mx-0">
+            {/* <div className="row bg-white my-3 mx-0">
               <SerachAgent />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

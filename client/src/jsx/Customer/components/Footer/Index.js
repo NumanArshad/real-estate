@@ -89,7 +89,7 @@ function Index() {
                   </Link>
                 </li>
                 <li>
-                  <Link className="text-white" to="/agent">
+                  <Link className="text-white" to="/our-agents">
                     <span>
                       <i className="fa-solid fa-chevron-right"></i> Our Agents
                     </span>

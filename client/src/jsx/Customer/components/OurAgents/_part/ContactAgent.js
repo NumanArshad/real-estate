@@ -6,7 +6,7 @@ function ContactAgent({ phone, first_name, last_name }) {
       <h4 className="mb-3">Contact</h4>
       <div className="d-flex justify-content-between">
         <h5>Mobile</h5>
-        <a className="number" href={`tel:${phone}`}>
+        <a className="number" href={`tel:+92${phone}`}>
           {phone}
         </a>
       </div>

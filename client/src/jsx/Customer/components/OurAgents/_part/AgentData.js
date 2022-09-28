@@ -20,7 +20,7 @@ function AgentData({ profile, first_name, last_name, phone, email, designation }
             <a className="mail" href={`mailto:${email}`}>
               Send email
             </a>
-            <a className="number" href={`tel:${phone}`}>
+            <a className="number" href={`tel:+92${phone}`}>
               Call
             </a>
           </div>
