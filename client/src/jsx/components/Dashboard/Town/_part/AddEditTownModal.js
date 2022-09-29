@@ -99,7 +99,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
       email: "",
     });
   };
-  console.log({ isNew });
+  console.log({ isNew, values });
   const handleAdd = (e) => {
     e.preventDefault();
 
@@ -121,8 +121,12 @@ const AddEditTownModal = ({ onClick, active, data }) => {
       values.area &&
       values.block &&
       values.city &&
+      values.AffordablePaymentPlan.length &&
+      values.WhyChooseUs.length &&
+      values.LocationGuide.length &&
       values2.address &&
       values2.phone && values?.gallery?.length
+
     ) {
       dispatch(
         (isNew ? createTown : updateTown)(dataObj, onClick, refreshState)

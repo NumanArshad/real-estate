@@ -7,39 +7,44 @@ import { getImageUrlByName, isArrayCheck } from "../../../../utils/helper";
 import { Link } from "react-router-dom";
 import NoDataLoaderWrapper from "../../../components/noDataLoaderWrapper";
 function Updates({ data }) {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
+
+  const settings = (carousalImagesCount) => {
+    return {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: carousalImagesCount >= 3 ? 3 : carousalImagesCount,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: carousalImagesCount >= 3 ? 3 : carousalImagesCount,
+            slidesToScroll: 3,
+            infinite: true,
+            dots: true,
+          },
         },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: carousalImagesCount >= 2 ? 2 : carousalImagesCount,
+            slidesToScroll: 2,
+            initialSlide: 2,
+          },
         },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+          },
         },
-      },
-    ],
-  };
+      ],
+    }
+  }
+
+  console.log("hello", data?.[0])
   return (
     <div>
       <div className="container sliderMain">
@@ -56,7 +61,7 @@ function Updates({ data }) {
                     <div className="row mx-0">
                       <div className="col-12">
 
-                        <Slider {...settings}>
+                        <Slider {...settings(townContruction?.townInformation?.gallery?.length)}>
                           {townContruction?.townInformation?.gallery?.length ? townContruction.townInformation.gallery.map(
                             (img, index2) => {
                               return (
@@ -71,7 +76,7 @@ function Updates({ data }) {
                             }
                           ) :
 
-                            Array.from({ length: 3 }, () =>
+                            Array.from({ length: 1 }, () =>
                               <div>
                                 <img
                                   src={"/imgs/house.jpeg"}

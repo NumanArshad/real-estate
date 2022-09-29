@@ -32,7 +32,7 @@ function DetailPage({ data }) {
           </div>
           <div className="d-flex  jusify-content-between align-items-start propertyDetailMain">
             <h1>{title} </h1>
-            <h2>Rs{price}</h2>
+            <h1 className="ml-auto">Rs{price}</h1>
           </div>
           <div className="tags d-flex gap-2">
             {status === "both" ? <> <div className="tag">For Rent</div>
@@ -212,9 +212,9 @@ function DetailPage({ data }) {
               {/* <div className="sidebarCard mt-4 rounded-2">
                 <MortageCalculator />
               </div> */}
-              <div className="sidebarCard mt-4 rounded-2">
+              {/* <div className="sidebarCard mt-4 rounded-2">
                 <Contactinformation {...data?.createdBy} />
-              </div>
+              </div> */}
             </div>
             <div className="col-md-4">
 

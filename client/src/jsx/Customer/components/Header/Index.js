@@ -64,9 +64,14 @@ function Index() {
                 <li>
                   <Link to="/contact">Contact</Link>
                 </li>
+                <li className="favourites">
+                  <Link to="/page-login">     <span>
+                    <i className="fa fa-user fa-fw"></i>
+                  </span></Link>
+                </li>
               </ul>
             </Nav>
-            <div className="favourites">
+            {/* <div className="favourites">
               <NavDropdown
                 title={
                   <span>
@@ -79,7 +84,7 @@ function Index() {
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="">BAHRIA KARACHI</NavDropdown.Item>
               </NavDropdown>
-            </div>
+            </div> */}
           </Navbar.Collapse>
         </div>
       </Navbar>
