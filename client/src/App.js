@@ -58,6 +58,7 @@ import MarketRate from "./jsx/Customer/components/MarketRates/MarketRate";
 import Maps from "./jsx/Customer/components/Maps/Maps";
 import OurAgents from "./jsx/Customer/components/OurAgents/OurAgents";
 import SingleAgent from "./jsx/Customer/components/OurAgents/SingleAgent";
+import ContactUs from "./jsx/components/Dashboard/ContactUs/Listing";
 
 const SignUp = lazy(() => import("./jsx/pages/Registration"));
 const ForgotPassword = lazy(() => import("./jsx/pages/ForgotPassword"));
@@ -128,6 +129,12 @@ function App(props) {
     {
       url: "property-rates",
       component: PropertyRates,
+      permission: PERMISSION.AUTHORIZED,
+      layout: AdminLayout,
+    },
+    {
+      url: "contact-us",
+      component: ContactUs,
       permission: PERMISSION.AUTHORIZED,
       layout: AdminLayout,
     },

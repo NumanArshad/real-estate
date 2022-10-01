@@ -7,5 +7,6 @@ module.exports = {
   ac: require("./ac.model"),
   saleAgent: require("./sale-agents.model"),
   property: require("./property.models"),
-  blogs: require("./blogs.model")
+  blogs: require("./blogs.model"),
+  contactUs: require("./contact-us.modal")
 };

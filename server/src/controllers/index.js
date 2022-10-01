@@ -8,5 +8,6 @@ module.exports = {
   properties: require("./admin/properties.controller"),
   blogs: require("./admin/blogs.controller"),
   towns: require("./admin/towns.controller"),
-  maps: require("./admin/map.controller")
+  maps: require("./admin/map.controller"),
+  contactUs: require("./admin/contact.us.controller")
 };

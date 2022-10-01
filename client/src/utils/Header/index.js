@@ -506,4 +506,41 @@ export const COLUMN_HERADER = {
       center: true,
     },
   ],
+  contact_us_listing_header: [
+    {
+      id: 0,
+      name: "Id",
+      width: "100px",
+      selector: (row) => row.id,
+      center: true,
+    },
+    {
+      id: 2,
+      name: "Name",
+      width: "180px",
+      selector: (row) => row.name,
+      sortable: true,
+      reorder: true,
+      center: true,
+    },
+    {
+      id: 3,
+      name: "Email",
+      width: "200px",
+      selector: (row) => row.email,
+      sortable: true,
+      reorder: true,
+      center: true,
+    },
+    {
+      id: 4,
+      name: "Contact Number",
+      selector: (row) => row.contactNo,
+    },
+    {
+      id: 5,
+      name: "Message",
+      selector: (row) => row.message,
+    }
+  ],
 };

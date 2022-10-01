@@ -12,6 +12,7 @@ const blogsRoutes = require("./blogs.route")
 const townsRoutes = require("./towns.route")
 const mapsRoutes = require("./maps.route")
 const marketRatesRoutes = require("./market-rates.route")
+const contactUsRoutes = require("./contact.us.route")
 //@route     auth
 //@desc     inital route
 //@access   Public
@@ -22,6 +23,8 @@ router.use("/blogs", blogsRoutes)
 router.use("/towns", townsRoutes)
 router.use("/maps", mapsRoutes)
 router.use("/market-rates", marketRatesRoutes);
+router.use("/contactUs", contactUsRoutes)
+
 
 
 module.exports = router;
