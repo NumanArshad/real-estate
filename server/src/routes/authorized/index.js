@@ -13,6 +13,7 @@ const townsRoutes = require("./towns.route");
 const marketRatesRoutes = require("./market.rates.route");
 const mapRoutes = require("./map.route");
 const propertyRoutes = require("./properties.route")
+const contactUsRoutes = require("./contact.us.route")
 //call appropriate routes
 
 //@route     users
@@ -26,5 +27,6 @@ router.use("/towns", auth.authenticate, townsRoutes);
 router.use("/maps", auth.authenticate, mapRoutes);
 router.use("/market-rates", auth.authenticate, marketRatesRoutes);
 router.use("/properties", auth.authenticate, propertyRoutes);
+router.use("/contactUs", auth.authenticate, contactUsRoutes)
 
 module.exports = router;

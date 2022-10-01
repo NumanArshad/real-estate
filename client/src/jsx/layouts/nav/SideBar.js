@@ -207,6 +207,16 @@ class SideBar extends Component {
                 <span className="nav-text">Property</span>
               </Link>
             </li>
+            <li
+              onClick={() => firstItem("contact-us")}
+              id="contact-us"
+              className={`${path === "contact-us" ? "mm-active" : ""}`}
+            >
+              <Link to="/admin/contact-us">
+                <i class="fa-solid fa-question-circle"></i>
+                <span className="nav-text">Contact Us</span>
+              </Link>
+            </li>
           </MM>
         </PerfectScrollbar>
       </div>
