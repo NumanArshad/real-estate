@@ -85,7 +85,6 @@ const MapsListing = () => {
   useEffect(() => {
 
     request.get("/towns/activeTownOptions").then((response) => {
-      console.log("town name response is", response, { townOptions });
       setTownOptions(response?.data?.data);
     });
 
@@ -172,8 +171,6 @@ const MapsListing = () => {
     return townOptions?.filter(({ _id }) => !mapListingTownId?.includes(_id))
 
   }, [map_modal_listing, townOptions])
-
-  console.log({ filteredTownOptions })
 
   return (
     <div className="col-12">

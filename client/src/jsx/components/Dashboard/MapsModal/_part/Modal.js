@@ -38,30 +38,21 @@ const ModalContent = ({ onClick, active, data }) => {
                 />
               </p>
             </div>
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="w-100">
               <h5 className="m-0">Town</h5>
-              <p className="m-0">{data?.first_name + " " + data?.last_name}</p>
+              <p className="m-0">{data?.town?.name}</p>
             </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Project Name</h5>
-              <p className="m-0">Aslam</p>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
+
+            <div className="w-100">
               <h5 className="m-0">Address </h5>
-              <p className="m-0">{data?.idCard}</p>
+              <p className="m-0">{data?.town?.address}</p>
             </div>
-            <hr />
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="w-100">
               <h5 className="m-0">Is Active</h5>
-              <p className="m-0">{data?.idCard}</p>
+              <p className="m-0">{data?.isActive ? `Yes` : `No`}</p>
             </div>
-            <hr />
 
-            <hr />
-
-            <div className="d-flex flex-row justify-content-center mt-2">
+            <div className="ml-auto mr-auto mt-2">
               <div
                 className="btn btn-sm btn-danger"
                 onClick={() => {
@@ -77,8 +68,8 @@ const ModalContent = ({ onClick, active, data }) => {
             </div>
           </div>
         </Modal.Body>
-      </div>
-    </Modal>
+      </div >
+    </Modal >
   );
 };
 

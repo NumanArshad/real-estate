@@ -29,7 +29,7 @@ const ModalContent = ({ onClick, active, data }) => {
         </Modal.Header>
         <Modal.Body className="modal-body">
           <div className="blogDetail">
-            <h1>Blog Post</h1>
+            <h1>Blog Title</h1>
             <div className="blogInner">
               <h2>{data?.name}</h2>
               <p>
