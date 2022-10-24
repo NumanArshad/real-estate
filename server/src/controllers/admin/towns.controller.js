@@ -30,7 +30,7 @@ var addNewTown = async (req, res) => {
     var data = {
       ...req.body,
       createdBy: id,
-      townInformation: { gallery: req.imagesUrl }
+      townInformation: { ...JSON.parse(req.body.townInformation), gallery: req.imagesUrl }
 
     };
     if (req.paymentPlanUrl?.length) {
