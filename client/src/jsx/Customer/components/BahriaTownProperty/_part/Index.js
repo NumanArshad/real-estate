@@ -32,7 +32,7 @@ function Index() {
 
   return (
     <>
-      <Banner defaultFilterValue={state} onSearch={setFilter} />
+      <Banner defaultFilterValue={state} onSearch={setFilter} showSearch={true} />
       <div className="blogsMain">
         <div className="container">
           <NoDataLoaderWrapper data={propertiesList}>
