@@ -2241,6 +2241,8 @@ strong {
   font-size: 12px;
   border: none;
   height: 40px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .blogsMain {

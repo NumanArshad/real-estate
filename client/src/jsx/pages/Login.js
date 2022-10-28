@@ -9,10 +9,10 @@ import { checkAuth, loginUser } from "../../store/actions/Auth";
 //import loginbg from "../../images/login-bg-1.jpg";
 
 function Login(props) {
-  const [email, setEmail] = useState("admin@gmail.com");
+  const [email, setEmail] = useState("");
   let errorsObj = { email: "", password: "" };
   const [errors, setErrors] = useState(errorsObj);
-  const [password, setPassword] = useState("admin");
+  const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
   const { push } = useHistory();

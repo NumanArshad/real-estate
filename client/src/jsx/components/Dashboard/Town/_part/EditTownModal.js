@@ -365,7 +365,7 @@ const EditTownModal = ({ onClick, active, data }) => {
                         class="form-control"
                         id="whatsapp"
                         aria-describedby="emailHelp"
-                        placeholder="+922349532098"
+                        placeholder="+92349532098"
                         onChange={(e) =>
                           handleChangeOfficeAddress("whatsapp", e.target.value)
                         }

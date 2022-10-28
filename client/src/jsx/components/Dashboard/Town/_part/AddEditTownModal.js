@@ -73,7 +73,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
     email: "new@gmail.com",
     phone: "0924568765431",
     phone2: "0924568765431",
-    whatsapp: "+92098736563789",
+    whatsapp: "+923007366789",
   });
 
   const handleChange = (prop, event) => {
@@ -562,7 +562,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
                   class="form-control"
                   id="whatsapp"
                   aria-describedby="emailHelp"
-                  placeholder="+922349532098"
+                  placeholder="+923349532098"
                   onChange={(e) =>
                     handleChangeOfficeAddress("whatsapp", e.target.value)
                   }
