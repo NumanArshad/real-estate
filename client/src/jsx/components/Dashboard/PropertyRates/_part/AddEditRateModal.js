@@ -114,9 +114,9 @@ const AddEditRateModal = ({ onClick, active, data }) => {
     // payload.content = payload.content.getCurrentContent()
     console.log({ url });
     payload.files = url.filter((img) => typeof img === "object");
-    payload.content = draftToHtml(
+    payload.content = payload.content ? draftToHtml(
       convertToRaw(payload.content.getCurrentContent())
-    );
+    ) : "";
 
     if (payload) {
       console.log({ payload });
@@ -409,13 +409,13 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                   class="form-control"
                   id="tagline"
                   placeholder="Location"
-                  // value={values.}
-                  // onChange={(e) =>
-                  //   handleChange(
-                  //     "electricityAvailable",
-                  //     e.target.value
-                  //   )
-                  // }
+                // value={values.}
+                // onChange={(e) =>
+                //   handleChange(
+                //     "electricityAvailable",
+                //     e.target.value
+                //   )
+                // }
                 />
               </div>
             </div>

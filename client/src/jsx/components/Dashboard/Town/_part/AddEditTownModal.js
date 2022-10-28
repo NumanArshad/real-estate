@@ -99,7 +99,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
       email: "",
     });
   };
-  console.log({ isNew, values });
+  console.log({ isNew, values, values2 });
   const handleAdd = (e) => {
     e.preventDefault();
 
@@ -111,7 +111,7 @@ const AddEditTownModal = ({ onClick, active, data }) => {
     const dataObj = plainObjectToFormData(makeData(payload, values2));
     console.log(
       "Response ==>",
-      { dataObj },
+      { dataObj, values, values2 },
       payload,
       makeData(values, values2),
       dataObj.get("townInformation")
@@ -121,9 +121,9 @@ const AddEditTownModal = ({ onClick, active, data }) => {
       values.area &&
       values.block &&
       values.city &&
-      values.AffordablePaymentPlan.length &&
-      values.WhyChooseUs.length &&
-      values.LocationGuide.length &&
+      values.AffordablePaymentPlan?.length &&
+      values.WhyChooseUs?.length &&
+      values.LocationGuide?.length &&
       values2.address &&
       values2.phone && values?.gallery?.length
 
