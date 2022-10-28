@@ -148,12 +148,22 @@ const getAllActiveProperties = async (req, res) => {
         const { skip, limit } = paginationProps(req)
 
         const searchQuery = { isActive: true }
-        if (req.query?.text) {
-            searchQuery["$text"] = { $search: req.query?.text }
-        }
-        if (req.query?.status) {
-            searchQuery["$or"] = [{ status: req.query?.status }]
-        }
+        // if (req.query?.text) {
+        //     searchQuery["$text"] = { $search: req.query?.text }
+        // }
+
+        // if (req.query?.status && req.query?.city) {
+        //     searchQuery["$and"] = [{ status: req.query?.status }, { city: req.query?.city }]
+
+        // }
+        // else {
+        //     if (req.query?.status) {
+        //         searchQuery["$or"] = [{ status: req.query?.status }]
+        //     }
+        //     if (req.query?.city) {
+        //         searchQuery["$or"] = [{ city: req.query?.city }]
+        //     }
+        // }
 
         const data = await propertyModel.find(searchQuery).skip(skip).limit(limit).sort({ created_at: -1 });
         const total = await propertyModel.find(searchQuery).countDocuments();
@@ -178,6 +188,7 @@ const getAllActiveProperties = async (req, res) => {
 
     }
     catch (error) {
+        console.log({ error })
 
         return responseHelper.requestfailure(res, error)
     }
@@ -195,7 +206,25 @@ const getAllPropertiesDropDownOptions = async (req, res) => {
 
 const getAllActivePropertiesList = async (req, res) => {
     try {
-        const data = await propertyModel.find({ isActive: true }).populate("createdBy").sort({ created_at: -1 });
+        const searchQuery = { isActive: true }
+        if (req.query?.text) {
+            searchQuery["$text"] = { $search: req.query?.text }
+        }
+
+        if (req.query?.status && req.query?.city) {
+            searchQuery["$and"] = [{ status: req.query?.status }, { city: req.query?.city }]
+
+        }
+        else {
+            if (req.query?.status) {
+                searchQuery["$or"] = [{ status: req.query?.status }]
+            }
+            if (req.query?.city) {
+                searchQuery["$or"] = [{ city: req.query?.city }]
+            }
+        }
+        console.log({ propertiesList: searchQuery })
+        const data = await propertyModel.find(searchQuery).populate("createdBy").sort({ created_at: -1 });
         return responseHelper.success(res, data, "Success")
     }
     catch (error) {

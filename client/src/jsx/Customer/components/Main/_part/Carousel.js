@@ -94,7 +94,9 @@ function Index() {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-        {/* <Search /> */}
+        <Search onSearch={(params) =>
+          history.push("/properties", params)
+        } />
       </div>
     </React.Fragment>
   );

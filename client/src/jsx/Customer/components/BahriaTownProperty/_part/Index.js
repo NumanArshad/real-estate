@@ -4,21 +4,35 @@ import Banner from "../../Layouts/Banner/Banner";
 import { Link, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import request from "../../../../../utils/request";
-import { getImageUrlByName } from "../../../../../utils/helper";
+import { getImageUrlByName, isEmptyOrSpaces } from "../../../../../utils/helper";
 import NoDataLoaderWrapper from "../../../../components/noDataLoaderWrapper";
 function Index() {
   const [propertiesList, setPropertiesList] = useState(null)
+  const { location: { state } } = useHistory()
+
+  const [filter, setFilter] = useState(state)
+  const generateQueryParams = (filterValue) => {
+    const queryParams = {};
+    const { city, status, text } = filterValue ?? {}
+    if (["Lahore", "Karachi"].includes(city)) queryParams.city = city;
+    if (["rent", "sale"].includes(status)) queryParams.status = status;
+    if (text) queryParams.text = text;
+
+    const searchParams = new URLSearchParams(queryParams)
+    const paramsString = searchParams.toString()
+    setPropertiesList(null)
+    return Boolean(paramsString) ? `?${paramsString}` : ``
+  }
   useEffect(() => {
-    request.get("/properties/getAllActivePropertiesList").then((response) => {
+    request.get(`/properties/getAllActivePropertiesList${generateQueryParams(filter)}`).then((response) => {
       console.log({ response })
       setPropertiesList(response?.data?.data)
     })
-  }, [])
+  }, [filter])
 
-  const history = useHistory()
   return (
     <>
-      <Banner />
+      <Banner defaultFilterValue={state} onSearch={setFilter} />
       <div className="blogsMain">
         <div className="container">
           <NoDataLoaderWrapper data={propertiesList}>
