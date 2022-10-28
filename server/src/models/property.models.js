@@ -17,15 +17,15 @@ const propertySchema = new Schema(
             default: "",
         },
         bedRoomCount: {
-            type: Number,
+            type: String,
             required: true,
         },
         bathRoomCount: {
-            type: Number,
+            type: String,
             required: true,
         },
         kitchenCount: {
-            type: Number,
+            type: String,
             required: true,
         },
         carGarage: {

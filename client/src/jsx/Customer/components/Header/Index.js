@@ -64,11 +64,11 @@ function Index() {
                 <li>
                   <Link to="/contact">Contact</Link>
                 </li>
-                <li className="favourites">
+                {/* <li className="favourites">
                   <Link to="/page-login">     <span>
                     <i className="fa fa-user fa-fw"></i>
                   </span></Link>
-                </li>
+                </li> */}
               </ul>
             </Nav>
             {/* <div className="favourites">

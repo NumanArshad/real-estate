@@ -581,6 +581,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                   <option value="residential plot">Residental Plots</option>
                   <option value="pent house">Pent House</option>
                   <option value="commercial">Commercial</option>
+                  <option value="appartments">Appartments</option>
                 </select>
               </div>
             </div>
