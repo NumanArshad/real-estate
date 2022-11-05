@@ -71,9 +71,9 @@ function Index() {
                               <i className="fa-solid fa-shower"></i>{" "}
                               <span>{data?.bathRoomCount}</span>
                             </li>
-                            <li hidden={!data?.carGarage}>
+                            {/* <li hidden={!data?.carGarage}>
                               <i className="fa-solid fa-car"></i> <span>1</span>
-                            </li>
+                            </li> */}
                             <li>
                               <i className="fa-solid fa-chart-area"></i>{" "}
                               <span>{data?.landArea}</span>

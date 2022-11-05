@@ -2,6 +2,7 @@ const JWT = require("jsonwebtoken");
 const responseHelper = require("./response.helper");
 
 module.exports.signAccessToken = async (user) => {
+  console.log({ user })
   const payload = {
     id: user._id,
     username: user.username,

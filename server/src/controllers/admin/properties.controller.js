@@ -9,7 +9,7 @@ const { getApprovedBlogsByFilter } = require("./blogs.controller");
 const addProperty = async (req, res) => {
     try {
         const { id } = req.token_decoded;
-
+        console.log("added by ", id)
         const newProperty = await propertyModel.create({
             ...req.body,
             images: req.imagesUrl,
@@ -31,7 +31,8 @@ const addProperty = async (req, res) => {
 
 const updateProperty = async (req, res) => {
     try {
-
+        const { id } = req.token_decoded;
+        console.log("up by ", id)
         removeMultipleImageFiles(req.body.deleteImages, res);
         const payload = { ...req.body }
         if (req.imagesUrl?.length) {
@@ -56,6 +57,9 @@ const updateProperty = async (req, res) => {
 };
 const getAllProperties = async (req, res) => {
     try {
+        const decoded = req.token_decoded;
+        console.log({ decoded })
+
         const { skip, limit } = paginationProps(req);
         const responseData = await propertyModel
             .find()
@@ -144,7 +148,6 @@ const propertyById = async (req, res, next) => {
 
 const getAllActiveProperties = async (req, res) => {
     try {
-
         const { skip, limit } = paginationProps(req)
 
         const searchQuery = { isActive: true }

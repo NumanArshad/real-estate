@@ -44,10 +44,10 @@ function Listing() {
                       <i class="fa-solid fa-shower"></i>
                       <h6 className="tag"> {data.bathrooms}</h6>
                     </p>
-                    <p className="p-2 d-flex gap-1 mb-0 mt-2">
+                    {/* <p className="p-2 d-flex gap-1 mb-0 mt-2">
                       <i class="fa-solid fa-car"></i>
                       <h6 className="tag"> {data.garage}</h6>
-                    </p>
+                    </p> */}
                     <p className="p-2 d-flex gap-1 mb-0 mt-2">
                       <i class="fa-solid fa-ruler"></i>
                       <h6 className="tag"> {data.house}</h6>

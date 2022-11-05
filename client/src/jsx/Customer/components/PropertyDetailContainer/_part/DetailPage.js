@@ -108,7 +108,9 @@ function DetailPage({ data }) {
                   </div>
                   <p className="mb-0">Bathrooms</p>
                 </div>
-                {carGarage && (
+                <div className="seperator"></div>
+
+                {/* {carGarage && (
                   <>
                     {" "}
                     <div className="seperator"></div>
@@ -119,8 +121,8 @@ function DetailPage({ data }) {
                       <p className="mb-0">Garage</p>
                     </div>
                   </>
-                )}
-                <div className="seperator"></div>
+                )} */}
+                {/* <div className="seperator"></div>
                 <div className="text-center">
                   <div className="d-flex gap-2 justify-content-center">
                     <i class="fa-solid fa-ruler"></i>1
@@ -133,7 +135,7 @@ function DetailPage({ data }) {
                   </div>
                   <p className="mb-0">Year Built</p>
                 </div>
-                <div className="seperator"></div>
+                <div className="seperator"></div> */}
               </div>
             </div>
           </div>
