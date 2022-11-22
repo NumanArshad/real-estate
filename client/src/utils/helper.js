@@ -11,6 +11,8 @@ export const checkEmptyArray = (arr) => {
   return Array.isArray(arr);
 };
 
+export const DATE_FORMAT="MMM DD YYYY";
+
 export const getRandomData = (arr, n) => {
   var result = new Array(n),
     len = arr.length,

@@ -67,7 +67,7 @@ function Details(propertyDetail) {
           <div className="border-bottom">
             <div className="d-flex w-100 justify-content-between">
               <h2>Land Area:</h2>
-              <p>{landArea}</p>
+              <p>{marla}</p>
             </div>
           </div>
         </div>

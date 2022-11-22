@@ -4,8 +4,9 @@ import Banner from "../../Layouts/Banner/Banner";
 import { Link, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import request from "../../../../../utils/request";
-import { getImageUrlByName, isEmptyOrSpaces } from "../../../../../utils/helper";
+import { DATE_FORMAT, getImageUrlByName, isEmptyOrSpaces } from "../../../../../utils/helper";
 import NoDataLoaderWrapper from "../../../../components/noDataLoaderWrapper";
+import moment from "moment";
 function Index() {
   const [propertiesList, setPropertiesList] = useState(null)
   const { location: { state } } = useHistory()
@@ -109,7 +110,7 @@ function Index() {
                           </div>}
                           <div className="d-flex gap-1">
                             <i class="fa-solid fa-paperclip"></i>
-                            <h6>9 months ago</h6>
+                            <h6>{moment(data?.created_at).format(DATE_FORMAT)}</h6>
                           </div>
                         </p>
                       </div>
