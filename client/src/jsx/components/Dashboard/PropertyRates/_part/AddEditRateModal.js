@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import makeToast from "../../../../../utils/Toaster";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -18,6 +17,9 @@ import { getImageUrlByName, isArrayCheck } from "../../../../../utils/helper";
 import LoaderPulse from "../../../LoaderPulse";
 import ContentState from "draft-js/lib/ContentState";
 import request from "../../../../../utils/request";
+import TextField from '@mui/material/TextField';
+import BasicDatePicker from "../../../Forms/Pickers/MetarialDate";
+import moment from "moment";
 
 const AddEditRateModal = ({ onClick, active, data }) => {
   const { api_loading } = useSelector((state) => state._loader);
@@ -55,6 +57,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
     price: 10000,
     textPrice: "Ten Thousand Only",
     content: "", //EditorState.createEmpty(),
+    builtOn: undefined,
     files: [],
   });
 
@@ -94,6 +97,7 @@ const AddEditRateModal = ({ onClick, active, data }) => {
       pmi: "0.00",
       status: "both",
       type: "house",
+      builtOn: undefined,
       description: "This is best place to live.",
       price: 10000,
       textPrice: "Ten Thousand Only",
@@ -117,6 +121,8 @@ const AddEditRateModal = ({ onClick, active, data }) => {
     payload.content = payload.content ? draftToHtml(
       convertToRaw(payload.content.getCurrentContent())
     ) : "";
+
+    payload.builtOn = moment(payload.builtOn).format("YYYY-MM-DD")
 
     if (payload) {
       console.log({ payload });
@@ -176,7 +182,6 @@ const AddEditRateModal = ({ onClick, active, data }) => {
       }));
     }
   };
-
   return (
     <div className="appointment-details">
       <form>
@@ -401,6 +406,15 @@ const AddEditRateModal = ({ onClick, active, data }) => {
                 />
               </div>
             </div>
+            <div className="col-md-4">
+              <div class="form-group">
+                <label for="idcard">Built On</label>
+                <BasicDatePicker
+                  autoOk={false}
+                  selectedDate={values?.builtOn} handleDateChange={updateValue => setValues(prev => ({ ...prev, builtOn: updateValue }))} />
+              </div>
+            </div>
+
             <div className="col-md-4">
               <div class="form-group">
                 <label for="idcard">Location</label>

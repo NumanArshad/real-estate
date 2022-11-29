@@ -54,6 +54,10 @@ const propertySchema = new Schema(
         },
         createdBy: { type: Schema.Types.ObjectId, ref: "User" },
         townId: { type: Schema.Types.ObjectId, ref: "Town" },
+        builtOn: {
+            type: String,
+            require: true
+        },
         landArea: {
             type: String,
             required: false,

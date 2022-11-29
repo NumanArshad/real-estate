@@ -3,7 +3,7 @@ import moment from "moment"
 
 function Details(propertyDetail) {
 
-  const { updated_at, price, status, marla, landArea, type, bedRoomCount, bathRoomCount, carGarage } = propertyDetail
+  const { updated_at, price, status, marla, landArea, builtOn, type, bedRoomCount, bathRoomCount, carGarage } = propertyDetail
   return (
     <div>
       <div className="d-flex flex-wrap justify-content-between align-items-center">
@@ -15,14 +15,14 @@ function Details(propertyDetail) {
       </div>
       <hr />
       <div className="row maps bg-primaryColor rounded-2 mx-0 p-3">
-        <div className="col-sm-6 mt-3">
+        {/* <div className="col-sm-6 mt-3">
           <div className="border-bottom">
             <div className="d-flex w-100 justify-content-between">
               <h2>Property ID:</h2>
               <p>22357</p>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="col-sm-6 mt-3">
           <div className="border-bottom" >
             <div className="d-flex w-100 justify-content-between">
@@ -39,14 +39,14 @@ function Details(propertyDetail) {
             </div>
           </div>
         </div>
-        <div className="col-sm-6 mt-3">
+        {/* <div className="col-sm-6 mt-3">
           <div className="border-bottom">
             <div className="d-flex w-100 justify-content-between">
               <h2>Garage:</h2>
               <p>{Number(carGarage)}</p>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="col-sm-6 mt-3">
           <div className="border-bottom">
             <div className="d-flex w-100 justify-content-between">
@@ -59,18 +59,18 @@ function Details(propertyDetail) {
           <div className="border-bottom">
             <div className="d-flex w-100 justify-content-between">
               <h2>Year Built:</h2>
-              <p>2021</p>
+              <p>{moment(builtOn).format("YYYY")}</p>
             </div>
           </div>
         </div>
-        <div className="col-sm-6 mt-3">
+        {/* <div className="col-sm-6 mt-3">
           <div className="border-bottom">
             <div className="d-flex w-100 justify-content-between">
               <h2>Land Area:</h2>
               <p>{marla}</p>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="col-sm-6 mt-3">
           <div className="border-bottom">
             <div className="d-flex w-100 justify-content-between">

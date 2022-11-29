@@ -8,13 +8,13 @@ function BasicDatePicker(props) {
    return (
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
          <DatePicker
-            autoOk
+            autoOk={props?.autoOk || false}
             label=""
             clearable
             format="dd/MM/yyyy"
             disableFuture
-            value={selectedDate}
-            onChange={handleDateChange}
+            value={props?.selectedDate || selectedDate}
+            onChange={props?.handleDateChange || handleDateChange}
          />
       </MuiPickersUtilsProvider>
    );

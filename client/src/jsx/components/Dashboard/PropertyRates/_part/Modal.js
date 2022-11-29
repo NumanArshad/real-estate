@@ -5,6 +5,7 @@ import { formatedDate, formatedTime, getImageUrlByName } from "../../../../../ut
 import { updateUser } from "../../../../../store/actions/User/index";
 import Dummy from "../../../../../images/1.jpg";
 import { deleteProperty } from "../../../../../store/actions/Property";
+import moment from "moment";
 const ModalContent = ({ onClick, active, data }) => {
   const dispatch = useDispatch();
   return (
@@ -41,7 +42,7 @@ const ModalContent = ({ onClick, active, data }) => {
             </div>
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Status</h5>
-              <p className="m-0">{data?.status}</p>
+              <p className="m-0">For {data?.status === "both" ? `Rent & Sale` : `${data?.status?.[0].toUpperCase()}${data?.status?.slice(1)}`}</p>
             </div>
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Type</h5>
@@ -56,18 +57,23 @@ const ModalContent = ({ onClick, active, data }) => {
               <p className="m-0">{data?.address}</p>
             </div>
             <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Timestamp</h5>
-              <p className="m-0">{data?.created_at}</p>
+              <h5 className="m-0">Updated On</h5>
+              <p className="m-0">{moment(data?.updated_at).format("LLL")}</p>
+            </div>
+            <div className="d-flex justify-content-between align-items-center">
+              <h5 className="m-0">Built On</h5>
+              <p className="m-0">{moment(data?.builtOn).format("MMMM DD, YYYY")}</p>
+
             </div>
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Marla</h5>
               <p className="m-0">{data?.marla}</p>
             </div>
 
-            <div className="d-flex justify-content-between align-items-center">
+            {/* <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Landarea</h5>
               <p className="m-0">0</p>
-            </div>
+            </div> */}
             <div className="d-flex justify-content-between align-items-center">
               <h5 className="m-0">Discount</h5>
               <p className="m-0">{data?.status}</p>
@@ -94,8 +100,8 @@ const ModalContent = ({ onClick, active, data }) => {
               <p className="m-0">{data?.status}</p>
             </div>
             <div className="d-flex justify-content-between align-items-center">
-              <h5 className="m-0">Area</h5>
-              <p className="m-0">{data?.area}</p>
+              <h5 className="m-0">Land Area</h5>
+              <p className="m-0">{data?.landArea}</p>
             </div>
 
             <div className="d-flex justify-content-between align-items-center">
@@ -109,7 +115,7 @@ const ModalContent = ({ onClick, active, data }) => {
             </div>
 
             <div className="w-100">
-              <h5 className="m-0">address</h5>
+              <h5 className="m-0">Address</h5>
               <p className="m-0">{data?.address}</p>
             </div>
 
